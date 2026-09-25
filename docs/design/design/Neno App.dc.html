@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/industry-02d296d8-41c5-4c9c-9c4f-c0cf5044dd2b/styles.css">
+<script src="_ds/industry-02d296d8-41c5-4c9c-9c4f-c0cf5044dd2b/_ds_bundle.js"></script>
+<style>
+body{margin:0;background:var(--color-neutral-200)}
+a{color:var(--color-accent-700)}a:hover{color:var(--color-accent-800)}
+.nosb{scrollbar-width:none}.nosb::-webkit-scrollbar{display:none}.nosb>*{flex-shrink:0}
+</style>
+</helmet>
+<section style="padding:64px 64px 0;display:flex;flex-direction:column;gap:48px;font-family:var(--font-body);color:var(--color-text)">
+  <div style="display:flex;flex-direction:column;gap:6px;max-width:900px">
+    <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700)">Turn 2 · Learning library · direction 1a</div>
+    <h1 style="margin:0;font-size:48px">Reading, beliefs, courses and Sabbath tools</h1>
+    <p style="margin:0;font-size:16px;color:var(--color-neutral-700);text-wrap:pretty">This turn adds the library sections from turn 1 that were still missing. The quiz in 2c is interactive. Paragraph codes such as SC 9.1 follow the EGW Estate referencing system. The Swahili EGW text is my draft, not an official translation.</p>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:64px;align-items:flex-start">
+
+    <div id="2a" style="display:flex;flex-direction:column;gap:14px;width:360px">
+      <div style="display:flex;gap:10px;align-items:center"><span style="background:var(--color-accent);color:var(--color-bg);font-family:var(--font-heading);font-weight:600;font-size:15px;padding:2px 8px">2a</span><span style="font-family:var(--font-heading);font-weight:600;font-size:20px">EGW · msomaji wa kitabu</span></div>
+      <div class="blueprint" style="width:360px;height:760px;background:var(--color-bg);box-shadow:var(--shadow-md)">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:28px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:0 16px;font-size:12px;font-weight:500"><span>9:41</span><span>4G · 62%</span></div>
+          <div style="flex:none;display:flex;align-items:center;gap:8px;padding:6px 12px 10px;border-bottom:1px solid var(--color-divider)">
+            <span style="display:flex;width:36px;height:36px;align-items:center;justify-content:center">{{ I.back }}</span>
+            <span style="display:flex;flex-direction:column"><span style="font-family:var(--font-heading);font-weight:600;font-size:20px;line-height:1.1">Njia Salama</span><span style="font-size:12px;color:var(--color-neutral-700)">Sura 1 · Upendo wa Mungu kwa Mwanadamu</span></span>
+            <span style="margin-left:auto;display:flex;gap:14px">{{ I.type }}{{ I.bookmark }}</span>
+          </div>
+          <div class="nosb" style="flex:1;min-height:0;overflow-y:auto;padding:16px 18px 20px;display:flex;flex-direction:column;gap:18px">
+            <sc-for list="{{ egwParas }}" as="p" hint-placeholder-count="2">
+              <div style="display:grid;grid-template-columns:44px minmax(0,1fr);gap:10px">
+                <span style="font-family:var(--font-heading);font-weight:600;font-size:13px;color:var(--color-accent-700);padding-top:4px">{{ p.ref }}</span>
+                <div style="display:flex;flex-direction:column;gap:6px;padding:6px 8px;margin:-6px -8px;background:{{ p.bg }}">
+                  <span style="font-size:17px;line-height:1.6;text-wrap:pretty">{{ p.sw }}</span>
+                  <sc-if value="{{ parallelEnglish }}" hint-placeholder-val="{{ true }}"><span style="font-size:14px;line-height:1.5;color:var(--color-neutral-700)">{{ p.en }}</span></sc-if>
+                </div>
+              </div>
+            </sc-for>
+            <div class="blueprint" style="padding:14px;display:flex;flex-direction:column;gap:6px">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Aya inayohusiana</span>
+              <span style="font-size:16px;line-height:1.5">Mbingu zauhubiri utukufu wa Mungu; Na anga laitangaza kazi ya mikono yake.</span>
+              <span style="font-size:13px;color:var(--color-neutral-700)">Zaburi 19:1 · SUV</span>
+            </div>
+          </div>
+          <div style="flex:none;display:flex;align-items:center;gap:12px;padding:10px 16px;border-top:1px solid var(--color-divider)">
+            <span class="btn btn-primary" style="width:44px;height:44px;padding:0">{{ I.play }}</span>
+            <div style="flex:1;display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;font-weight:500">uk. 9 / 126 · Sikiliza sura</span><div style="height:2px;background:var(--color-neutral-300)"><div style="width:7%;height:2px;background:var(--color-accent)"></div></div></div>
+          </div>
+          <div style="flex:none;height:60px;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--color-divider)">
+            <sc-for list="{{ tabsLib }}" as="t" hint-placeholder-count="5"><div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;color:{{ t.color }}">{{ t.icon }}<span>{{ t.label }}</span></div></sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="2b" style="display:flex;flex-direction:column;gap:14px;width:360px">
+      <div style="display:flex;gap:10px;align-items:center"><span style="background:var(--color-accent);color:var(--color-bg);font-family:var(--font-heading);font-weight:600;font-size:15px;padding:2px 8px">2b</span><span style="font-family:var(--font-heading);font-weight:600;font-size:20px">Imani 28 za Msingi</span></div>
+      <div class="blueprint" style="width:360px;height:760px;background:var(--color-bg);box-shadow:var(--shadow-md)">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:28px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:0 16px;font-size:12px;font-weight:500"><span>9:41</span><span>4G · 62%</span></div>
+          <div class="nosb" style="flex:1;min-height:0;overflow-y:auto;padding:8px 18px 20px;display:flex;flex-direction:column;gap:16px">
+            <div style="display:flex;align-items:center"><h2 style="margin:0;font-size:30px">Maktaba</h2><span style="margin-left:auto;display:flex">{{ I.search }}</span></div>
+            <div class="seg" style="width:100%">
+              <span style="flex:1;text-align:center;font-size:13px;padding:9px 0">Vitabu vya EGW</span>
+              <span style="flex:1;text-align:center;font-size:13px;padding:9px 0;border-left:1px solid var(--color-divider);background:var(--color-accent);color:var(--color-bg)">Imani 28</span>
+              <span style="flex:1;text-align:center;font-size:13px;padding:9px 0;border-left:1px solid var(--color-divider)">Kozi</span>
+            </div>
+            <sc-for list="{{ beliefs }}" as="g" hint-placeholder-count="3">
+              <div style="display:flex;flex-direction:column">
+                <div style="display:flex;align-items:baseline;justify-content:space-between;padding-bottom:6px"><span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">{{ g.group }}</span><span style="font-size:12px;color:var(--color-neutral-600)">{{ g.range }}</span></div>
+                <sc-for list="{{ g.items }}" as="b" hint-placeholder-count="3">
+                  <div style="display:flex;align-items:center;gap:12px;min-height:52px;border-top:1px solid var(--color-divider)">
+                    <span style="font-family:var(--font-heading);font-weight:600;font-size:22px;width:30px;color:var(--color-accent-700)">{{ b.n }}</span>
+                    <span style="flex:1;display:flex;flex-direction:column"><span style="font-size:15px;font-weight:500">{{ b.sw }}</span><span style="font-size:12px;color:var(--color-neutral-700)">{{ b.en }}</span></span>
+                    {{ I.chev }}
+                  </div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+          <div style="flex:none;height:60px;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--color-divider)">
+            <sc-for list="{{ tabsLib }}" as="t" hint-placeholder-count="5"><div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;color:{{ t.color }}">{{ t.icon }}<span>{{ t.label }}</span></div></sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="2c" style="display:flex;flex-direction:column;gap:14px;width:360px">
+      <div style="display:flex;gap:10px;align-items:center"><span style="background:var(--color-accent);color:var(--color-bg);font-family:var(--font-heading);font-weight:600;font-size:15px;padding:2px 8px">2c</span><span style="font-family:var(--font-heading);font-weight:600;font-size:20px">Kozi · Unabii wa Danieli</span></div>
+      <div class="blueprint" style="width:360px;height:760px;background:var(--color-bg);box-shadow:var(--shadow-md)">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:28px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:0 16px;font-size:12px;font-weight:500"><span>9:41</span><span>4G · 62%</span></div>
+          <div style="flex:none;display:flex;align-items:center;gap:8px;padding:6px 12px 10px">
+            <span style="display:flex;width:36px;height:36px;align-items:center;justify-content:center">{{ I.back }}</span>
+            <span style="font-size:13px;color:var(--color-neutral-700)">Somo la 3 kati ya 12</span>
+          </div>
+          <div style="flex:none;display:grid;grid-template-columns:repeat(12,1fr);gap:3px;padding:0 18px">
+            <sc-for list="{{ courseSteps }}" as="s" hint-placeholder-count="12"><div style="height:4px;background:{{ s.bg }}"></div></sc-for>
+          </div>
+          <div class="nosb" style="flex:1;min-height:0;overflow-y:auto;padding:18px 18px 20px;display:flex;flex-direction:column;gap:16px">
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Danieli 7</span>
+              <h2 style="margin:0;font-size:30px">Wanyama Wanne kutoka Baharini</h2>
+            </div>
+            <div class="blueprint" style="height:150px;background:repeating-linear-gradient(135deg,var(--color-neutral-300) 0 1px,transparent 1px 9px);display:flex;align-items:center;justify-content:center">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;background:var(--color-bg);padding:3px 6px">mchoro · wanyama wanne wa Danieli 7</span>
+            </div>
+            <div style="font-size:15px;line-height:1.6">Soma Danieli 7:1–17. Kisha jibu swali hili kabla ya kuendelea.</div>
+            <div class="field" style="display:flex;flex-direction:column;gap:8px">
+              <label style="font-size:15px;font-weight:500;color:var(--color-text)">Wanyama wanne wanawakilisha nini?</label>
+              <sc-for list="{{ quiz }}" as="q" hint-placeholder-count="3">
+                <button onClick="{{ q.pick }}" style="display:flex;align-items:center;gap:10px;min-height:48px;padding:0 14px;border:1px solid {{ q.border }};background:{{ q.bg }};color:inherit;font:inherit;font-size:15px;text-align:left;cursor:pointer"><span style="flex:1">{{ q.t }}</span><span style="font-size:12px;color:{{ q.noteColor }}">{{ q.note }}</span></button>
+              </sc-for>
+            </div>
+            <sc-if value="{{ quizAnswered }}" hint-placeholder-val="{{ false }}">
+              <div class="blueprint" style="padding:14px;display:flex;flex-direction:column;gap:6px">
+                <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Danieli 7:17</span>
+                <span style="font-size:16px;line-height:1.5">Wanyama hawa walio wakubwa, walio wanne, ni wafalme wanne, watakaotokea katika dunia.</span>
+              </div>
+            </sc-if>
+          </div>
+          <div style="flex:none;padding:10px 16px 14px;border-top:1px solid var(--color-divider)">
+            <button class="btn btn-primary blueprint" style="width:100%;min-height:48px;font-size:17px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Endelea · Somo la 4</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="2d" style="display:flex;flex-direction:column;gap:14px;width:360px">
+      <div style="display:flex;gap:10px;align-items:center"><span style="background:var(--color-accent);color:var(--color-bg);font-family:var(--font-heading);font-weight:600;font-size:15px;padding:2px 8px">2d</span><span style="font-family:var(--font-heading);font-weight:600;font-size:20px">Wimbo · maneno</span></div>
+      <div class="blueprint" style="width:360px;height:760px;background:var(--color-bg);box-shadow:var(--shadow-md)">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:28px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:0 16px;font-size:12px;font-weight:500"><span>9:41</span><span>4G · 62%</span></div>
+          <div style="flex:none;display:flex;align-items:center;gap:8px;padding:6px 12px 10px;border-bottom:1px solid var(--color-divider)">
+            <span style="display:flex;width:36px;height:36px;align-items:center;justify-content:center">{{ I.back }}</span>
+            <span style="font-family:var(--font-heading);font-weight:600;font-size:26px;color:var(--color-accent-700)">12</span>
+            <span style="display:flex;flex-direction:column"><span style="font-family:var(--font-heading);font-weight:600;font-size:19px;line-height:1.1">Yesu Kwetu Ni Rafiki</span><span style="font-size:12px;color:var(--color-neutral-700)">What a Friend We Have in Jesus</span></span>
+            <span style="margin-left:auto;display:flex">{{ I.type }}</span>
+          </div>
+          <div class="nosb" style="flex:1;min-height:0;overflow-y:auto;padding:16px 18px 20px;display:flex;flex-direction:column;gap:16px">
+            <div style="display:flex;gap:6px">
+              <span class="tag tag-accent">Ubeti 1</span><span class="tag tag-neutral">Ubeti 2</span><span class="tag tag-neutral">Ubeti 3</span>
+            </div>
+            <div class="blueprint" style="padding:14px;display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.5;color:var(--color-neutral-800)">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--color-accent-700)">SW</span>
+              <span>The Swahili lyrics will be loaded from the licensed Nyimbo za Kristo file. The English original (1855) is public domain and shown here.</span>
+            </div>
+            <div style="font-family:var(--font-heading);font-weight:600;font-size:26px;line-height:1.3">What a friend we have in Jesus,<br>All our sins and griefs to bear!<br>What a privilege to carry<br>Everything to God in prayer!</div>
+            <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-600)">Sauti</div>
+            <div class="seg" style="width:100%">
+              <span style="flex:1;text-align:center;font-size:13px;padding:9px 0;background:var(--color-accent);color:var(--color-bg)">Kwaya</span>
+              <span style="flex:1;text-align:center;font-size:13px;padding:9px 0;border-left:1px solid var(--color-divider)">Piano tu</span>
+              <span style="flex:1;text-align:center;font-size:13px;padding:9px 0;border-left:1px solid var(--color-divider)">Bila sauti</span>
+            </div>
+          </div>
+          <div style="flex:none;display:flex;align-items:center;gap:12px;padding:10px 16px;background:var(--color-accent-900);color:var(--color-bg)">
+            <span style="display:flex;width:44px;height:44px;align-items:center;justify-content:center;border:1px solid var(--color-accent-600)">{{ I.play }}</span>
+            <div style="flex:1;display:flex;flex-direction:column;gap:6px"><span style="font-size:13px">0:42 / 3:05</span><div style="height:2px;background:var(--color-accent-700)"><div style="width:23%;height:2px;background:var(--color-bg)"></div></div></div>
+          </div>
+          <div style="flex:none;height:60px;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--color-divider)">
+            <sc-for list="{{ tabsHymn }}" as="t" hint-placeholder-count="5"><div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;color:{{ t.color }}">{{ t.icon }}<span>{{ t.label }}</span></div></sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="2e" style="display:flex;flex-direction:column;gap:14px;width:360px">
+      <div style="display:flex;gap:10px;align-items:center"><span style="background:var(--color-accent);color:var(--color-bg);font-family:var(--font-heading);font-weight:600;font-size:15px;padding:2px 8px">2e</span><span style="font-family:var(--font-heading);font-weight:600;font-size:20px">Maelezo &amp; angazo</span></div>
+      <div class="blueprint" style="width:360px;height:760px;background:var(--color-bg);box-shadow:var(--shadow-md)">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:28px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:0 16px;font-size:12px;font-weight:500"><span>9:41</span><span>4G · 62%</span></div>
+          <div class="nosb" style="flex:1;min-height:0;overflow-y:auto;padding:8px 18px 20px;display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;align-items:center"><h2 style="margin:0;font-size:30px">Maelezo yangu</h2><span style="margin-left:auto;display:flex">{{ I.search }}</span></div>
+            <div style="display:flex;gap:6px">
+              <sc-for list="{{ noteChips }}" as="c" hint-placeholder-count="4"><span style="font-size:13px;padding:6px 12px;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.color }}">{{ c.label }}</span></sc-for>
+            </div>
+            <sc-for list="{{ notes }}" as="n" hint-placeholder-count="3">
+              <div style="display:flex;flex-direction:column;gap:8px;padding:14px 0;border-top:1px solid var(--color-divider)">
+                <div style="display:flex;align-items:center;gap:8px"><span class="tag tag-accent">{{ n.k }}</span><span style="font-family:var(--font-heading);font-weight:600;font-size:16px">{{ n.ref }}</span><span style="margin-left:auto;font-size:12px;color:var(--color-neutral-600)">{{ n.date }}</span></div>
+                <span style="font-size:15px;line-height:1.5;background:var(--color-accent-100);padding:6px 8px">{{ n.quote }}</span>
+                <sc-if value="{{ n.note }}" hint-placeholder-val="{{ true }}"><span style="font-size:14px;line-height:1.5;color:var(--color-neutral-800);padding-left:10px;border-left:1px solid var(--color-accent)">{{ n.note }}</span></sc-if>
+              </div>
+            </sc-for>
+          </div>
+          <div style="flex:none;height:60px;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--color-divider)">
+            <sc-for list="{{ tabsMe }}" as="t" hint-placeholder-count="5"><div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;color:{{ t.color }}">{{ t.icon }}<span>{{ t.label }}</span></div></sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="2f" style="display:flex;flex-direction:column;gap:14px;width:360px">
+      <div style="display:flex;gap:10px;align-items:center"><span style="background:var(--color-accent);color:var(--color-bg);font-family:var(--font-heading);font-weight:600;font-size:15px;padding:2px 8px">2f</span><span style="font-family:var(--font-heading);font-weight:600;font-size:20px">Machweo ya Sabato</span></div>
+      <div class="blueprint" style="width:360px;height:760px;background:var(--color-bg);box-shadow:var(--shadow-md)">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:28px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:0 16px;font-size:12px;font-weight:500;background:var(--color-accent-900);color:var(--color-bg)"><span>9:41</span><span>4G · 62%</span></div>
+          <div style="flex:none;background:var(--color-accent-900);color:var(--color-bg);padding:14px 20px 26px;display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;align-items:center;gap:8px"><span style="display:flex;width:36px;height:36px;align-items:center;justify-content:center;margin-left:-8px">{{ I.back }}</span><span style="font-size:13px;color:var(--color-accent-300)">Nairobi, Kenya · hesabu bila mtandao</span></div>
+            <span style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-300);margin-top:10px">Sabato inaanza leo, Ijumaa 25 Sep</span>
+            <span style="font-family:var(--font-heading);font-weight:600;font-size:88px;line-height:1">18:43</span>
+            <span style="font-size:15px;color:var(--color-accent-200)">Zimebaki saa 9 na dakika 2</span>
+          </div>
+          <div class="nosb" style="flex:1;min-height:0;overflow-y:auto;padding:18px 18px 20px;display:flex;flex-direction:column;gap:18px">
+            <div style="display:flex;align-items:center;gap:12px;min-height:52px;border:1px solid var(--color-divider);padding:0 14px">
+              <span style="flex:1;display:flex;flex-direction:column"><span style="font-size:15px;font-weight:500">Nikumbushe</span><span style="font-size:12px;color:var(--color-neutral-700)">Saa 1 kabla ya machweo</span></span>
+              <button onClick="{{ toggleRemind }}" style="width:44px;height:26px;border:1px solid {{ remindBorder }};background:{{ remindBg }};padding:3px;display:flex;justify-content:{{ remindJustify }};cursor:pointer"><span style="width:18px;height:18px;background:{{ remindKnob }}"></span></button>
+            </div>
+            <div style="display:flex;flex-direction:column">
+              <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-600);padding-bottom:6px">Ijumaa zijazo · Nairobi</span>
+              <sc-for list="{{ fridays }}" as="f" hint-placeholder-count="4">
+                <div style="display:flex;align-items:center;min-height:44px;border-top:1px solid var(--color-divider);font-size:15px"><span style="flex:1">{{ f.d }}</span><span style="font-family:var(--font-heading);font-weight:600;font-size:19px">{{ f.t }}</span></div>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column">
+              <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-600);padding-bottom:6px">Miji mingine leo</span>
+              <sc-for list="{{ cities }}" as="c" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;min-height:44px;border-top:1px solid var(--color-divider);font-size:15px"><span style="flex:1">{{ c.d }}</span><span style="font-family:var(--font-heading);font-weight:600;font-size:19px">{{ c.t }}</span></div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="flex:none;height:60px;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--color-divider)">
+            <sc-for list="{{ tabsMe }}" as="t" hint-placeholder-count="5"><div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;color:{{ t.color }}">{{ t.icon }}<span>{{ t.label }}</span></div></sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section style="padding:64px;display:flex;flex-direction:column;gap:48px;font-family:var(--font-body);color:var(--color-text)">
+  <div style="display:flex;flex-direction:column;gap:6px;max-width:900px">
+    <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700)">Turn 1 · Neno — Swahili-first Bible &amp; SDA learning app</div>
+    <h1 style="margin:0;font-size:48px">Mlisho wa Neno: three feed directions + core screens</h1>
+    <p style="margin:0;font-size:16px;color:var(--color-neutral-700);text-wrap:pretty">The three feeds scroll vertically with snap, one item per swipe. The core screens (1d–1j) use direction 1a. Pick a feed direction and I'll carry it across every screen. All Swahili copy here is sample text and still needs checking against licensed sources.</p>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:64px;align-items:flex-start">
+    <!-- 1a -->
+    <div id="1a" style="display:flex;flex-direction:column;gap:14px;width:360px">
+      <div style="display:flex;gap:10px;align-items:center"><span style="background:var(--color-accent);color:var(--color-bg);font-family:var(--font-heading);font-weight:600;font-size:15px;padding:2px 8px">1a</span><span style="font-family:var(--font-heading);font-weight:600;font-size:20px">Blueprint cards</span></div>
+      <div style="font-size:13px;color:var(--color-neutral-700);min-height:40px">Light, text-first. Every item is a framed card. Actions sit on a right rail. The lightest option on data.</div>
+      <div class="blueprint" style="width:360px;height:760px;background:var(--color-bg);box-shadow:var(--shadow-md)">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:28px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:0 16px;font-size:12px;font-weight:500"><span>9:41</span><span>4G · 62%</span></div>
+          <div style="position:relative;flex:1;min-height:0">
+            <div style="position:absolute;top:0;left:0;right:0;z-index:2;display:flex;align-items:center;gap:16px;padding:10px 16px;background:color-mix(in srgb,var(--color-bg) 92%,transparent)">
+              <span style="font-family:var(--font-heading);font-weight:600;font-size:17px;border-bottom:2px solid var(--color-accent);padding-bottom:2px">Kwa Ajili Yako</span>
+              <span style="font-family:var(--font-heading);font-size:17px;color:var(--color-neutral-600)">Unazofuata</span>
+              <span style="margin-left:auto;font-size:11px;border:1px solid var(--color-divider);padding:2px 6px">SW</span>
+              <span style="display:flex;color:var(--color-text)">{{ I.search }}</span>
+            </div>
+            <div class="nosb" style="height:100%;overflow-y:auto;scroll-snap-type:y mandatory">
+              <sc-for list="{{ feed }}" as="item" hint-placeholder-count="2">
+                <div style="height:672px;scroll-snap-align:start;scroll-snap-stop:always;position:relative;display:flex;flex-direction:column;justify-content:center;gap:14px;padding:60px 72px 28px 20px">
+                  <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="tag tag-accent">{{ item.kicker }}</span><span style="font-size:12px;color:var(--color-neutral-700)">{{ item.source }}</span></div>
+                  <sc-if value="{{ item.media }}" hint-placeholder-val="{{ false }}">
+                    <div class="blueprint" style="height:170px;background:repeating-linear-gradient(135deg,var(--color-neutral-300) 0 1px,transparent 1px 9px);display:flex;align-items:center;justify-content:center">
+                      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;background:var(--color-bg);padding:3px 6px">{{ item.media }}</span>
+                    </div>
+                  </sc-if>
+                  <div style="font-family:var(--font-heading);font-weight:600;font-size:30px;line-height:1.14;text-wrap:pretty">{{ item.text }}</div>
+                  <sc-if value="{{ parallelEnglish }}" hint-placeholder-val="{{ true }}"><div style="font-size:14px;line-height:1.5;color:var(--color-neutral-700);text-wrap:pretty">{{ item.en }}</div></sc-if>
+                  <div style="font-family:var(--font-heading);font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-accent-700)">{{ item.ref }}</div>
+                  <sc-if value="{{ item.cta }}" hint-placeholder-val="{{ false }}"><button class="btn btn-primary blueprint" style="align-self:flex-start;min-height:44px;font-size:16px;padding:0 18px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>{{ item.cta }}</button></sc-if>
+                  <div style="position:absolute;right:10px;bottom:36px;display:flex;flex-direction:column;gap:14px;align-items:center">
+                    <button onClick="{{ item.onLike }}" style="background:none;border:0;color:{{ item.likeColor }};display:flex;flex-direction:column;align-items:center;gap:2px;font:inherit;font-size:11px;cursor:pointer;min-width:48px;min-height:48px;justify-content:center">{{ item.heart }}<span>{{ item.likes }}</span></button>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;min-width:48px">{{ I.bookmark }}<span>Hifadhi</span></div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;min-width:48px">{{ I.headphones }}<span>Sikiliza</span></div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;min-width:48px">{{ I.share }}<span>Shiriki</span></div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="flex:none;height:60px;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--color-divider)">
+            <sc-for list="{{ tabsFeed }}" as="t" hint-placeholder-count="5"><div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;color:{{ t.color }}">{{ t.icon }}<span>{{ t.label }}</span></div></sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1b -->
+    <div id="1b" style="display:flex;flex-direction:column;gap:14px;width:360px">
+      <div style="display:flex;gap:10px;align-items:center"><span style="background:var(--color-accent);color:var(--color-bg);font-family:var(--font-heading);font-weight:600;font-size:15px;padding:2px 8px">1b</span><span style="font-family:var(--font-heading);font-weight:600;font-size:20px">Steel field</span></div>
+      <div style="font-size:13px;color:var(--color-neutral-700);min-height:40px">Immersive and media-first, aimed at youth. Full-bleed steel ground with oversized type. Data saver swaps video for a tap-to-load card.</div>
+      <div class="blueprint" style="width:360px;height:760px;background:var(--color-accent-900);box-shadow:var(--shadow-md);color:var(--color-bg)">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:28px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:0 16px;font-size:12px;font-weight:500"><span>9:41</span><span>4G · 62%</span></div>
+          <div style="position:relative;flex:1;min-height:0">
+            <div style="position:absolute;top:0;left:0;right:0;z-index:2;display:flex;justify-content:center;gap:22px;padding:12px 16px;font-family:var(--font-heading);font-size:17px">
+              <span style="color:var(--color-accent-300)">Sauti</span><span style="font-weight:600;border-bottom:2px solid var(--color-bg)">Zote</span><span style="color:var(--color-accent-300)">Video</span>
+              <span style="position:absolute;right:16px;top:12px;display:flex">{{ I.search }}</span>
+            </div>
+            <div class="nosb" style="height:100%;overflow-y:auto;scroll-snap-type:y mandatory">
+              <sc-for list="{{ feed }}" as="item" hint-placeholder-count="2">
+                <div style="height:672px;scroll-snap-align:start;scroll-snap-stop:always;position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:12px;padding:60px 76px 34px 20px;border-bottom:1px solid var(--color-accent-800)">
+                  <sc-if value="{{ item.showMedia }}" hint-placeholder-val="{{ false }}">
+                    <div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,var(--color-accent-800) 0 1px,transparent 1px 10px);display:flex;align-items:center;justify-content:center">
+                      <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;border:1px solid var(--color-accent-600);padding:4px 8px;color:var(--color-accent-200)">{{ item.media }}</span>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ item.savedMedia }}" hint-placeholder-val="{{ false }}">
+                    <div style="position:relative;border:1px solid var(--color-accent-600);padding:10px 12px;font-size:13px;color:var(--color-accent-200);display:flex;gap:8px;align-items:center">{{ I.download }}<span>Kuokoa data: gusa kupakua video (4.8 MB)</span></div>
+                  </sc-if>
+                  <div style="position:relative;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-300)">{{ item.kicker }} · {{ item.source }}</div>
+                  <div style="position:relative;font-family:var(--font-heading);font-weight:600;font-size:36px;line-height:1.06;text-wrap:pretty">{{ item.text }}</div>
+                  <sc-if value="{{ parallelEnglish }}" hint-placeholder-val="{{ true }}"><div style="position:relative;font-size:14px;line-height:1.5;color:var(--color-accent-200)">{{ item.en }}</div></sc-if>
+                  <div style="position:relative;font-family:var(--font-heading);font-size:16px;letter-spacing:.08em;text-transform:uppercase">{{ item.ref }}</div>
+                  <div style="position:absolute;right:10px;bottom:40px;display:flex;flex-direction:column;gap:14px;align-items:center">
+                    <button onClick="{{ item.onLike }}" style="background:none;border:0;color:{{ item.likeColorDark }};display:flex;flex-direction:column;align-items:center;gap:2px;font:inherit;font-size:11px;cursor:pointer;min-width:48px;min-height:48px;justify-content:center">{{ item.heart }}<span>{{ item.likes }}</span></button>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;min-width:48px">{{ I.bookmark }}<span>Hifadhi</span></div>
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;min-width:48px">{{ I.share }}<span>Shiriki</span></div>
+                  </div>
+                  <div style="position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--color-accent-800)"><div style="width:38%;height:2px;background:var(--color-bg)"></div></div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="flex:none;height:60px;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--color-accent-800)">
+            <sc-for list="{{ tabsDark }}" as="t" hint-placeholder-count="5"><div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;color:{{ t.color }}">{{ t.icon }}<span>{{ t.label }}</span></div></sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1c -->
+    <div id="1c" style="display:flex;flex-direction:column;gap:14px;width:360px">
+      <div style="display:flex;gap:10px;align-items:center"><span style="background:var(--color-accent);color:var(--color-bg);font-family:var(--font-heading);font-weight:600;font-size:15px;padding:2px 8px">1c</span><span style="font-family:var(--font-heading);font-weight:600;font-size:20px">Study stack</span></div>
+      <div style="font-size:13px;color:var(--color-neutral-700);min-height:40px">Learning-first, for members, elders and seekers. Every item links to Scripture, EGW and the Fundamental Beliefs. Tap SW / EN to switch language.</div>
+      <div class="blueprint" style="width:360px;height:760px;background:var(--color-bg);box-shadow:var(--shadow-md)">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:28px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:0 16px;font-size:12px;font-weight:500"><span>9:41</span><span>4G · 62%</span></div>
+          <div class="nosb" style="flex:none;display:flex;gap:6px;overflow-x:auto;padding:6px 16px 10px">
+            <sc-for list="{{ chips }}" as="c" hint-placeholder-count="5"><span style="flex:none;font-size:13px;padding:6px 12px;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.color }}">{{ c.label }}</span></sc-for>
+          </div>
+          <div class="nosb" style="flex:1;min-height:0;overflow-y:auto;scroll-snap-type:y mandatory">
+            <sc-for list="{{ feed }}" as="item" hint-placeholder-count="2">
+              <div style="height:630px;scroll-snap-align:start;scroll-snap-stop:always;padding:12px 18px 18px;display:flex;flex-direction:column;gap:14px">
+                <div class="blueprint" style="flex:1;display:flex;flex-direction:column;gap:12px;padding:18px">
+                  <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <div style="display:flex;flex-direction:column"><span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">{{ item.kicker }}</span><span style="font-size:12px;color:var(--color-neutral-700)">{{ item.source }}</span></div>
+                    <div class="seg" style="margin-left:auto">
+                      <button onClick="{{ setSw }}" style="border:0;font:inherit;font-size:12px;padding:6px 10px;min-height:32px;cursor:pointer;background:{{ swBg }};color:{{ swFg }}">SW</button>
+                      <button onClick="{{ setEn }}" style="border:0;border-left:1px solid var(--color-divider);font:inherit;font-size:12px;padding:6px 10px;min-height:32px;cursor:pointer;background:{{ enBg }};color:{{ enFg }}">EN</button>
+                    </div>
+                  </div>
+                  <div style="font-family:var(--font-heading);font-weight:600;font-size:26px;line-height:1.16;text-wrap:pretty">{{ item.shown }}</div>
+                  <div style="font-family:var(--font-heading);font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-accent-700)">{{ item.ref }}</div>
+                  <div style="margin-top:auto;display:flex;flex-direction:column">
+                    <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-600);padding-bottom:6px">Soma pamoja</div>
+                    <sc-for list="{{ item.links }}" as="l" hint-placeholder-count="2">
+                      <div style="display:flex;align-items:center;gap:10px;min-height:44px;border-top:1px solid var(--color-divider);font-size:14px"><span class="tag tag-neutral" style="min-width:44px;justify-content:center">{{ l.k }}</span><span style="flex:1">{{ l.t }}</span>{{ I.chev }}</div>
+                    </sc-for>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:4px">
+                  <button onClick="{{ item.onLike }}" class="btn btn-icon" style="width:44px;height:44px;color:{{ item.likeColor }}">{{ item.heart }}</button>
+                  <span class="btn btn-icon" style="width:44px;height:44px">{{ I.bookmark }}</span>
+                  <span class="btn btn-icon" style="width:44px;height:44px">{{ I.headphones }}</span>
+                  <span class="btn btn-icon" style="width:44px;height:44px">{{ I.share }}</span>
+                  <button class="btn btn-primary blueprint" style="margin-left:auto;min-height:44px;font-size:15px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Jifunze zaidi</button>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="flex:none;height:60px;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--color-divider)">
+            <sc-for list="{{ tabsFeed }}" as="t" hint-placeholder-count="5"><div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;color:{{ t.color }}">{{ t.icon }}<span>{{ t.label }}</span></div></sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Standards -->
+    <div class="blueprint" style="width:520px;padding:28px;display:flex;flex-direction:column;gap:18px;background:var(--color-bg)">
+      <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+      <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700)">Spec sheet</div>
+      <h2 style="margin:0;font-size:32px">Recommended standards</h2>
+      <sc-for list="{{ specs }}" as="s" hint-placeholder-count="6">
+        <div style="display:grid;grid-template-columns:130px minmax(0,1fr);gap:14px;padding-top:14px;border-top:1px solid var(--color-divider)">
+          <div style="font-family:var(--font-heading);font-weight:600;font-size:17px;line-height:1.2">{{ s.k }}</div>
+          <div style="font-size:14px;line-height:1.55;text-wrap:pretty">{{ s.v }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent-700)">Core screens · direction 1a</div>
+    <h2 style="margin:0;font-size:34px">Onboarding, reading and learning</h2>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:64px;align-items:flex-start">
+    <!-- 1d Onboarding -->
+    <div id="1d" style="display:flex;flex-direction:column;gap:14px;width:360px">
+      <div style="display:flex;gap:10px;align-items:center"><span style="background:var(--color-accent);color:var(--color-bg);font-family:var(--font-heading);font-weight:600;font-size:15px;padding:2px 8px">1d</span><span style="font-family:var(--font-heading);font-weight:600;font-size:20px">Onboarding · lugha</span></div>
+      <div class="blueprint" style="width:360px;height:760px;background:var(--color-bg);box-shadow:var(--shadow-md)">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column;padding:0 20px 24px">
+          <div style="height:28px;flex:none;display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:500;margin:0 -4px"><span>9:41</span><span>4G · 62%</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0 28px"><span style="font-family:var(--font-heading);font-weight:600;font-size:24px;letter-spacing:.12em">NENO</span><span style="font-size:12px;color:var(--color-neutral-700)">Hatua 1 / 3</span></div>
+          <h1 style="margin:0;font-size:40px">Karibu. Chagua lugha yako.</h1>
+          <p style="margin:6px 0 20px;font-size:15px;color:var(--color-neutral-700)">Unaweza kubadilisha wakati wowote kwenye Mipangilio.</p>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <sc-for list="{{ langs }}" as="l" hint-placeholder-count="3">
+              <button onClick="{{ l.pick }}" style="display:flex;align-items:center;gap:12px;min-height:60px;padding:0 14px;background:{{ l.bg }};border:1px solid {{ l.border }};font:inherit;color:inherit;text-align:left;cursor:pointer">
+                <span style="width:18px;height:18px;border-radius:50%;border:1.5px solid {{ l.border }};box-shadow:inset 0 0 0 4px var(--color-bg);background:{{ l.dot }};flex:none"></span>
+                <span style="display:flex;flex-direction:column;flex:1"><span style="font-family:var(--font-heading);font-weight:600;font-size:19px">{{ l.name }}</span><span style="font-size:12px;color:var(--color-neutral-700)">{{ l.sub }}</span></span>
+                <span style="font-size:11px;color:var(--color-neutral-600)">{{ l.tag }}</span>
+              </button>
+            </sc-for>
+          </div>
+          <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-600);margin:24px 0 6px">Pakua kwa matumizi bila mtandao</div>
+          <sc-for list="{{ packs }}" as="p" hint-placeholder-count="3">
+            <div style="display:flex;align-items:center;gap:10px;min-height:44px;border-top:1px solid var(--color-divider);font-size:14px"><span style="width:18px;height:18px;border:1.5px solid var(--color-accent);display:flex;align-items:center;justify-content:center;color:var(--color-accent)">{{ p.check }}</span><span style="flex:1">{{ p.name }}</span><span style="font-size:12px;color:var(--color-neutral-700)">{{ p.size }}</span></div>
+          </sc-for>
+          <button class="btn btn-primary blueprint" style="margin-top:auto;min-height:52px;font-size:18px;width:100%"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Endelea</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1e Bible -->
+    <div id="1e" style="display:flex;flex-direction:column;gap:14px;width:360px">
+      <div style="display:flex;gap:10px;align-items:center"><span style="background:var(--color-accent);color:var(--color-bg);font-family:var(--font-heading);font-weight:600;font-size:15px;padding:2px 8px">1e</span><span style="font-family:var(--font-heading);font-weight:600;font-size:20px">Biblia · msomaji</span></div>
+      <div class="blueprint" style="width:360px;height:760px;background:var(--color-bg);box-shadow:var(--shadow-md)">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:28px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:0 16px;font-size:12px;font-weight:500"><span>9:41</span><span>4G · 62%</span></div>
+          <div style="flex:none;display:flex;align-items:center;gap:8px;padding:6px 12px 10px;border-bottom:1px solid var(--color-divider)">
+            <span style="display:flex;width:36px;height:36px;align-items:center;justify-content:center">{{ I.back }}</span>
+            <span style="font-family:var(--font-heading);font-weight:600;font-size:22px">Yohana 3</span>
+            <span class="tag tag-outline">SUV</span>
+            <span style="margin-left:auto;display:flex;gap:14px">{{ I.type }}{{ I.search }}</span>
+          </div>
+          <div style="flex:none;padding:10px 16px 0">
+            <div class="seg" style="width:100%">
+              <button onClick="{{ bibleSingle }}" style="flex:1;border:0;font:inherit;font-size:13px;min-height:36px;cursor:pointer;background:{{ bSingleBg }};color:{{ bSingleFg }}">Kiswahili</button>
+              <button onClick="{{ bibleParallelOn }}" style="flex:1;border:0;border-left:1px solid var(--color-divider);font:inherit;font-size:13px;min-height:36px;cursor:pointer;background:{{ bParBg }};color:{{ bParFg }}">Kiswahili + English</button>
+            </div>
+          </div>
+          <div class="nosb" style="flex:1;min-height:0;overflow-y:auto;padding:14px 18px 20px;display:flex;flex-direction:column;gap:4px">
+            <sc-for list="{{ verses }}" as="v" hint-placeholder-count="4">
+              <div style="padding:8px 10px;margin:0 -10px;background:{{ v.bg }}">
+                <div style="font-size:18px;line-height:1.6;text-wrap:pretty"><sup style="font-family:var(--font-heading);font-weight:600;font-size:13px;color:var(--color-accent-700);margin-right:4px">{{ v.n }}</sup>{{ v.sw }}</div>
+                <sc-if value="{{ bibleParallel }}" hint-placeholder-val="{{ true }}"><div style="font-size:14px;line-height:1.5;color:var(--color-neutral-700);margin-top:4px">{{ v.en }}</div></sc-if>
+                <sc-if value="{{ v.hl }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap">
+                    <span class="tag tag-accent">Angazia</span><span class="tag tag-accent">Andika</span><span class="tag tag-accent">Shiriki</span><span class="tag tag-outline">EGW: Tumaini la Vizazi Vyote</span>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+          <div style="flex:none;display:flex;align-items:center;gap:12px;padding:10px 16px;border-top:1px solid var(--color-divider)">
+            <span class="btn btn-primary" style="width:44px;height:44px;padding:0">{{ I.play }}</span>
+            <div style="flex:1;display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;font-weight:500">Sikiliza Yohana 3</span><div style="height:2px;background:var(--color-neutral-300)"><div style="width:30%;height:2px;background:var(--color-accent)"></div></div></div>
+            <span style="font-size:12px;color:var(--color-neutral-700)">1:28 / 4:52</span>
+          </div>
+          <div style="flex:none;height:60px;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--color-divider)">
+            <sc-for list="{{ tabsBible }}" as="t" hint-placeholder-count="5"><div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;color:{{ t.color }}">{{ t.icon }}<span>{{ t.label }}</span></div></sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1f Library -->
+    <div id="1f" style="display:flex;flex-direction:column;gap:14px;width:360px">
+      <div style="display:flex;gap:10px;align-items:center"><span style="background:var(--color-accent);color:var(--color-bg);font-family:var(--font-heading);font-weight:600;font-size:15px;padding:2px 8px">1f</span><span style="font-family:var(--font-heading);font-weight:600;font-size:20px">Maktaba · EGW</span></div>
+      <div class="blueprint" style="width:360px;height:760px;background:var(--color-bg);box-shadow:var(--shadow-md)">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:28px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:0 16px;font-size:12px;font-weight:500"><span>9:41</span><span>4G · 62%</span></div>
+          <div class="nosb" style="flex:1;min-height:0;overflow-y:auto;padding:8px 18px 20px;display:flex;flex-direction:column;gap:16px">
+            <div style="display:flex;align-items:center"><h2 style="margin:0;font-size:30px">Maktaba</h2><span style="margin-left:auto;display:flex">{{ I.search }}</span></div>
+            <div class="seg" style="width:100%">
+              <span style="flex:1;text-align:center;font-size:13px;padding:9px 0;background:var(--color-accent);color:var(--color-bg)">Vitabu vya EGW</span>
+              <span style="flex:1;text-align:center;font-size:13px;padding:9px 0;border-left:1px solid var(--color-divider)">Imani 28</span>
+              <span style="flex:1;text-align:center;font-size:13px;padding:9px 0;border-left:1px solid var(--color-divider)">Kozi</span>
+            </div>
+            <div class="blueprint" style="padding:16px;display:flex;flex-direction:column;gap:8px">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Endelea kusoma</span>
+              <span style="font-family:var(--font-heading);font-weight:600;font-size:22px">Njia Salama · Sura 3: Toba</span>
+              <span style="font-size:13px;color:var(--color-neutral-700)">Steps to Christ · Ellen G. White</span>
+              <div style="display:flex;align-items:center;gap:10px;margin-top:4px"><div style="flex:1;height:2px;background:var(--color-neutral-300)"><div style="width:40%;height:2px;background:var(--color-accent)"></div></div><span style="font-size:12px">40%</span></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px 14px">
+              <sc-for list="{{ books }}" as="b" hint-placeholder-count="4">
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <div class="blueprint" style="height:112px;background:repeating-linear-gradient(135deg,var(--color-neutral-300) 0 1px,transparent 1px 9px);display:flex;align-items:flex-end;padding:6px">
+                    <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+                    <span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;background:var(--color-bg);padding:2px 4px">jalada la kitabu</span>
+                  </div>
+                  <span style="font-family:var(--font-heading);font-weight:600;font-size:17px;line-height:1.15">{{ b.sw }}</span>
+                  <span style="font-size:12px;color:var(--color-neutral-700)">{{ b.en }}</span>
+                  <span style="display:flex;align-items:center;gap:4px;font-size:12px;color:var(--color-accent-700)">{{ b.icon }}{{ b.status }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="flex:none;height:60px;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--color-divider)">
+            <sc-for list="{{ tabsLib }}" as="t" hint-placeholder-count="5"><div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;color:{{ t.color }}">{{ t.icon }}<span>{{ t.label }}</span></div></sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1g Sabbath School -->
+    <div id="1g" style="display:flex;flex-direction:column;gap:14px;width:360px">
+      <div style="display:flex;gap:10px;align-items:center"><span style="background:var(--color-accent);color:var(--color-bg);font-family:var(--font-heading);font-weight:600;font-size:15px;padding:2px 8px">1g</span><span style="font-family:var(--font-heading);font-weight:600;font-size:20px">Shule ya Sabato</span></div>
+      <div class="blueprint" style="width:360px;height:760px;background:var(--color-bg);box-shadow:var(--shadow-md)">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:28px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:0 16px;font-size:12px;font-weight:500"><span>9:41</span><span>4G · 62%</span></div>
+          <div style="flex:none;background:var(--color-accent-900);color:var(--color-bg);padding:10px 18px;display:flex;justify-content:space-between;font-size:13px"><span>Sabato inaanza Ijumaa</span><span style="font-family:var(--font-heading);font-weight:600;font-size:15px">18:43 · Nairobi</span></div>
+          <div class="nosb" style="flex:1;min-height:0;overflow-y:auto;padding:14px 18px 20px;display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;flex-direction:column;gap:2px">
+              <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Robo ya 4 · 2026 · Somo la 1</span>
+              <h2 style="margin:0;font-size:30px">Mungu Anayezungumza</h2>
+              <span style="font-size:13px;color:var(--color-neutral-700)">26 Sep – 2 Okt</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(7,1fr);border:1px solid var(--color-divider)">
+              <sc-for list="{{ days }}" as="d" hint-placeholder-count="7"><div style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;font-size:11px;background:{{ d.bg }};color:{{ d.fg }};border-left:{{ d.bl }}"><span>{{ d.d }}</span><span style="font-family:var(--font-heading);font-weight:600;font-size:15px">{{ d.mark }}</span></div></sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <span style="font-family:var(--font-heading);font-weight:600;font-size:20px">Jumatano · Mifano ya Ufalme</span>
+              <p style="margin:0;font-size:15px;line-height:1.6">Soma Mathayo 13:10–13. Yesu alitumia hadithi za kila siku (mbegu, mavuno, samaki) kufundisha kweli za ufalme wa Mungu.</p>
+            </div>
+            <div class="blueprint" style="padding:14px;display:flex;flex-direction:column;gap:6px">
+              <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+              <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700)">Fungu la kukariri</span>
+              <span style="font-family:var(--font-heading);font-weight:600;font-size:21px;line-height:1.2">"Neno lako ni taa ya miguu yangu, Na mwanga wa njia yangu."</span>
+              <span style="font-size:13px;color:var(--color-neutral-700)">Zaburi 119:105</span>
+            </div>
+            <div class="field">
+              <label>Kwa nini Yesu alifundisha kwa mifano?</label>
+              <textarea class="input" placeholder="Andika jibu lako…" style="min-height:80px;font-size:15px"></textarea>
+            </div>
+            <div style="display:flex;gap:10px">
+              <button class="btn btn-secondary" style="flex:1;min-height:44px;font-size:15px;gap:6px">{{ I.headphones }}Sikiliza somo</button>
+              <button class="btn btn-primary blueprint" style="flex:1;min-height:44px;font-size:15px"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>Hifadhi jibu</button>
+            </div>
+          </div>
+          <div style="flex:none;height:60px;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--color-divider)">
+            <sc-for list="{{ tabsLib }}" as="t" hint-placeholder-count="5"><div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;color:{{ t.color }}">{{ t.icon }}<span>{{ t.label }}</span></div></sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1h Hymnal -->
+    <div id="1h" style="display:flex;flex-direction:column;gap:14px;width:360px">
+      <div style="display:flex;gap:10px;align-items:center"><span style="background:var(--color-accent);color:var(--color-bg);font-family:var(--font-heading);font-weight:600;font-size:15px;padding:2px 8px">1h</span><span style="font-family:var(--font-heading);font-weight:600;font-size:20px">Nyimbo</span></div>
+      <div class="blueprint" style="width:360px;height:760px;background:var(--color-bg);box-shadow:var(--shadow-md)">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:28px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:0 16px;font-size:12px;font-weight:500"><span>9:41</span><span>4G · 62%</span></div>
+          <div style="flex:none;padding:8px 18px 12px;display:flex;flex-direction:column;gap:12px">
+            <h2 style="margin:0;font-size:30px">Nyimbo</h2>
+            <div style="display:flex;align-items:center;gap:8px;border:1px solid var(--color-divider);background:var(--color-surface);padding:0 12px;min-height:44px;color:var(--color-neutral-700);font-size:14px">{{ I.search }}<span style="flex:1">Tafuta kwa namba au jina</span>{{ I.mic }}</div>
+            <div class="seg" style="width:100%">
+              <span style="flex:1;text-align:center;font-size:13px;padding:9px 0;background:var(--color-accent);color:var(--color-bg)">Nyimbo za Kristo</span>
+              <span style="flex:1;text-align:center;font-size:13px;padding:9px 0;border-left:1px solid var(--color-divider)">SDA Hymnal</span>
+            </div>
+          </div>
+          <div class="nosb" style="flex:1;min-height:0;overflow-y:auto;padding:0 18px">
+            <sc-for list="{{ hymns }}" as="h" hint-placeholder-count="6">
+              <div style="display:flex;align-items:center;gap:14px;min-height:60px;border-top:1px solid var(--color-divider)">
+                <span style="font-family:var(--font-heading);font-weight:600;font-size:24px;width:44px;color:var(--color-accent-700)">{{ h.n }}</span>
+                <span style="flex:1;display:flex;flex-direction:column"><span style="font-size:15px;font-weight:500">{{ h.t }}</span><span style="font-size:12px;color:var(--color-neutral-700)">{{ h.c }}</span></span>
+                <span style="display:flex;color:var(--color-neutral-700)">{{ h.icon }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="flex:none;display:flex;align-items:center;gap:12px;padding:10px 16px;background:var(--color-accent-900);color:var(--color-bg)">
+            <span style="display:flex;width:44px;height:44px;align-items:center;justify-content:center;border:1px solid var(--color-accent-600)">{{ I.play }}</span>
+            <span style="flex:1;display:flex;flex-direction:column"><span style="font-size:14px;font-weight:500">Yesu Kwetu Ni Rafiki</span><span style="font-size:12px;color:var(--color-accent-300)">Kwaya · 3:05 · imepakuliwa</span></span>
+          </div>
+          <div style="flex:none;height:60px;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--color-divider)">
+            <sc-for list="{{ tabsHymn }}" as="t" hint-placeholder-count="5"><div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;color:{{ t.color }}">{{ t.icon }}<span>{{ t.label }}</span></div></sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1i Search -->
+    <div id="1i" style="display:flex;flex-direction:column;gap:14px;width:360px">
+      <div style="display:flex;gap:10px;align-items:center"><span style="background:var(--color-accent);color:var(--color-bg);font-family:var(--font-heading);font-weight:600;font-size:15px;padding:2px 8px">1i</span><span style="font-family:var(--font-heading);font-weight:600;font-size:20px">Tafuta</span></div>
+      <div class="blueprint" style="width:360px;height:760px;background:var(--color-bg);box-shadow:var(--shadow-md)">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:28px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:0 16px;font-size:12px;font-weight:500"><span>9:41</span><span>4G · 62%</span></div>
+          <div style="flex:none;padding:8px 18px 10px;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:8px;border:1px solid var(--color-accent);background:var(--color-surface);padding:0 12px;min-height:44px;font-size:15px">{{ I.search }}<span style="flex:1">sabato</span>{{ I.mic }}</div>
+            <div class="nosb" style="display:flex;gap:6px;overflow-x:auto">
+              <sc-for list="{{ searchChips }}" as="c" hint-placeholder-count="5"><span style="flex:none;font-size:13px;padding:6px 12px;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.color }}">{{ c.label }}</span></sc-for>
+            </div>
+          </div>
+          <div class="nosb" style="flex:1;min-height:0;overflow-y:auto;padding:4px 18px 20px;display:flex;flex-direction:column;gap:18px">
+            <sc-for list="{{ results }}" as="g" hint-placeholder-count="3">
+              <div style="display:flex;flex-direction:column">
+                <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-accent-700);padding-bottom:6px">{{ g.group }}</span>
+                <sc-for list="{{ g.items }}" as="r" hint-placeholder-count="2">
+                  <div style="display:flex;flex-direction:column;gap:2px;padding:10px 0;border-top:1px solid var(--color-divider)">
+                    <span style="font-family:var(--font-heading);font-weight:600;font-size:17px">{{ r.t }}</span>
+                    <span style="font-size:14px;line-height:1.5;color:var(--color-neutral-800)">{{ r.s }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+          <div style="flex:none;height:60px;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--color-divider)">
+            <sc-for list="{{ tabsFeed }}" as="t" hint-placeholder-count="5"><div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;color:{{ t.color }}">{{ t.icon }}<span>{{ t.label }}</span></div></sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1j Profile -->
+    <div id="1j" style="display:flex;flex-direction:column;gap:14px;width:360px">
+      <div style="display:flex;gap:10px;align-items:center"><span style="background:var(--color-accent);color:var(--color-bg);font-family:var(--font-heading);font-weight:600;font-size:15px;padding:2px 8px">1j</span><span style="font-family:var(--font-heading);font-weight:600;font-size:20px">Mimi · vilivyohifadhiwa</span></div>
+      <div class="blueprint" style="width:360px;height:760px;background:var(--color-bg);box-shadow:var(--shadow-md)">
+        <i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>
+        <div style="position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column">
+          <div style="height:28px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:0 16px;font-size:12px;font-weight:500"><span>9:41</span><span>4G · 62%</span></div>
+          <div class="nosb" style="flex:1;min-height:0;overflow-y:auto;padding:10px 18px 20px;display:flex;flex-direction:column;gap:18px">
+            <div style="display:flex;align-items:center;gap:14px">
+              <div class="blueprint" style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;font-family:var(--font-heading);font-weight:600;font-size:22px;color:var(--color-accent-700)"><i class="corner tl"></i><i class="corner tr"></i><i class="corner bl"></i><i class="corner br"></i>AM</div>
+              <div style="display:flex;flex-direction:column"><span style="font-family:var(--font-heading);font-weight:600;font-size:22px">Amani Mwakyusa</span><span style="font-size:13px;color:var(--color-neutral-700)">Kanisa la Mwenge · Dar es Salaam</span></div>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:8px;border-top:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);padding:12px 0"><span style="font-family:var(--font-heading);font-weight:600;font-size:34px;color:var(--color-accent-700)">23</span><span style="font-size:14px">siku mfululizo za kusoma</span></div>
+            <div style="display:flex;flex-direction:column">
+              <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-600);padding-bottom:6px">Vilivyohifadhiwa</span>
+              <sc-for list="{{ saved }}" as="s" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:10px;min-height:52px;border-top:1px solid var(--color-divider)"><span class="tag tag-accent" style="min-width:52px;justify-content:center">{{ s.k }}</span><span style="flex:1;display:flex;flex-direction:column"><span style="font-size:14px;font-weight:500">{{ s.t }}</span><span style="font-size:12px;color:var(--color-neutral-700)">{{ s.s }}</span></span></div>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column">
+              <span style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-neutral-600);padding-bottom:6px">Mipangilio</span>
+              <sc-for list="{{ settings }}" as="s" hint-placeholder-count="5">
+                <div style="display:flex;align-items:center;min-height:48px;border-top:1px solid var(--color-divider);font-size:14px"><span style="flex:1">{{ s.k }}</span><span style="color:var(--color-accent-700)">{{ s.v }}</span></div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="flex:none;height:60px;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--color-divider)">
+            <sc-for list="{{ tabsMe }}" as="t" hint-placeholder-count="5"><div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;color:{{ t.color }}">{{ t.icon }}<span>{{ t.label }}</span></div></sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;parallelEnglish&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Language&quot;},&quot;dataSaver&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Low data&quot;}}">
+const P = {
+  heart: [['path', { d: 'M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z' }]],
+  bookmark: [['path', { d: 'm19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z' }]],
+  share: [['circle', { cx: 18, cy: 5, r: 3 }], ['circle', { cx: 6, cy: 12, r: 3 }], ['circle', { cx: 18, cy: 19, r: 3 }], ['path', { d: 'M8.59 13.51 15.42 17.49M15.41 6.51 8.59 10.49' }]],
+  headphones: [['path', { d: 'M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3' }]],
+  play: [['polygon', { points: '6 3 20 12 6 21 6 3' }]],
+  search: [['circle', { cx: 11, cy: 11, r: 8 }], ['path', { d: 'm21 21-4.3-4.3' }]],
+  home: [['path', { d: 'm3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z' }], ['path', { d: 'M9 22V12h6v10' }]],
+  book: [['path', { d: 'M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z' }], ['path', { d: 'M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z' }]],
+  library: [['path', { d: 'm16 6 4 14M12 6v14M8 8v12M4 4v16' }]],
+  music: [['path', { d: 'M9 18V5l12-2v13' }], ['circle', { cx: 6, cy: 18, r: 3 }], ['circle', { cx: 18, cy: 16, r: 3 }]],
+  user: [['path', { d: 'M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2' }], ['circle', { cx: 12, cy: 7, r: 4 }]],
+  back: [['path', { d: 'm15 18-6-6 6-6' }]],
+  chev: [['path', { d: 'm9 18 6-6-6-6' }]],
+  download: [['path', { d: 'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3' }]],
+  type: [['path', { d: 'M4 7V4h16v3M9 20h6M12 4v16' }]],
+  check: [['path', { d: 'M20 6 9 17l-5-5' }]],
+  mic: [['path', { d: 'M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z' }], ['path', { d: 'M19 10v2a7 7 0 0 1-14 0v-2M12 19v3' }]],
+};
+const ic = (n, s = 22, fill = 'none') => React.createElement('svg', { width: s, height: s, viewBox: '0 0 24 24', fill, stroke: 'currentColor', strokeWidth: 1.5, strokeLinecap: 'round', strokeLinejoin: 'round', style: { display: 'block', flex: 'none' } },
+  P[n].map(([t, a], i) => React.createElement(t, Object.assign({ key: i }, a))));
+
+const FEED = [
+  { id: 'v', kicker: 'Aya ya Siku', source: 'Biblia · SUV', text: 'Kwa maana jinsi hii Mungu aliupenda ulimwengu, hata akamtoa Mwanawe pekee, ili kila mtu amwaminiye asipotee, bali awe na uzima wa milele.', en: 'For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.', ref: 'Yohana 3:16', likes: '12.4K', links: [{ k: 'EGW', t: 'Njia Salama, sura 1' }, { k: 'Aya', t: 'Warumi 5:8' }] },
+  { id: 'e', kicker: 'Ellen G. White', source: 'Njia Salama · uk. 9', text: 'Asili na ufunuo kwa pamoja vinashuhudia upendo wa Mungu.', en: "Nature and revelation alike testify of God's love.", ref: 'Steps to Christ · SC 9.1', likes: '3.1K', links: [{ k: 'Aya', t: 'Zaburi 19:1' }, { k: 'Imani', t: 'Imani ya 3 · Mungu Baba' }] },
+  { id: 'p', kicker: 'Unabii', source: 'Video · 3:12', text: 'Sanamu ya madini manne: falme nne za historia kwa dakika tatu.', en: 'The statue of four metals: four kingdoms of history in three minutes.', ref: 'Danieli 2:31–45', media: 'video · sanamu ya Danieli 2', likes: '8.7K', links: [{ k: 'EGW', t: 'Manabii na Wafalme, sura 40' }, { k: 'Kozi', t: 'Unabii wa Danieli · 2/12' }] },
+  { id: 's', kicker: 'Shule ya Sabato', source: 'Somo la 1 · Jumatano', text: 'Kwa nini Yesu alifundisha kwa mifano? Soma Mathayo 13:10–13 kisha andika jibu lako.', en: 'Why did Jesus teach in parables? Read Matthew 13:10–13, then write your answer.', ref: 'Robo ya 4 · 2026', cta: 'Jibu swali', likes: '1.9K', links: [{ k: 'Aya', t: 'Mathayo 13:10–13' }, { k: 'EGW', t: 'Masomo ya Mifano' }] },
+  { id: 'h', kicker: 'Nyimbo za Kristo', source: 'Sauti · 3:05', text: 'Yesu Kwetu Ni Rafiki. Sikiliza na uimbe pamoja kabla ya ibada ya jioni.', en: 'What a Friend We Have in Jesus. Listen and sing along before evening worship.', ref: 'Kwaya · Maombi', media: 'sauti · wimbo + maneno', cta: 'Sikiliza', likes: '5.2K', links: [{ k: 'Wimbo', t: 'Maneno kamili ya wimbo' }, { k: 'Aya', t: 'Yohana 15:15' }] },
+  { id: 'a', kicker: 'Afya', source: 'Ujumbe wa Afya', text: 'Anza siku kwa glasi mbili za maji kabla ya kifungua kinywa.', en: 'Start the day with two glasses of water before breakfast.', ref: 'Kanuni za afya · Maji', likes: '2.6K', links: [{ k: 'EGW', t: 'Huduma ya Uponyaji, sura 17' }, { k: 'Imani', t: 'Imani ya 22 · Mwenendo' }] },
+  { id: 'y', kicker: 'Vijana · Pathfinder', source: 'Changamoto ya wiki', text: 'Kariri Zaburi 23:1 wiki hii na umfundishe rafiki mmoja.', en: 'Memorise Psalm 23:1 this week and teach it to one friend.', ref: 'Beji ya Biblia · hatua 2', cta: 'Kubali changamoto', likes: '940', links: [{ k: 'Aya', t: 'Zaburi 23:1' }, { k: 'Kozi', t: 'Pathfinder · Beji ya Biblia' }] },
+];
+const VERSES = [
+  { n: 14, sw: 'Na kama vile Musa alivyomwinua yule nyoka jangwani, vivyo hivyo imempasa Mwana wa Adamu kuinuliwa;', en: 'And as Moses lifted up the serpent in the wilderness, even so must the Son of man be lifted up:' },
+  { n: 15, sw: 'ili kila mtu aaminiye awe na uzima wa milele katika yeye.', en: 'That whosoever believeth in him should not perish, but have eternal life.' },
+  { n: 16, sw: 'Kwa maana jinsi hii Mungu aliupenda ulimwengu, hata akamtoa Mwanawe pekee, ili kila mtu amwaminiye asipotee, bali awe na uzima wa milele.', en: 'For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.', hl: true },
+  { n: 17, sw: 'Maana Mungu hakumtuma Mwana ulimwenguni ili auhukumu ulimwengu, bali ulimwengu uokolewe katika yeye.', en: 'For God sent not his Son into the world to condemn the world; but that the world through him might be saved.' },
+  { n: 18, sw: 'Amwaminiye yeye hahukumiwi; asiyeamini amekwisha kuhukumiwa, kwa sababu hakuliamini jina la Mwana pekee wa Mungu.', en: 'He that believeth on him is not condemned: but he that believeth not is condemned already, because he hath not believed in the name of the only begotten Son of God.' },
+];
+const SPECS = [
+  { k: 'Bible text', v: 'Ingest USFM 3 / USX from the Bible Society or the Digital Bible Library, which is how licensed translations such as SUV are delivered. Store verses keyed by OSIS / USFM IDs (JHN.3.16) so notes, highlights and links survive translation switches.' },
+  { k: 'EGW writings', v: 'License through the Ellen G. White Estate (EGW Writings API). Keep the standard paragraph references (SC 9.1, DA 281.2) so Swahili, English and French editions align paragraph by paragraph.' },
+  { k: 'Language', v: 'BCP 47 tags (sw, sw-TZ, sw-KE, en, fr) and CLDR for dates, numbers and plurals. Swahili is the source language for UI copy, and every content item carries a lang field plus an optional parallel text.' },
+  { k: 'Accessibility', v: 'WCAG 2.2 AA: 4.5:1 body contrast, 44–48 px touch targets, text scaling to 200%. Audio on every item and voice search for low-literacy users.' },
+  { k: 'Low data / offline', v: 'Offline-first text packs downloaded once. Video only on Wi-Fi or tap-to-load. A data-saver mode. Built to run well on entry-level Android devices.' },
+  { k: 'Doctrinal review', v: 'Each item passes an approval step (draft → reviewer → published) with a named union or conference reviewer. Church name and logo use follows GC brand guidelines. The Sabbath School quarterly comes through the official division channel.' },
+];
+
+class Component extends DCLogic {
+  state = { liked: { v: true }, lang: 'sw', ob: 'sw', bibleParallel: null };
+  tabs(active, dark) {
+    const on = dark ? 'var(--color-bg)' : 'var(--color-accent-700)';
+    const off = dark ? 'var(--color-accent-400)' : 'var(--color-neutral-600)';
+    return [['home', 'Mlisho'], ['book', 'Biblia'], ['library', 'Maktaba'], ['music', 'Nyimbo'], ['user', 'Mimi']]
+      .map(([i, l]) => ({ label: l, icon: ic(i, 20), color: l === active ? on : off }));
+  }
+  chipList(labels) {
+    return labels.map((l, i) => ({ label: l, bg: i === 0 ? 'var(--color-accent)' : 'transparent', color: i === 0 ? 'var(--color-bg)' : 'var(--color-text)', border: i === 0 ? 'var(--color-accent)' : 'var(--color-divider)' }));
+  }
+  renderVals() {
+    const parallelEnglish = this.props.parallelEnglish ?? true;
+    const dataSaver = this.props.dataSaver ?? false;
+    const { liked, lang, ob } = this.state;
+    const bibleParallel = this.state.bibleParallel ?? parallelEnglish;
+    const I = {}; Object.keys(P).forEach(k => { I[k] = ic(k, 22); });
+    const feed = FEED.map(f => {
+      const on = !!liked[f.id];
+      return Object.assign({}, f, {
+        media: f.media || null, cta: f.cta || null,
+        showMedia: !!f.media && !dataSaver, savedMedia: !!f.media && dataSaver,
+        shown: lang === 'sw' ? f.text : f.en,
+        heart: ic('heart', 24, on ? 'currentColor' : 'none'),
+        likeColor: on ? 'var(--color-accent)' : 'var(--color-text)',
+        likeColorDark: on ? 'var(--color-accent-300)' : 'var(--color-bg)',
+        onLike: () => this.setState(s => ({ liked: Object.assign({}, s.liked, { [f.id]: !s.liked[f.id] }) })),
+      });
+    });
+    const segOn = (a) => a ? ['var(--color-accent)', 'var(--color-bg)'] : ['transparent', 'var(--color-text)'];
+    const [swBg, swFg] = segOn(lang === 'sw'), [enBg, enFg] = segOn(lang === 'en');
+    const [bSingleBg, bSingleFg] = segOn(!bibleParallel), [bParBg, bParFg] = segOn(bibleParallel);
+    const langs = [
+      { id: 'sw', name: 'Kiswahili', sub: 'Tanzania · Kenya · Uganda · DRC', tag: 'Chaguo-msingi' },
+      { id: 'en', name: 'English', sub: 'Tafsiri ya pili / second language', tag: '' },
+      { id: 'fr', name: 'Français', sub: 'RDC · Burundi · Rwanda', tag: '' },
+    ].map(l => ({ ...l, pick: () => this.setState({ ob: l.id }), bg: ob === l.id ? 'var(--color-accent-100)' : 'transparent', border: ob === l.id ? 'var(--color-accent)' : 'var(--color-divider)', dot: ob === l.id ? 'var(--color-accent)' : 'transparent' }));
+    const done = ['var(--color-accent-100)', 'var(--color-accent-800)'];
+    const days = ['Sab', 'Jpi', 'Jtt', 'Jnn', 'Jtn', 'Alh', 'Iju'].map((d, i) => ({
+      d, mark: i < 4 ? '✓' : i === 4 ? '•' : '', bl: i ? '1px solid var(--color-divider)' : '0',
+      bg: i < 4 ? done[0] : i === 4 ? 'var(--color-accent)' : 'transparent', fg: i < 4 ? done[1] : i === 4 ? 'var(--color-bg)' : 'var(--color-text)',
+    }));
+    const qp = this.state.quizPick, rem = this.state.remind ?? true;
+    const QUIZ = [{ t: 'Falme nne za dunia', ok: true }, { t: 'Misimu minne ya mwaka' }, { t: 'Makabila manne ya Israeli' }];
+    const quiz = QUIZ.map((q, i) => {
+      const picked = qp === i, show = qp != null;
+      return {
+        t: q.t, pick: () => this.setState({ quizPick: i }),
+        border: show && q.ok ? 'var(--color-accent)' : picked ? 'var(--color-neutral-700)' : 'var(--color-divider)',
+        bg: show && q.ok ? 'var(--color-accent-100)' : 'transparent',
+        note: show && q.ok ? 'Sahihi' : picked ? 'Jaribu tena' : '',
+        noteColor: q.ok ? 'var(--color-accent-800)' : 'var(--color-neutral-700)',
+      };
+    });
+    const turn2 = {
+      egwParas: [
+        { ref: 'SC 9.1', sw: 'Asili na ufunuo kwa pamoja vinashuhudia upendo wa Mungu. Baba yetu wa mbinguni ndiye chanzo cha uzima, cha hekima, na cha furaha.', en: "Nature and revelation alike testify of God's love. Our Father in heaven is the source of life, of wisdom, and of joy.", bg: 'var(--color-accent-100)' },
+        { ref: 'SC 9.2', sw: 'Tazama vitu vya ajabu na vizuri vya asili. Fikiri jinsi vilivyofaa kwa mahitaji na furaha, si ya mwanadamu tu, bali ya viumbe vyote vilivyo hai.', en: 'Look at the wonderful and beautiful things of nature. Think of their marvelous adaptation to the needs and happiness, not only of man, but of all living creatures.', bg: 'transparent' },
+      ],
+      beliefs: [
+        { group: 'Mafundisho kuhusu Mungu', range: '1–5', items: [{ n: 1, sw: 'Maandiko Matakatifu', en: 'The Holy Scriptures' }, { n: 2, sw: 'Utatu', en: 'The Trinity' }, { n: 3, sw: 'Mungu Baba', en: 'The Father' }, { n: 4, sw: 'Mungu Mwana', en: 'The Son' }, { n: 5, sw: 'Mungu Roho Mtakatifu', en: 'The Holy Spirit' }] },
+        { group: 'Maisha ya Mkristo', range: '19–23', items: [{ n: 19, sw: 'Sheria ya Mungu', en: 'The Law of God' }, { n: 20, sw: 'Sabato', en: 'The Sabbath' }, { n: 21, sw: 'Uwakili', en: 'Stewardship' }, { n: 22, sw: 'Mwenendo wa Kikristo', en: 'Christian Behavior' }, { n: 23, sw: 'Ndoa na Familia', en: 'Marriage and the Family' }] },
+        { group: 'Matukio ya mwisho', range: '24–28', items: [{ n: 24, sw: 'Huduma ya Kristo Patakatifu pa Mbinguni', en: "Christ's Ministry in the Heavenly Sanctuary" }, { n: 25, sw: 'Kuja kwa Pili kwa Kristo', en: 'The Second Coming of Christ' }, { n: 26, sw: 'Kifo na Ufufuo', en: 'Death and Resurrection' }, { n: 27, sw: 'Miaka Elfu na Mwisho wa Dhambi', en: 'The Millennium and the End of Sin' }, { n: 28, sw: 'Nchi Mpya', en: 'The New Earth' }] },
+      ],
+      courseSteps: Array.from({ length: 12 }, (_, i) => ({ bg: i < 2 ? 'var(--color-accent)' : i === 2 ? 'var(--color-accent-400)' : 'var(--color-neutral-300)' })),
+      quiz, quizAnswered: qp != null,
+      noteChips: this.chipList(['Zote', 'Angazo', 'Maelezo', 'Nukuu']),
+      notes: [
+        { k: 'Aya', ref: 'Yohana 3:16', date: 'Leo', quote: 'Kwa maana jinsi hii Mungu aliupenda ulimwengu…', note: 'Kushiriki na kikundi cha vijana Sabato hii.' },
+        { k: 'EGW', ref: 'Njia Salama · SC 9.1', date: 'Jana', quote: 'Asili na ufunuo kwa pamoja vinashuhudia upendo wa Mungu.', note: null },
+        { k: 'Somo', ref: 'Shule ya Sabato · Somo la 1', date: '23 Sep', quote: 'Kwa nini Yesu alifundisha kwa mifano?', note: 'Mifano inamfikia kila mtu, msomi au la. Hadithi hukaa moyoni.' },
+      ],
+      fridays: [{ d: 'Ijumaa 2 Okt', t: '18:42' }, { d: 'Ijumaa 9 Okt', t: '18:41' }, { d: 'Ijumaa 16 Okt', t: '18:41' }, { d: 'Ijumaa 23 Okt', t: '18:41' }],
+      cities: [{ d: 'Dar es Salaam', t: '18:19' }, { d: 'Kampala', t: '18:57' }, { d: 'Arusha', t: '18:35' }],
+      toggleRemind: () => this.setState({ remind: !rem }),
+      remindBg: rem ? 'var(--color-accent)' : 'transparent', remindBorder: rem ? 'var(--color-accent)' : 'var(--color-divider)',
+      remindKnob: rem ? 'var(--color-bg)' : 'var(--color-neutral-500)', remindJustify: rem ? 'flex-end' : 'flex-start',
+    };
+    return {
+      ...turn2,
+      I, feed, parallelEnglish, bibleParallel,
+      tabsFeed: this.tabs('Mlisho'), tabsDark: this.tabs('Mlisho', true), tabsBible: this.tabs('Biblia'),
+      tabsLib: this.tabs('Maktaba'), tabsHymn: this.tabs('Nyimbo'), tabsMe: this.tabs('Mimi'),
+      chips: this.chipList(['Zote', 'Biblia', 'EGW', 'Shule ya Sabato', 'Unabii', 'Nyimbo', 'Afya']),
+      searchChips: this.chipList(['Zote', 'Biblia', 'EGW', 'Imani 28', 'Nyimbo', 'Video']),
+      swBg, swFg, enBg, enFg, setSw: () => this.setState({ lang: 'sw' }), setEn: () => this.setState({ lang: 'en' }),
+      bSingleBg, bSingleFg, bParBg, bParFg,
+      bibleSingle: () => this.setState({ bibleParallel: false }), bibleParallelOn: () => this.setState({ bibleParallel: true }),
+      verses: VERSES.map(v => ({ ...v, hl: !!v.hl, bg: v.hl ? 'var(--color-accent-100)' : 'transparent' })),
+      specs: SPECS, langs, days,
+      packs: [{ name: 'Biblia · SUV (maandishi)', size: '4.1 MB' }, { name: 'Nyimbo za Kristo', size: '1.2 MB' }, { name: 'Njia Salama · EGW', size: '0.6 MB' }].map(p => ({ ...p, check: ic('check', 14) })),
+      books: [
+        { sw: 'Tumaini la Vizazi Vyote', en: 'The Desire of Ages', status: 'Imepakuliwa', icon: ic('check', 14) },
+        { sw: 'Pambano Kuu', en: 'The Great Controversy', status: 'Pakua · 2.3 MB', icon: ic('download', 14) },
+        { sw: 'Wazee na Manabii', en: 'Patriarchs and Prophets', status: 'Pakua · 2.1 MB', icon: ic('download', 14) },
+        { sw: 'Huduma ya Uponyaji', en: 'The Ministry of Healing', status: 'Imepakuliwa', icon: ic('check', 14) },
+      ],
+      hymns: [
+        { n: '1', t: 'Mtakatifu, Mtakatifu, Mtakatifu', c: 'Sifa' },
+        { n: '12', t: 'Yesu Kwetu Ni Rafiki', c: 'Maombi' },
+        { n: '27', t: 'Ni Salama Rohoni Mwangu', c: 'Imani' },
+        { n: '44', t: 'Siku ya Sabato', c: 'Sabato' },
+        { n: '58', t: 'Bwana Yesu Atakuja', c: 'Kuja kwa Yesu' },
+        { n: '73', t: 'Nitaimba Sifa Zake', c: 'Sifa' },
+      ].map((h, i) => ({ ...h, icon: ic(i % 2 ? 'download' : 'headphones', 20) })),
+      results: [
+        { group: 'Biblia', items: [{ t: 'Kutoka 20:8', s: 'Ikumbuke siku ya sabato uitakase.' }, { t: 'Mwanzo 2:3', s: 'Mungu akaibarikia siku ya saba, akaitakasa…' }] },
+        { group: 'Roho ya Unabii', items: [{ t: 'Tumaini la Vizazi Vyote · Sura 29', s: 'Sabato · The Desire of Ages, ch. 29' }] },
+        { group: 'Imani za Msingi', items: [{ t: 'Imani ya 20 · Sabato', s: 'Fundamental Belief 20 · Sabbath' }] },
+        { group: 'Video', items: [{ t: 'Sabato katika Unabii', s: 'Video · 4:05 · Kozi ya Unabii' }] },
+      ],
+      saved: [
+        { k: 'Aya', t: 'Yohana 3:16', s: 'Imeangaziwa · maelezo 1' },
+        { k: 'EGW', t: 'Njia Salama, uk. 9', s: 'Nukuu' },
+        { k: 'Wimbo', t: 'Yesu Kwetu Ni Rafiki', s: 'Imepakuliwa' },
+      ],
+      settings: [
+        { k: 'Lugha', v: 'Kiswahili' }, { k: 'Tafsiri ya pili', v: parallelEnglish ? 'English' : 'Imezimwa' },
+        { k: 'Ukubwa wa maandishi', v: 'Kubwa' }, { k: 'Machweo ya Sabato', v: 'Dar es Salaam' },
+        { k: 'Kuokoa data', v: dataSaver ? 'Imewashwa' : 'Imezimwa' }, { k: 'Upakuaji', v: '5.9 MB' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

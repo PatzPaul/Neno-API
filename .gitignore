@@ -1,0 +1,6 @@
+.env
+bin/
+tmp/
+# Licensed raw content (USFM, EGW exports, hymn audio) must never be committed.
+content/
+*.sqlite

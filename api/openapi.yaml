@@ -1,0 +1,253 @@
+openapi: 3.0.3
+info:
+  title: Neno API
+  version: 0.1.0
+  description: |
+    Swahili-first Bible & SDA learning API. Source of truth for the contract:
+    edit this file, then run `make openapi` to regenerate Go (and, in Neno-App, TS) types.
+    Public endpoints only ever expose `status = 'published'` content.
+servers:
+  - url: http://localhost:8080
+paths:
+  /healthz:
+    get:
+      operationId: getHealth
+      summary: Liveness + database check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Health" }
+        "503":
+          description: Database unreachable
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Health" }
+
+  /v1/packs:
+    get:
+      operationId: listPacks
+      summary: Offline pack manifest (latest version per slug)
+      parameters:
+        - $ref: "#/components/parameters/Lang"
+      responses:
+        "200":
+          description: Packs available for the language
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [packs]
+                properties:
+                  packs:
+                    type: array
+                    items: { $ref: "#/components/schemas/Pack" }
+        "400": { $ref: "#/components/responses/BadRequest" }
+
+  /v1/feed:
+    get:
+      operationId: listFeed
+      summary: Published feed items, newest first, cursor-paginated
+      parameters:
+        - $ref: "#/components/parameters/Lang"
+        - name: cursor
+          in: query
+          description: Opaque cursor from a previous page's `next_cursor`.
+          schema: { type: string }
+        - name: kinds
+          in: query
+          description: Comma-separated feed kinds to include (default all).
+          schema: { type: string, example: "verse,egw_quote" }
+        - name: limit
+          in: query
+          schema: { type: integer, minimum: 1, maximum: 50, default: 20 }
+      responses:
+        "200":
+          description: A page of feed items
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/FeedPage" }
+        "400": { $ref: "#/components/responses/BadRequest" }
+
+  /v1/feed/{id}:
+    get:
+      operationId: getFeedItem
+      summary: One feed item plus its "Soma pamoja" links
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: The item
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/FeedItemDetail" }
+        "404": { $ref: "#/components/responses/NotFound" }
+
+  /v1/bible/{translation}/{book}/{chapter}:
+    get:
+      operationId: getBibleChapter
+      summary: Verses of one chapter, optionally with a parallel translation
+      parameters:
+        - name: translation
+          in: path
+          required: true
+          schema: { type: string, example: SUV }
+        - name: book
+          in: path
+          required: true
+          description: OSIS/USFM book code.
+          schema: { type: string, example: JHN }
+        - name: chapter
+          in: path
+          required: true
+          schema: { type: integer, minimum: 1 }
+        - name: parallel
+          in: query
+          description: Second translation code to align verse-by-verse.
+          schema: { type: string, example: KJV }
+      responses:
+        "200":
+          description: The chapter
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/BibleChapter" }
+        "404": { $ref: "#/components/responses/NotFound" }
+
+components:
+  parameters:
+    Lang:
+      name: lang
+      in: query
+      description: BCP 47 language (sw, en, fr). Defaults to sw.
+      schema: { type: string, default: sw, example: sw }
+
+  responses:
+    BadRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+
+  schemas:
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error: { type: string }
+
+    Health:
+      type: object
+      required: [status, db]
+      properties:
+        status: { type: string, enum: [ok, degraded] }
+        db: { type: string, enum: [ok, down] }
+
+    Pack:
+      type: object
+      required: [slug, lang, version, url, bytes, sha256]
+      properties:
+        slug: { type: string, example: bible-SUV }
+        lang: { type: string }
+        version: { type: integer }
+        url: { type: string }
+        bytes: { type: integer, format: int64 }
+        sha256: { type: string }
+
+    FeedKind:
+      type: string
+      enum: [verse, egw_quote, sabbath_school, prophecy, hymn, health, youth, devotional, sermon, audio_bible]
+
+    Media:
+      type: object
+      required: [id, kind, url]
+      properties:
+        id: { type: string, format: uuid }
+        kind: { type: string, enum: [video, audio, image] }
+        url: { type: string }
+        hls_url: { type: string }
+        bytes: { type: integer, format: int64, description: "Shown as tap-to-load size in data-saver mode." }
+        duration_s: { type: integer }
+
+    FeedItem:
+      type: object
+      required: [id, kind, lang, kicker, body, publish_at]
+      properties:
+        id: { type: string, format: uuid }
+        kind: { $ref: "#/components/schemas/FeedKind" }
+        lang: { type: string }
+        kicker: { type: string }
+        source: { type: string }
+        body: { type: string }
+        ref_label: { type: string, example: "YOHANA 3:16" }
+        alt_lang: { type: string }
+        alt_body: { type: string, description: "Parallel-language text." }
+        media: { $ref: "#/components/schemas/Media" }
+        cta_label: { type: string }
+        cta_target: { type: string }
+        audience:
+          type: array
+          items: { type: string }
+        publish_at: { type: string, format: date-time }
+
+    FeedLink:
+      type: object
+      required: [target, target_ref, label]
+      properties:
+        target: { type: string, enum: [verse, egw_paragraph, belief, hymn, feed_item, ss_day, course_lesson] }
+        target_ref: { type: string }
+        label: { type: string }
+
+    FeedItemDetail:
+      allOf:
+        - $ref: "#/components/schemas/FeedItem"
+        - type: object
+          required: [links]
+          properties:
+            links:
+              type: array
+              items: { $ref: "#/components/schemas/FeedLink" }
+
+    FeedPage:
+      type: object
+      required: [items, lang]
+      properties:
+        items:
+          type: array
+          items: { $ref: "#/components/schemas/FeedItem" }
+        lang:
+          type: string
+          description: Language actually served (falls back to en when the requested language has no items).
+        next_cursor:
+          type: string
+          description: Absent on the last page.
+
+    Verse:
+      type: object
+      required: [osis_ref, verse, text]
+      properties:
+        osis_ref: { type: string, example: JHN.3.16 }
+        verse: { type: integer }
+        text: { type: string }
+        parallel_text: { type: string }
+
+    BibleChapter:
+      type: object
+      required: [translation, book, chapter, verses]
+      properties:
+        translation: { type: string }
+        parallel: { type: string }
+        book: { type: string }
+        book_name: { type: string, description: "Localised to the translation's language when known." }
+        chapter: { type: integer }
+        verses:
+          type: array
+          items: { $ref: "#/components/schemas/Verse" }

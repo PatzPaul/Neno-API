@@ -1,0 +1,29 @@
+[Unit]
+Description=Neno API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=neno-api
+Group=neno-api
+EnvironmentFile=/etc/neno-api/env
+# Small shared box (1 vCPU / 1 GB): keep the Go heap and the unit well bounded.
+Environment=GOMEMLIMIT=96MiB
+MemoryMax=160M
+ExecStart=/opt/neno-api/current/api
+Restart=on-failure
+RestartSec=3
+
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target
