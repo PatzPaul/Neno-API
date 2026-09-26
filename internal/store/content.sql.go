@@ -32,7 +32,9 @@ const getFeedItem = `-- name: GetFeedItem :one
 SELECT f.id, f.kind, f.lang, f.kicker, f.source, f.body, f.ref_label,
        f.alt_lang, f.alt_body, f.cta_label, f.cta_target, f.audience, f.publish_at,
        m.id AS media_id, m.kind AS media_kind, m.url AS media_url, m.hls_url AS media_hls_url,
-       m.bytes AS media_bytes, m.duration_s AS media_duration_s
+       m.bytes AS media_bytes, m.duration_s AS media_duration_s,
+       (SELECT count(DISTINCT um.user_id) FROM user_marks um
+        WHERE um.kind = 'like' AND um.target = 'feed_item' AND um.target_ref = f.id::text AND um.deleted_at IS NULL)::int AS like_count
 FROM feed_items f
 LEFT JOIN media m ON m.id = f.media_id
 WHERE f.id = $1 AND f.status = 'published' AND f.publish_at <= now()
@@ -58,6 +60,7 @@ type GetFeedItemRow struct {
 	MediaHlsUrl    pgtype.Text
 	MediaBytes     pgtype.Int8
 	MediaDurationS pgtype.Int4
+	LikeCount      int32
 }
 
 func (q *Queries) GetFeedItem(ctx context.Context, id uuid.UUID) (GetFeedItemRow, error) {
@@ -83,6 +86,7 @@ func (q *Queries) GetFeedItem(ctx context.Context, id uuid.UUID) (GetFeedItemRow
 		&i.MediaHlsUrl,
 		&i.MediaBytes,
 		&i.MediaDurationS,
+		&i.LikeCount,
 	)
 	return i, err
 }
@@ -102,6 +106,58 @@ func (q *Queries) GetTranslation(ctx context.Context, code string) (GetTranslati
 	var i GetTranslationRow
 	err := row.Scan(&i.ID, &i.Code, &i.Lang)
 	return i, err
+}
+
+const listBibleBooks = `-- name: ListBibleBooks :many
+SELECT b.osis, b.ord, b.testament::text AS testament,
+       COALESCE(n.name, e.name, b.osis)::text AS name, COALESCE(n.abbr, e.abbr, '')::text AS abbr,
+       COALESCE((SELECT max(v.chapter) FROM verses v WHERE v.translation_id = $1 AND v.book = b.osis), 0)::int AS chapters
+FROM bible_books b
+LEFT JOIN bible_book_names n ON n.book = b.osis AND n.lang = $2
+LEFT JOIN bible_book_names e ON e.book = b.osis AND e.lang = 'en'
+ORDER BY b.ord
+`
+
+type ListBibleBooksParams struct {
+	TranslationID int32
+	Lang          string
+}
+
+type ListBibleBooksRow struct {
+	Osis      string
+	Ord       int32
+	Testament string
+	Name      string
+	Abbr      string
+	Chapters  int32
+}
+
+// Names in the translation's language, falling back to English, then the OSIS code.
+func (q *Queries) ListBibleBooks(ctx context.Context, arg ListBibleBooksParams) ([]ListBibleBooksRow, error) {
+	rows, err := q.db.Query(ctx, listBibleBooks, arg.TranslationID, arg.Lang)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []ListBibleBooksRow{}
+	for rows.Next() {
+		var i ListBibleBooksRow
+		if err := rows.Scan(
+			&i.Osis,
+			&i.Ord,
+			&i.Testament,
+			&i.Name,
+			&i.Abbr,
+			&i.Chapters,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }
 
 const listChapterVerses = `-- name: ListChapterVerses :many
@@ -147,7 +203,9 @@ const listFeed = `-- name: ListFeed :many
 SELECT f.id, f.kind, f.lang, f.kicker, f.source, f.body, f.ref_label,
        f.alt_lang, f.alt_body, f.cta_label, f.cta_target, f.audience, f.publish_at,
        m.id AS media_id, m.kind AS media_kind, m.url AS media_url, m.hls_url AS media_hls_url,
-       m.bytes AS media_bytes, m.duration_s AS media_duration_s
+       m.bytes AS media_bytes, m.duration_s AS media_duration_s,
+       (SELECT count(DISTINCT um.user_id) FROM user_marks um
+        WHERE um.kind = 'like' AND um.target = 'feed_item' AND um.target_ref = f.id::text AND um.deleted_at IS NULL)::int AS like_count
 FROM feed_items f
 LEFT JOIN media m ON m.id = f.media_id
 WHERE f.status = 'published'
@@ -188,6 +246,7 @@ type ListFeedRow struct {
 	MediaHlsUrl    pgtype.Text
 	MediaBytes     pgtype.Int8
 	MediaDurationS pgtype.Int4
+	LikeCount      int32
 }
 
 // Keyset pagination on (publish_at DESC, id DESC). Pass NULL cursor fields for the first page.
@@ -226,6 +285,7 @@ func (q *Queries) ListFeed(ctx context.Context, arg ListFeedParams) ([]ListFeedR
 			&i.MediaHlsUrl,
 			&i.MediaBytes,
 			&i.MediaDurationS,
+			&i.LikeCount,
 		); err != nil {
 			return nil, err
 		}

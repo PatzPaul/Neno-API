@@ -537,39 +537,44 @@ type User struct {
 	SunsetLat        pgtype.Numeric
 	SunsetLng        pgtype.Numeric
 	CreatedAt        time.Time
+	Email            pgtype.Text
+	UpdatedAt        time.Time
 }
 
 type UserAnswer struct {
-	ID        uuid.UUID
-	UserID    uuid.UUID
-	Target    TargetKind
-	TargetRef string
-	Answer    pgtype.Text
-	OptionID  pgtype.Int4
-	UpdatedAt time.Time
-	DeletedAt pgtype.Timestamptz
+	ID              uuid.UUID
+	UserID          uuid.UUID
+	Target          TargetKind
+	TargetRef       string
+	Answer          pgtype.Text
+	OptionID        pgtype.Int4
+	UpdatedAt       time.Time
+	DeletedAt       pgtype.Timestamptz
+	ServerUpdatedAt time.Time
 }
 
 type UserMark struct {
-	ID        uuid.UUID
-	UserID    uuid.UUID
-	Kind      string
-	Target    TargetKind
-	TargetRef string
-	Color     pgtype.Text
-	Note      pgtype.Text
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	DeletedAt pgtype.Timestamptz
+	ID              uuid.UUID
+	UserID          uuid.UUID
+	Kind            string
+	Target          TargetKind
+	TargetRef       string
+	Color           pgtype.Text
+	Note            pgtype.Text
+	CreatedAt       time.Time
+	UpdatedAt       time.Time
+	DeletedAt       pgtype.Timestamptz
+	ServerUpdatedAt time.Time
 }
 
 type UserProgress struct {
-	UserID    uuid.UUID
-	Target    TargetKind
-	TargetRef string
-	Position  pgtype.Text
-	Percent   pgtype.Int4
-	UpdatedAt time.Time
+	UserID          uuid.UUID
+	Target          TargetKind
+	TargetRef       string
+	Position        pgtype.Text
+	Percent         pgtype.Int4
+	UpdatedAt       time.Time
+	ServerUpdatedAt time.Time
 }
 
 type Verse struct {

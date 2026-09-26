@@ -9,10 +9,12 @@ import (
 	"strings"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 
 	"github.com/PatzPaul/Neno-API/internal/api"
+	"github.com/PatzPaul/Neno-API/internal/auth"
 	"github.com/PatzPaul/Neno-API/internal/store"
 )
 
@@ -26,14 +28,18 @@ const (
 var langRe = regexp.MustCompile(`^[a-z]{2,3}$`)
 
 type Server struct {
-	pool *pgxpool.Pool
-	q    *store.Queries
+	pool     *pgxpool.Pool
+	q        *store.Queries
+	verifier *auth.Verifier
+	users    userCache
+	now      func() time.Time
 }
 
 var _ api.StrictServerInterface = (*Server)(nil)
 
-func New(pool *pgxpool.Pool) *Server {
-	return &Server{pool: pool, q: store.New(pool)}
+// New wires the handlers. A nil verifier rejects every protected operation (401).
+func New(pool *pgxpool.Pool, verifier *auth.Verifier) *Server {
+	return &Server{pool: pool, q: store.New(pool), verifier: verifier, users: userCache{seen: map[uuid.UUID]cachedUser{}}, now: time.Now}
 }
 
 func badRequest(msg string) api.BadRequestJSONResponse { return api.BadRequestJSONResponse{Error: msg} }
@@ -131,6 +137,7 @@ func (s *Server) ListFeed(ctx context.Context, req api.ListFeedRequestObject) (a
 	for _, r := range rows {
 		page.Items = append(page.Items, toFeedItem(r))
 	}
+	page.Items = arrangeFeed(page.Items, p.Cursor == nil || *p.Cursor == "", s.now())
 	return page, nil
 }
 
@@ -151,7 +158,8 @@ func (s *Server) GetFeedItem(ctx context.Context, req api.GetFeedItemRequestObje
 		Id: it.Id, Kind: it.Kind, Lang: it.Lang, Kicker: it.Kicker, Source: it.Source, Body: it.Body,
 		RefLabel: it.RefLabel, AltLang: it.AltLang, AltBody: it.AltBody, Media: it.Media,
 		CtaLabel: it.CtaLabel, CtaTarget: it.CtaTarget, Audience: it.Audience, PublishAt: it.PublishAt,
-		Links: make([]api.FeedLink, len(links)),
+		LikeCount: it.LikeCount,
+		Links:     make([]api.FeedLink, len(links)),
 	}
 	for i, l := range links {
 		out.Links[i] = api.FeedLink{Target: api.FeedLinkTarget(l.Target), TargetRef: l.TargetRef, Label: l.Label}
@@ -214,4 +222,29 @@ func (s *Server) GetBibleChapter(ctx context.Context, req api.GetBibleChapterReq
 		out.Parallel = &ptr.Code
 	}
 	return out, nil
+}
+
+func (s *Server) ListBibleBooks(ctx context.Context, req api.ListBibleBooksRequestObject) (api.ListBibleBooksResponseObject, error) {
+	tr, err := s.q.GetTranslation(ctx, strings.ToUpper(req.Translation))
+	if errors.Is(err, pgx.ErrNoRows) {
+		return api.ListBibleBooks404JSONResponse{NotFoundJSONResponse: notFound("unknown translation")}, nil
+	}
+	if err != nil {
+		return nil, err
+	}
+	rows, err := s.q.ListBibleBooks(ctx, store.ListBibleBooksParams{TranslationID: tr.ID, Lang: tr.Lang})
+	if err != nil {
+		return nil, err
+	}
+	books := make([]api.BibleBook, len(rows))
+	for i, r := range rows {
+		books[i] = api.BibleBook{
+			Osis: r.Osis, Ord: int(r.Ord), Testament: api.BibleBookTestament(r.Testament), Name: r.Name, Chapters: int(r.Chapters),
+		}
+		if r.Abbr != "" {
+			abbr := r.Abbr
+			books[i].Abbr = &abbr
+		}
+	}
+	return api.ListBibleBooks200JSONResponse{Translation: tr.Code, Books: books}, nil
 }

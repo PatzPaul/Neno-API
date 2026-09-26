@@ -38,6 +38,15 @@ The Expo client lives in a separate repo, **Neno-App** (sibling checkout `../Nen
   `neno-api` things there.
 - DB role `neno` owns only the `neno` database (not superuser). Use it for the app and migrations.
 
+## Auth
+- Keycloak realm `neno` at https://sso.mala.co.tz (container `mala_keycloak` on mala_server). Setup is
+  `deploy/keycloak/setup-realm.sh` (idempotent, runs inside the container with admin creds passed as env).
+- Clients: `neno-app` (public, PKCE S256) → access tokens with aud `neno-api`; `neno-api` (bearer-only).
+  Realm roles `editor`, `reviewer`, `admin` map to `users.role`.
+- `internal/auth` validates RS256 via JWKS (`KEYCLOAK_ISSUER`, `KEYCLOAK_AUDIENCE`); `users.id` = token `sub`,
+  upserted on first request. Protected ops are listed in `internal/server/auth.go` (`protectedOps`) — keep it in
+  sync with `security: bearer` in the spec.
+
 ## Rules
 - Public endpoints and packs only expose `status = 'published'` rows with `publish_at <= now()`.
 - Never invent Scripture or EGW text in seeds or tests — use clearly marked `[SAMPLE]` placeholders.
@@ -46,8 +55,11 @@ The Expo client lives in a separate repo, **Neno-App** (sibling checkout `../Nen
 - Feed pagination is keyset on `(publish_at, id)` behind an opaque base64 cursor; clients must not parse it.
 - Payload budget: feed page ≤ 30 KB JSON.
 
+## Sync
+- `POST /v1/sync`: last-write-wins on the client's `updated_at` (clamped to server now + 5 min); pulls page on
+  `server_updated_at` with a 30 s overlap, so clients must merge by id. Max 500 pushed items per request.
+
 ## Status
-Done: scaffold, migrations (schema + 66 bible books), health, packs manifest, feed (cursor, kinds filter,
-lang fallback), feed item + links, bible chapter (+ parallel).
-Next: phone OTP auth stub + JWT, `/v1/me`, `/v1/sync`, feed round-robin interleaving + daily anchors,
-`cmd/packs`, `cmd/ingest`.
+Done: all v0.2 endpoints (content, search, likes, me, sync, quiz), Keycloak auth, feed anchors + kind interleave,
+66 book names (sw/en), [SAMPLE] seed for every content type.
+Next: `cmd/packs` (offline SQLite packs), `cmd/ingest` (USFM/EGW/hymn importers), admin/review endpoints.

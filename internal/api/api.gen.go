@@ -18,6 +18,54 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
+// Defines values for BeliefGroupKey.
+const (
+	ChristianLife BeliefGroupKey = "christian_life"
+	Church        BeliefGroupKey = "church"
+	God           BeliefGroupKey = "god"
+	Humanity      BeliefGroupKey = "humanity"
+	LastThings    BeliefGroupKey = "last_things"
+	Salvation     BeliefGroupKey = "salvation"
+)
+
+// Valid indicates whether the value is a known member of the BeliefGroupKey enum.
+func (e BeliefGroupKey) Valid() bool {
+	switch e {
+	case ChristianLife:
+		return true
+	case Church:
+		return true
+	case God:
+		return true
+	case Humanity:
+		return true
+	case LastThings:
+		return true
+	case Salvation:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for BibleBookTestament.
+const (
+	NT BibleBookTestament = "NT"
+	OT BibleBookTestament = "OT"
+)
+
+// Valid indicates whether the value is a known member of the BibleBookTestament enum.
+func (e BibleBookTestament) Valid() bool {
+	switch e {
+	case NT:
+		return true
+	case OT:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for FeedKind.
 const (
 	FeedKindAudioBible    FeedKind = "audio_bible"
@@ -129,26 +177,211 @@ func (e HealthStatus) Valid() bool {
 	}
 }
 
-// Defines values for MediaKind.
+// Defines values for HymnStanzaKind.
 const (
-	Audio MediaKind = "audio"
-	Image MediaKind = "image"
-	Video MediaKind = "video"
+	HymnStanzaKindRefrain HymnStanzaKind = "refrain"
+	HymnStanzaKindVerse   HymnStanzaKind = "verse"
 )
 
-// Valid indicates whether the value is a known member of the MediaKind enum.
-func (e MediaKind) Valid() bool {
+// Valid indicates whether the value is a known member of the HymnStanzaKind enum.
+func (e HymnStanzaKind) Valid() bool {
 	switch e {
-	case Audio:
+	case HymnStanzaKindRefrain:
 		return true
-	case Image:
-		return true
-	case Video:
+	case HymnStanzaKindVerse:
 		return true
 	default:
 		return false
 	}
 }
+
+// Defines values for MeRole.
+const (
+	Admin    MeRole = "admin"
+	Editor   MeRole = "editor"
+	Member   MeRole = "member"
+	Reviewer MeRole = "reviewer"
+)
+
+// Valid indicates whether the value is a known member of the MeRole enum.
+func (e MeRole) Valid() bool {
+	switch e {
+	case Admin:
+		return true
+	case Editor:
+		return true
+	case Member:
+		return true
+	case Reviewer:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for MediaKind.
+const (
+	MediaKindAudio MediaKind = "audio"
+	MediaKindImage MediaKind = "image"
+	MediaKindVideo MediaKind = "video"
+)
+
+// Valid indicates whether the value is a known member of the MediaKind enum.
+func (e MediaKind) Valid() bool {
+	switch e {
+	case MediaKindAudio:
+		return true
+	case MediaKindImage:
+		return true
+	case MediaKindVideo:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SearchHitTarget.
+const (
+	SearchHitTargetBelief       SearchHitTarget = "belief"
+	SearchHitTargetEgwParagraph SearchHitTarget = "egw_paragraph"
+	SearchHitTargetFeedItem     SearchHitTarget = "feed_item"
+	SearchHitTargetHymn         SearchHitTarget = "hymn"
+	SearchHitTargetVerse        SearchHitTarget = "verse"
+)
+
+// Valid indicates whether the value is a known member of the SearchHitTarget enum.
+func (e SearchHitTarget) Valid() bool {
+	switch e {
+	case SearchHitTargetBelief:
+		return true
+	case SearchHitTargetEgwParagraph:
+		return true
+	case SearchHitTargetFeedItem:
+		return true
+	case SearchHitTargetHymn:
+		return true
+	case SearchHitTargetVerse:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for SearchScope.
+const (
+	SearchScopeBeliefs SearchScope = "beliefs"
+	SearchScopeBible   SearchScope = "bible"
+	SearchScopeEgw     SearchScope = "egw"
+	SearchScopeHymns   SearchScope = "hymns"
+	SearchScopeVideo   SearchScope = "video"
+)
+
+// Valid indicates whether the value is a known member of the SearchScope enum.
+func (e SearchScope) Valid() bool {
+	switch e {
+	case SearchScopeBeliefs:
+		return true
+	case SearchScopeBible:
+		return true
+	case SearchScopeEgw:
+		return true
+	case SearchScopeHymns:
+		return true
+	case SearchScopeVideo:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for TargetKind.
+const (
+	TargetKindBelief       TargetKind = "belief"
+	TargetKindCourseLesson TargetKind = "course_lesson"
+	TargetKindEgwParagraph TargetKind = "egw_paragraph"
+	TargetKindFeedItem     TargetKind = "feed_item"
+	TargetKindHymn         TargetKind = "hymn"
+	TargetKindSsDay        TargetKind = "ss_day"
+	TargetKindVerse        TargetKind = "verse"
+)
+
+// Valid indicates whether the value is a known member of the TargetKind enum.
+func (e TargetKind) Valid() bool {
+	switch e {
+	case TargetKindBelief:
+		return true
+	case TargetKindCourseLesson:
+		return true
+	case TargetKindEgwParagraph:
+		return true
+	case TargetKindFeedItem:
+		return true
+	case TargetKindHymn:
+		return true
+	case TargetKindSsDay:
+		return true
+	case TargetKindVerse:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for UserMarkKind.
+const (
+	Highlight UserMarkKind = "highlight"
+	Like      UserMarkKind = "like"
+	Note      UserMarkKind = "note"
+	Save      UserMarkKind = "save"
+)
+
+// Valid indicates whether the value is a known member of the UserMarkKind enum.
+func (e UserMarkKind) Valid() bool {
+	switch e {
+	case Highlight:
+		return true
+	case Like:
+		return true
+	case Note:
+		return true
+	case Save:
+		return true
+	default:
+		return false
+	}
+}
+
+// Belief defines model for Belief.
+type Belief struct {
+	// Body Present on GET /v1/beliefs/{n}
+	Body     *string        `json:"body,omitempty"`
+	GroupKey BeliefGroupKey `json:"group_key"`
+	N        int            `json:"n"`
+	Title    string         `json:"title"`
+}
+
+// BeliefGroupKey defines model for Belief.GroupKey.
+type BeliefGroupKey string
+
+// BibleBook defines model for BibleBook.
+type BibleBook struct {
+	// Abbr Example: Yn
+	Abbr *string `json:"abbr,omitempty"`
+
+	// Chapters Chapters with text in this translation (0 when none yet)
+	Chapters int `json:"chapters"`
+
+	// Name Example: Yohana
+	Name string `json:"name"`
+	Ord  int    `json:"ord"`
+
+	// Osis Example: JHN
+	Osis      string             `json:"osis"`
+	Testament BibleBookTestament `json:"testament"`
+}
+
+// BibleBookTestament defines model for BibleBook.Testament.
+type BibleBookTestament string
 
 // BibleChapter defines model for BibleChapter.
 type BibleChapter struct {
@@ -160,6 +393,67 @@ type BibleChapter struct {
 	Parallel    *string `json:"parallel,omitempty"`
 	Translation string  `json:"translation"`
 	Verses      []Verse `json:"verses"`
+}
+
+// Course defines model for Course.
+type Course struct {
+	Audience []string `json:"audience"`
+	Id       int      `json:"id"`
+	Lessons  int      `json:"lessons"`
+	Slug     string   `json:"slug"`
+	Title    string   `json:"title"`
+}
+
+// CourseLesson defines model for CourseLesson.
+type CourseLesson struct {
+	Body        string         `json:"body"`
+	CourseId    int            `json:"course_id"`
+	CourseTitle string         `json:"course_title"`
+	Image       *Media         `json:"image,omitempty"`
+	N           int            `json:"n"`
+	Questions   []QuizQuestion `json:"questions"`
+	Title       string         `json:"title"`
+	Total       int            `json:"total"`
+}
+
+// EgwBook defines model for EgwBook.
+type EgwBook struct {
+	// BookCode Example: SC
+	BookCode  string `json:"book_code"`
+	Chapters  int    `json:"chapters"`
+	EditionId int    `json:"edition_id"`
+	Lang      string `json:"lang"`
+
+	// OriginalTitle Example: Steps to Christ
+	OriginalTitle string `json:"original_title"`
+
+	// Title Example: Njia Salama
+	Title string `json:"title"`
+}
+
+// EgwChapter defines model for EgwChapter.
+type EgwChapter struct {
+	BookCode     string  `json:"book_code"`
+	Chapter      int     `json:"chapter"`
+	ChapterTitle *string `json:"chapter_title,omitempty"`
+
+	// Chapters Total chapters in the edition
+	Chapters     int            `json:"chapters"`
+	EditionId    int            `json:"edition_id"`
+	Paragraphs   []EgwParagraph `json:"paragraphs"`
+	ParallelLang *string        `json:"parallel_lang,omitempty"`
+	Title        string         `json:"title"`
+}
+
+// EgwParagraph defines model for EgwParagraph.
+type EgwParagraph struct {
+	Ord          int     `json:"ord"`
+	Page         *int    `json:"page,omitempty"`
+	ParallelText *string `json:"parallel_text,omitempty"`
+
+	// Refcode Example: SC 9.1
+	Refcode string `json:"refcode"`
+	Text    string `json:"text"`
 }
 
 // Error defines model for Error.
@@ -180,6 +474,7 @@ type FeedItem struct {
 	Kicker    string             `json:"kicker"`
 	Kind      FeedKind           `json:"kind"`
 	Lang      string             `json:"lang"`
+	LikeCount *int               `json:"like_count,omitempty"`
 	Media     *Media             `json:"media,omitempty"`
 	PublishAt time.Time          `json:"publish_at"`
 
@@ -201,6 +496,7 @@ type FeedItemDetail struct {
 	Kicker    string             `json:"kicker"`
 	Kind      FeedKind           `json:"kind"`
 	Lang      string             `json:"lang"`
+	LikeCount *int               `json:"like_count,omitempty"`
 	Links     []FeedLink         `json:"links"`
 	Media     *Media             `json:"media,omitempty"`
 	PublishAt time.Time          `json:"publish_at"`
@@ -246,6 +542,85 @@ type HealthDb string
 // HealthStatus defines model for Health.Status.
 type HealthStatus string
 
+// Hymn defines model for Hymn.
+type Hymn struct {
+	AudioChoir    *Media       `json:"audio_choir,omitempty"`
+	AudioPiano    *Media       `json:"audio_piano,omitempty"`
+	Category      *string      `json:"category,omitempty"`
+	Hymnal        string       `json:"hymnal"`
+	Number        int          `json:"number"`
+	OriginalTitle *string      `json:"original_title,omitempty"`
+	Stanzas       []HymnStanza `json:"stanzas"`
+	Title         string       `json:"title"`
+}
+
+// HymnStanza defines model for HymnStanza.
+type HymnStanza struct {
+	Idx  int            `json:"idx"`
+	Kind HymnStanzaKind `json:"kind"`
+	Text string         `json:"text"`
+}
+
+// HymnStanzaKind defines model for HymnStanza.Kind.
+type HymnStanzaKind string
+
+// HymnSummary defines model for HymnSummary.
+type HymnSummary struct {
+	Category      *string `json:"category,omitempty"`
+	HasAudio      bool    `json:"has_audio"`
+	Number        int     `json:"number"`
+	OriginalTitle *string `json:"original_title,omitempty"`
+	Title         string  `json:"title"`
+}
+
+// Hymnal defines model for Hymnal.
+type Hymnal struct {
+	Code string `json:"code"`
+	Lang string `json:"lang"`
+	Name string `json:"name"`
+}
+
+// LikeState defines model for LikeState.
+type LikeState struct {
+	LikeCount int  `json:"like_count"`
+	Liked     bool `json:"liked"`
+}
+
+// Me The caller's profile. Identity comes from the Keycloak `neno` realm; `id` is the token's `sub`.
+type Me struct {
+	BibleTranslation string             `json:"bible_translation"`
+	Church           *string            `json:"church,omitempty"`
+	DataSaver        bool               `json:"data_saver"`
+	DisplayName      *string            `json:"display_name,omitempty"`
+	Email            *string            `json:"email,omitempty"`
+	Id               openapi_types.UUID `json:"id"`
+	ParallelLang     *string            `json:"parallel_lang,omitempty"`
+	Phone            *string            `json:"phone,omitempty"`
+	Role             MeRole             `json:"role"`
+	SunsetCity       *string            `json:"sunset_city,omitempty"`
+	SunsetLat        *float32           `json:"sunset_lat,omitempty"`
+	SunsetLng        *float32           `json:"sunset_lng,omitempty"`
+	TextScale        float32            `json:"text_scale"`
+	UiLang           string             `json:"ui_lang"`
+}
+
+// MeRole defines model for Me.Role.
+type MeRole string
+
+// MePatch Only provided fields change. Send an empty string for parallel_lang / sunset_city to clear them.
+type MePatch struct {
+	BibleTranslation *string  `json:"bible_translation,omitempty"`
+	Church           *string  `json:"church,omitempty"`
+	DataSaver        *bool    `json:"data_saver,omitempty"`
+	DisplayName      *string  `json:"display_name,omitempty"`
+	ParallelLang     *string  `json:"parallel_lang,omitempty"`
+	SunsetCity       *string  `json:"sunset_city,omitempty"`
+	SunsetLat        *float32 `json:"sunset_lat,omitempty"`
+	SunsetLng        *float32 `json:"sunset_lng,omitempty"`
+	TextScale        *float32 `json:"text_scale,omitempty"`
+	UiLang           *string  `json:"ui_lang,omitempty"`
+}
+
 // Media defines model for Media.
 type Media struct {
 	// Bytes Shown as tap-to-load size in data-saver mode.
@@ -272,6 +647,148 @@ type Pack struct {
 	Version int    `json:"version"`
 }
 
+// QuizOption defines model for QuizOption.
+type QuizOption struct {
+	Id int `json:"id"`
+
+	// IsCorrect Sent to the client so the quiz works offline with immediate feedback.
+	IsCorrect bool   `json:"is_correct"`
+	Label     string `json:"label"`
+}
+
+// QuizQuestion defines model for QuizQuestion.
+type QuizQuestion struct {
+	// ExplainRef Example: DAN.7.17
+	ExplainRef  *string      `json:"explain_ref,omitempty"`
+	ExplainText *string      `json:"explain_text,omitempty"`
+	Id          int          `json:"id"`
+	Options     []QuizOption `json:"options"`
+	Prompt      string       `json:"prompt"`
+}
+
+// SabbathSchoolDay defines model for SabbathSchoolDay.
+type SabbathSchoolDay struct {
+	Audio *Media              `json:"audio,omitempty"`
+	Body  string              `json:"body"`
+	Date  *openapi_types.Date `json:"date,omitempty"`
+
+	// DayIdx 0 = Sabbath … 6 = Friday
+	DayIdx   int     `json:"day_idx"`
+	Question *string `json:"question,omitempty"`
+	Title    string  `json:"title"`
+}
+
+// SabbathSchoolWeek defines model for SabbathSchoolWeek.
+type SabbathSchoolWeek struct {
+	Days         []SabbathSchoolDay `json:"days"`
+	LessonN      int                `json:"lesson_n"`
+	LessonTitle  string             `json:"lesson_title"`
+	MemoryRef    *string            `json:"memory_ref,omitempty"`
+	MemoryText   *string            `json:"memory_text,omitempty"`
+	Quarter      int                `json:"quarter"`
+	QuarterTitle string             `json:"quarter_title"`
+
+	// WeekStart The Sabbath that starts the week
+	WeekStart openapi_types.Date `json:"week_start"`
+	Year      int                `json:"year"`
+}
+
+// SearchHit defines model for SearchHit.
+type SearchHit struct {
+	// Chapter EGW hits: chapter containing the paragraph
+	Chapter *int `json:"chapter,omitempty"`
+
+	// EditionId EGW hits: edition to open
+	EditionId *int            `json:"edition_id,omitempty"`
+	Snippet   string          `json:"snippet"`
+	Target    SearchHitTarget `json:"target"`
+
+	// TargetRef OSIS ref, refcode, belief n, HYMNAL/number, or feed item id
+	TargetRef string `json:"target_ref"`
+
+	// Title Example: Kutoka 20:8
+	Title string `json:"title"`
+}
+
+// SearchHitTarget defines model for SearchHit.Target.
+type SearchHitTarget string
+
+// SearchResults defines model for SearchResults.
+type SearchResults struct {
+	Groups []struct {
+		Hits  []SearchHit `json:"hits"`
+		Scope SearchScope `json:"scope"`
+	} `json:"groups"`
+}
+
+// SearchScope defines model for SearchScope.
+type SearchScope string
+
+// SyncRequest defines model for SyncRequest.
+type SyncRequest struct {
+	Answers *[]UserAnswer `json:"answers,omitempty"`
+
+	// Cursor From the previous SyncResponse; omit for a full pull.
+	Cursor   *string         `json:"cursor,omitempty"`
+	Marks    *[]UserMark     `json:"marks,omitempty"`
+	Progress *[]UserProgress `json:"progress,omitempty"`
+}
+
+// SyncResponse defines model for SyncResponse.
+type SyncResponse struct {
+	Answers  []UserAnswer   `json:"answers"`
+	Cursor   string         `json:"cursor"`
+	Marks    []UserMark     `json:"marks"`
+	Progress []UserProgress `json:"progress"`
+}
+
+// TargetKind defines model for TargetKind.
+type TargetKind string
+
+// UserAnswer defines model for UserAnswer.
+type UserAnswer struct {
+	Answer    *string            `json:"answer,omitempty"`
+	DeletedAt *time.Time         `json:"deleted_at,omitempty"`
+	Id        openapi_types.UUID `json:"id"`
+	OptionId  *int               `json:"option_id,omitempty"`
+	Target    TargetKind         `json:"target"`
+
+	// TargetRef ss_day id or course_lesson question id
+	TargetRef string    `json:"target_ref"`
+	UpdatedAt time.Time `json:"updated_at"`
+}
+
+// UserMark defines model for UserMark.
+type UserMark struct {
+	Color     *string    `json:"color,omitempty"`
+	CreatedAt time.Time  `json:"created_at"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"`
+
+	// Id Client-generated
+	Id        openapi_types.UUID `json:"id"`
+	Kind      UserMarkKind       `json:"kind"`
+	Note      *string            `json:"note,omitempty"`
+	Target    TargetKind         `json:"target"`
+	TargetRef string             `json:"target_ref"`
+	UpdatedAt time.Time          `json:"updated_at"`
+}
+
+// UserMarkKind defines model for UserMark.Kind.
+type UserMarkKind string
+
+// UserProgress defines model for UserProgress.
+type UserProgress struct {
+	Percent *int `json:"percent,omitempty"`
+
+	// Position e.g. last refcode or lesson n
+	Position *string    `json:"position,omitempty"`
+	Target   TargetKind `json:"target"`
+
+	// TargetRef e.g. EGW edition id, course id
+	TargetRef string    `json:"target_ref"`
+	UpdatedAt time.Time `json:"updated_at"`
+}
+
 // Verse defines model for Verse.
 type Verse struct {
 	// OsisRef Example: JHN.3.16
@@ -280,6 +797,9 @@ type Verse struct {
 	Text         string  `json:"text"`
 	Verse        int     `json:"verse"`
 }
+
+// FeedId defines model for FeedId.
+type FeedId = openapi_types.UUID
 
 // Lang Example: sw
 type Lang = string
@@ -290,9 +810,48 @@ type BadRequest = Error
 // NotFound defines model for NotFound.
 type NotFound = Error
 
+// Unauthorized defines model for Unauthorized.
+type Unauthorized = Error
+
+// ListBeliefsParams defines parameters for ListBeliefs.
+type ListBeliefsParams struct {
+	// Lang BCP 47 language (sw, en, fr). Defaults to sw.
+	Lang *Lang `form:"lang,omitempty" json:"lang,omitempty"`
+}
+
+// GetBeliefParams defines parameters for GetBelief.
+type GetBeliefParams struct {
+	// Lang BCP 47 language (sw, en, fr). Defaults to sw.
+	Lang *Lang `form:"lang,omitempty" json:"lang,omitempty"`
+}
+
 // GetBibleChapterParams defines parameters for GetBibleChapter.
 type GetBibleChapterParams struct {
 	// Parallel Second translation code to align verse-by-verse.
+	Parallel *string `form:"parallel,omitempty" json:"parallel,omitempty"`
+}
+
+// ListCoursesParams defines parameters for ListCourses.
+type ListCoursesParams struct {
+	// Lang BCP 47 language (sw, en, fr). Defaults to sw.
+	Lang *Lang `form:"lang,omitempty" json:"lang,omitempty"`
+}
+
+// AnswerQuizJSONBody defines parameters for AnswerQuiz.
+type AnswerQuizJSONBody struct {
+	OptionId   int `json:"option_id"`
+	QuestionId int `json:"question_id"`
+}
+
+// ListEgwBooksParams defines parameters for ListEgwBooks.
+type ListEgwBooksParams struct {
+	// Lang BCP 47 language (sw, en, fr). Defaults to sw.
+	Lang *Lang `form:"lang,omitempty" json:"lang,omitempty"`
+}
+
+// GetEgwChapterParams defines parameters for GetEgwChapter.
+type GetEgwChapterParams struct {
+	// Parallel Language whose edition of the same book to align (by refcode).
 	Parallel *string `form:"parallel,omitempty" json:"parallel,omitempty"`
 }
 
@@ -309,29 +868,116 @@ type ListFeedParams struct {
 	Limit *int    `form:"limit,omitempty" json:"limit,omitempty"`
 }
 
+// ListHymnsParams defines parameters for ListHymns.
+type ListHymnsParams struct {
+	// Q Number (exact) or title (fuzzy).
+	Q *string `form:"q,omitempty" json:"q,omitempty"`
+}
+
 // ListPacksParams defines parameters for ListPacks.
 type ListPacksParams struct {
 	// Lang BCP 47 language (sw, en, fr). Defaults to sw.
 	Lang *Lang `form:"lang,omitempty" json:"lang,omitempty"`
 }
 
+// GetSabbathSchoolCurrentParams defines parameters for GetSabbathSchoolCurrent.
+type GetSabbathSchoolCurrentParams struct {
+	// Lang BCP 47 language (sw, en, fr). Defaults to sw.
+	Lang *Lang               `form:"lang,omitempty" json:"lang,omitempty"`
+	Date *openapi_types.Date `form:"date,omitempty" json:"date,omitempty"`
+}
+
+// SearchParams defines parameters for Search.
+type SearchParams struct {
+	Q string `form:"q" json:"q"`
+
+	// Lang BCP 47 language (sw, en, fr). Defaults to sw.
+	Lang *Lang `form:"lang,omitempty" json:"lang,omitempty"`
+
+	// Scope Limit to one group.
+	Scope *SearchScope `form:"scope,omitempty" json:"scope,omitempty"`
+}
+
+// AnswerQuizJSONRequestBody defines body for AnswerQuiz for application/json ContentType.
+type AnswerQuizJSONRequestBody AnswerQuizJSONBody
+
+// UpdateMeJSONRequestBody defines body for UpdateMe for application/json ContentType.
+type UpdateMeJSONRequestBody = MePatch
+
+// SyncJSONRequestBody defines body for Sync for application/json ContentType.
+type SyncJSONRequestBody = SyncRequest
+
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
 	// GetHealth Liveness + database check
 	// (GET /healthz)
 	GetHealth(w http.ResponseWriter, r *http.Request)
+	// ListBeliefs The 28 Fundamental Beliefs (published texts only)
+	// (GET /v1/beliefs)
+	ListBeliefs(w http.ResponseWriter, r *http.Request, params ListBeliefsParams)
+	// GetBelief One belief with its full text
+	// (GET /v1/beliefs/{n})
+	GetBelief(w http.ResponseWriter, r *http.Request, n int, params GetBeliefParams)
+	// ListBibleBooks Books of a translation with chapter counts, names in the translation's language
+	// (GET /v1/bible/{translation}/books)
+	ListBibleBooks(w http.ResponseWriter, r *http.Request, translation string)
 	// GetBibleChapter Verses of one chapter, optionally with a parallel translation
 	// (GET /v1/bible/{translation}/{book}/{chapter})
 	GetBibleChapter(w http.ResponseWriter, r *http.Request, translation string, book string, chapter int, params GetBibleChapterParams)
+	// ListCourses Published Bible study courses
+	// (GET /v1/courses)
+	ListCourses(w http.ResponseWriter, r *http.Request, params ListCoursesParams)
+	// GetCourseLesson One lesson with its quiz
+	// (GET /v1/courses/{id}/lessons/{n})
+	GetCourseLesson(w http.ResponseWriter, r *http.Request, id int, n int)
+	// AnswerQuiz Record a quiz answer; returns whether it was correct
+	// (POST /v1/courses/{id}/lessons/{n}/answers)
+	AnswerQuiz(w http.ResponseWriter, r *http.Request, id int, n int)
+	// ListEgwBooks EGW editions available in a language
+	// (GET /v1/egw/books)
+	ListEgwBooks(w http.ResponseWriter, r *http.Request, params ListEgwBooksParams)
+	// GetEgwChapter Paragraphs of one chapter, optionally aligned with another language by refcode
+	// (GET /v1/egw/{edition}/chapters/{n})
+	GetEgwChapter(w http.ResponseWriter, r *http.Request, edition int, n int, params GetEgwChapterParams)
 	// ListFeed Published feed items, newest first, cursor-paginated
 	// (GET /v1/feed)
 	ListFeed(w http.ResponseWriter, r *http.Request, params ListFeedParams)
 	// GetFeedItem One feed item plus its "Soma pamoja" links
 	// (GET /v1/feed/{id})
 	GetFeedItem(w http.ResponseWriter, r *http.Request, id openapi_types.UUID)
+	// UnlikeFeedItem Remove a like (idempotent)
+	// (DELETE /v1/feed/{id}/like)
+	UnlikeFeedItem(w http.ResponseWriter, r *http.Request, id FeedId)
+	// LikeFeedItem Like a feed item (idempotent)
+	// (POST /v1/feed/{id}/like)
+	LikeFeedItem(w http.ResponseWriter, r *http.Request, id FeedId)
+	// ListHymnals Hymnals
+	// (GET /v1/hymnals)
+	ListHymnals(w http.ResponseWriter, r *http.Request)
+	// ListHymns Hymns of a hymnal, optionally filtered by number or title
+	// (GET /v1/hymnals/{code}/hymns)
+	ListHymns(w http.ResponseWriter, r *http.Request, code string, params ListHymnsParams)
+	// GetHymn Lyrics and audio of one hymn
+	// (GET /v1/hymnals/{code}/hymns/{number})
+	GetHymn(w http.ResponseWriter, r *http.Request, code string, number int)
+	// GetMe Profile + settings (created on first call from the token claims)
+	// (GET /v1/me)
+	GetMe(w http.ResponseWriter, r *http.Request)
+
+	// (PATCH /v1/me)
+	UpdateMe(w http.ResponseWriter, r *http.Request)
 	// ListPacks Offline pack manifest (latest version per slug)
 	// (GET /v1/packs)
 	ListPacks(w http.ResponseWriter, r *http.Request, params ListPacksParams)
+	// GetSabbathSchoolCurrent The lesson for the week containing `date` (default today)
+	// (GET /v1/sabbath-school/current)
+	GetSabbathSchoolCurrent(w http.ResponseWriter, r *http.Request, params GetSabbathSchoolCurrentParams)
+	// Search Grouped full-text + fuzzy search
+	// (GET /v1/search)
+	Search(w http.ResponseWriter, r *http.Request, params SearchParams)
+	// Sync Push local changes, pull server changes since cursor (last-write-wins on updated_at)
+	// (POST /v1/sync)
+	Sync(w http.ResponseWriter, r *http.Request)
 }
 
 // ServerInterfaceWrapper converts contexts to parameters.
@@ -348,6 +994,107 @@ func (siw *ServerInterfaceWrapper) GetHealth(w http.ResponseWriter, r *http.Requ
 
 	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		siw.Handler.GetHealth(w, r)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// ListBeliefs operation middleware
+func (siw *ServerInterfaceWrapper) ListBeliefs(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ListBeliefsParams
+
+	// ------------- Optional query parameter "lang" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "lang", r.URL.Query(), &params.Lang, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "lang"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "lang", Err: err})
+		}
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.ListBeliefs(w, r, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// GetBelief operation middleware
+func (siw *ServerInterfaceWrapper) GetBelief(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "n" -------------
+	var n int
+
+	err = runtime.BindStyledParameterWithOptions("simple", "n", r.PathValue("n"), &n, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "n", Err: err})
+		return
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params GetBeliefParams
+
+	// ------------- Optional query parameter "lang" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "lang", r.URL.Query(), &params.Lang, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "lang"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "lang", Err: err})
+		}
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.GetBelief(w, r, n, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// ListBibleBooks operation middleware
+func (siw *ServerInterfaceWrapper) ListBibleBooks(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "translation" -------------
+	var translation string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "translation", r.PathValue("translation"), &translation, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "string", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "translation", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.ListBibleBooks(w, r, translation)
 	}))
 
 	for _, middleware := range siw.HandlerMiddlewares {
@@ -408,6 +1155,193 @@ func (siw *ServerInterfaceWrapper) GetBibleChapter(w http.ResponseWriter, r *htt
 
 	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		siw.Handler.GetBibleChapter(w, r, translation, book, chapter, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// ListCourses operation middleware
+func (siw *ServerInterfaceWrapper) ListCourses(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ListCoursesParams
+
+	// ------------- Optional query parameter "lang" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "lang", r.URL.Query(), &params.Lang, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "lang"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "lang", Err: err})
+		}
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.ListCourses(w, r, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// GetCourseLesson operation middleware
+func (siw *ServerInterfaceWrapper) GetCourseLesson(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "id" -------------
+	var id int
+
+	err = runtime.BindStyledParameterWithOptions("simple", "id", r.PathValue("id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "id", Err: err})
+		return
+	}
+
+	// ------------- Path parameter "n" -------------
+	var n int
+
+	err = runtime.BindStyledParameterWithOptions("simple", "n", r.PathValue("n"), &n, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "n", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.GetCourseLesson(w, r, id, n)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// AnswerQuiz operation middleware
+func (siw *ServerInterfaceWrapper) AnswerQuiz(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "id" -------------
+	var id int
+
+	err = runtime.BindStyledParameterWithOptions("simple", "id", r.PathValue("id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "id", Err: err})
+		return
+	}
+
+	// ------------- Path parameter "n" -------------
+	var n int
+
+	err = runtime.BindStyledParameterWithOptions("simple", "n", r.PathValue("n"), &n, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "n", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.AnswerQuiz(w, r, id, n)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// ListEgwBooks operation middleware
+func (siw *ServerInterfaceWrapper) ListEgwBooks(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ListEgwBooksParams
+
+	// ------------- Optional query parameter "lang" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "lang", r.URL.Query(), &params.Lang, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "lang"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "lang", Err: err})
+		}
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.ListEgwBooks(w, r, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// GetEgwChapter operation middleware
+func (siw *ServerInterfaceWrapper) GetEgwChapter(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "edition" -------------
+	var edition int
+
+	err = runtime.BindStyledParameterWithOptions("simple", "edition", r.PathValue("edition"), &edition, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "edition", Err: err})
+		return
+	}
+
+	// ------------- Path parameter "n" -------------
+	var n int
+
+	err = runtime.BindStyledParameterWithOptions("simple", "n", r.PathValue("n"), &n, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "n", Err: err})
+		return
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params GetEgwChapterParams
+
+	// ------------- Optional query parameter "parallel" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "parallel", r.URL.Query(), &params.Parallel, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "parallel"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "parallel", Err: err})
+		}
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.GetEgwChapter(w, r, edition, n, params)
 	}))
 
 	for _, middleware := range siw.HandlerMiddlewares {
@@ -515,6 +1449,177 @@ func (siw *ServerInterfaceWrapper) GetFeedItem(w http.ResponseWriter, r *http.Re
 	handler.ServeHTTP(w, r)
 }
 
+// UnlikeFeedItem operation middleware
+func (siw *ServerInterfaceWrapper) UnlikeFeedItem(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "id" -------------
+	var id FeedId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "id", r.PathValue("id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "string", Format: "uuid", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "id", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.UnlikeFeedItem(w, r, id)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// LikeFeedItem operation middleware
+func (siw *ServerInterfaceWrapper) LikeFeedItem(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "id" -------------
+	var id FeedId
+
+	err = runtime.BindStyledParameterWithOptions("simple", "id", r.PathValue("id"), &id, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "string", Format: "uuid", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "id", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.LikeFeedItem(w, r, id)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// ListHymnals operation middleware
+func (siw *ServerInterfaceWrapper) ListHymnals(w http.ResponseWriter, r *http.Request) {
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.ListHymnals(w, r)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// ListHymns operation middleware
+func (siw *ServerInterfaceWrapper) ListHymns(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "code" -------------
+	var code string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "code", r.PathValue("code"), &code, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "string", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "code", Err: err})
+		return
+	}
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ListHymnsParams
+
+	// ------------- Optional query parameter "q" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "q", r.URL.Query(), &params.Q, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "q"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "q", Err: err})
+		}
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.ListHymns(w, r, code, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// GetHymn operation middleware
+func (siw *ServerInterfaceWrapper) GetHymn(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// ------------- Path parameter "code" -------------
+	var code string
+
+	err = runtime.BindStyledParameterWithOptions("simple", "code", r.PathValue("code"), &code, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "string", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "code", Err: err})
+		return
+	}
+
+	// ------------- Path parameter "number" -------------
+	var number int
+
+	err = runtime.BindStyledParameterWithOptions("simple", "number", r.PathValue("number"), &number, runtime.BindStyledParameterOptions{ParamLocation: runtime.ParamLocationPath, Explode: false, Required: true, Type: "integer", Format: "", ValueIsUnescaped: true})
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "number", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.GetHymn(w, r, code, number)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// GetMe operation middleware
+func (siw *ServerInterfaceWrapper) GetMe(w http.ResponseWriter, r *http.Request) {
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.GetMe(w, r)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// UpdateMe operation middleware
+func (siw *ServerInterfaceWrapper) UpdateMe(w http.ResponseWriter, r *http.Request) {
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.UpdateMe(w, r)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
 // ListPacks operation middleware
 func (siw *ServerInterfaceWrapper) ListPacks(w http.ResponseWriter, r *http.Request) {
 
@@ -539,6 +1644,125 @@ func (siw *ServerInterfaceWrapper) ListPacks(w http.ResponseWriter, r *http.Requ
 
 	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		siw.Handler.ListPacks(w, r, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// GetSabbathSchoolCurrent operation middleware
+func (siw *ServerInterfaceWrapper) GetSabbathSchoolCurrent(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params GetSabbathSchoolCurrentParams
+
+	// ------------- Optional query parameter "lang" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "lang", r.URL.Query(), &params.Lang, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "lang"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "lang", Err: err})
+		}
+		return
+	}
+
+	// ------------- Optional query parameter "date" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "date", r.URL.Query(), &params.Date, runtime.BindQueryParameterOptions{Type: "string", Format: "date"})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "date"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "date", Err: err})
+		}
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.GetSabbathSchoolCurrent(w, r, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// Search operation middleware
+func (siw *ServerInterfaceWrapper) Search(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params SearchParams
+
+	// ------------- Required query parameter "q" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, true, "q", r.URL.Query(), &params.Q, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "q"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "q", Err: err})
+		}
+		return
+	}
+
+	// ------------- Optional query parameter "lang" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "lang", r.URL.Query(), &params.Lang, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "lang"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "lang", Err: err})
+		}
+		return
+	}
+
+	// ------------- Optional query parameter "scope" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "scope", r.URL.Query(), &params.Scope, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "scope"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "scope", Err: err})
+		}
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.Search(w, r, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// Sync operation middleware
+func (siw *ServerInterfaceWrapper) Sync(w http.ResponseWriter, r *http.Request) {
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.Sync(w, r)
 	}))
 
 	for _, middleware := range siw.HandlerMiddlewares {
@@ -672,7 +1896,25 @@ func HandlerWithOptions(si ServerInterface, options StdHTTPServerOptions) http.H
 	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/v1/packs", wrapper.ListPacks)
 	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/v1/feed", wrapper.ListFeed)
 	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/v1/feed/{id}", wrapper.GetFeedItem)
+	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/v1/bible/{translation}/books", wrapper.ListBibleBooks)
 	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/v1/bible/{translation}/{book}/{chapter}", wrapper.GetBibleChapter)
+	m.HandleFunc(http.MethodDelete+" "+options.BaseURL+"/v1/feed/{id}/like", wrapper.UnlikeFeedItem)
+	m.HandleFunc(http.MethodPost+" "+options.BaseURL+"/v1/feed/{id}/like", wrapper.LikeFeedItem)
+	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/v1/egw/books", wrapper.ListEgwBooks)
+	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/v1/egw/{edition}/chapters/{n}", wrapper.GetEgwChapter)
+	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/v1/beliefs", wrapper.ListBeliefs)
+	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/v1/beliefs/{n}", wrapper.GetBelief)
+	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/v1/hymnals", wrapper.ListHymnals)
+	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/v1/hymnals/{code}/hymns", wrapper.ListHymns)
+	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/v1/hymnals/{code}/hymns/{number}", wrapper.GetHymn)
+	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/v1/sabbath-school/current", wrapper.GetSabbathSchoolCurrent)
+	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/v1/courses", wrapper.ListCourses)
+	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/v1/courses/{id}/lessons/{n}", wrapper.GetCourseLesson)
+	m.HandleFunc(http.MethodPost+" "+options.BaseURL+"/v1/courses/{id}/lessons/{n}/answers", wrapper.AnswerQuiz)
+	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/v1/search", wrapper.Search)
+	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/v1/me", wrapper.GetMe)
+	m.HandleFunc(http.MethodPatch+" "+options.BaseURL+"/v1/me", wrapper.UpdateMe)
+	m.HandleFunc(http.MethodPost+" "+options.BaseURL+"/v1/sync", wrapper.Sync)
 
 	return m
 }
@@ -680,6 +1922,8 @@ func HandlerWithOptions(si ServerInterface, options StdHTTPServerOptions) http.H
 type BadRequestJSONResponse Error
 
 type NotFoundJSONResponse Error
+
+type UnauthorizedJSONResponse Error
 
 type GetHealthRequestObject struct {
 }
@@ -716,6 +1960,120 @@ func (response GetHealth503JSONResponse) VisitGetHealthResponse(w http.ResponseW
 	return err
 }
 
+type ListBeliefsRequestObject struct {
+	Params ListBeliefsParams
+}
+
+type ListBeliefsResponseObject interface {
+	VisitListBeliefsResponse(w http.ResponseWriter) error
+}
+
+type ListBeliefs200JSONResponse struct {
+	Beliefs []Belief `json:"beliefs"`
+}
+
+func (response ListBeliefs200JSONResponse) VisitListBeliefsResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type ListBeliefs400JSONResponse struct{ BadRequestJSONResponse }
+
+func (response ListBeliefs400JSONResponse) VisitListBeliefsResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(400)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type GetBeliefRequestObject struct {
+	N      int `json:"n"`
+	Params GetBeliefParams
+}
+
+type GetBeliefResponseObject interface {
+	VisitGetBeliefResponse(w http.ResponseWriter) error
+}
+
+type GetBelief200JSONResponse Belief
+
+func (response GetBelief200JSONResponse) VisitGetBeliefResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type GetBelief404JSONResponse struct{ NotFoundJSONResponse }
+
+func (response GetBelief404JSONResponse) VisitGetBeliefResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(404)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type ListBibleBooksRequestObject struct {
+	Translation string `json:"translation"`
+}
+
+type ListBibleBooksResponseObject interface {
+	VisitListBibleBooksResponse(w http.ResponseWriter) error
+}
+
+type ListBibleBooks200JSONResponse struct {
+	Books       []BibleBook `json:"books"`
+	Translation string      `json:"translation"`
+}
+
+func (response ListBibleBooks200JSONResponse) VisitListBibleBooksResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type ListBibleBooks404JSONResponse struct{ NotFoundJSONResponse }
+
+func (response ListBibleBooks404JSONResponse) VisitListBibleBooksResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(404)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
 type GetBibleChapterRequestObject struct {
 	Translation string `json:"translation"`
 	Book        string `json:"book"`
@@ -744,6 +2102,226 @@ func (response GetBibleChapter200JSONResponse) VisitGetBibleChapterResponse(w ht
 type GetBibleChapter404JSONResponse struct{ NotFoundJSONResponse }
 
 func (response GetBibleChapter404JSONResponse) VisitGetBibleChapterResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(404)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type ListCoursesRequestObject struct {
+	Params ListCoursesParams
+}
+
+type ListCoursesResponseObject interface {
+	VisitListCoursesResponse(w http.ResponseWriter) error
+}
+
+type ListCourses200JSONResponse struct {
+	Courses []Course `json:"courses"`
+}
+
+func (response ListCourses200JSONResponse) VisitListCoursesResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type ListCourses400JSONResponse struct{ BadRequestJSONResponse }
+
+func (response ListCourses400JSONResponse) VisitListCoursesResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(400)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type GetCourseLessonRequestObject struct {
+	Id int `json:"id"`
+	N  int `json:"n"`
+}
+
+type GetCourseLessonResponseObject interface {
+	VisitGetCourseLessonResponse(w http.ResponseWriter) error
+}
+
+type GetCourseLesson200JSONResponse CourseLesson
+
+func (response GetCourseLesson200JSONResponse) VisitGetCourseLessonResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type GetCourseLesson404JSONResponse struct{ NotFoundJSONResponse }
+
+func (response GetCourseLesson404JSONResponse) VisitGetCourseLessonResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(404)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type AnswerQuizRequestObject struct {
+	Id   int `json:"id"`
+	N    int `json:"n"`
+	Body *AnswerQuizJSONRequestBody
+}
+
+type AnswerQuizResponseObject interface {
+	VisitAnswerQuizResponse(w http.ResponseWriter) error
+}
+
+type AnswerQuiz200JSONResponse struct {
+	Correct         bool `json:"correct"`
+	CorrectOptionId int  `json:"correct_option_id"`
+}
+
+func (response AnswerQuiz200JSONResponse) VisitAnswerQuizResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type AnswerQuiz400JSONResponse struct{ BadRequestJSONResponse }
+
+func (response AnswerQuiz400JSONResponse) VisitAnswerQuizResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(400)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type AnswerQuiz401JSONResponse struct{ UnauthorizedJSONResponse }
+
+func (response AnswerQuiz401JSONResponse) VisitAnswerQuizResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(401)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type AnswerQuiz404JSONResponse struct{ NotFoundJSONResponse }
+
+func (response AnswerQuiz404JSONResponse) VisitAnswerQuizResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(404)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type ListEgwBooksRequestObject struct {
+	Params ListEgwBooksParams
+}
+
+type ListEgwBooksResponseObject interface {
+	VisitListEgwBooksResponse(w http.ResponseWriter) error
+}
+
+type ListEgwBooks200JSONResponse struct {
+	Books []EgwBook `json:"books"`
+}
+
+func (response ListEgwBooks200JSONResponse) VisitListEgwBooksResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type ListEgwBooks400JSONResponse struct{ BadRequestJSONResponse }
+
+func (response ListEgwBooks400JSONResponse) VisitListEgwBooksResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(400)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type GetEgwChapterRequestObject struct {
+	Edition int `json:"edition"`
+	N       int `json:"n"`
+	Params  GetEgwChapterParams
+}
+
+type GetEgwChapterResponseObject interface {
+	VisitGetEgwChapterResponse(w http.ResponseWriter) error
+}
+
+type GetEgwChapter200JSONResponse EgwChapter
+
+func (response GetEgwChapter200JSONResponse) VisitGetEgwChapterResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type GetEgwChapter404JSONResponse struct{ NotFoundJSONResponse }
+
+func (response GetEgwChapter404JSONResponse) VisitGetEgwChapterResponse(w http.ResponseWriter) error {
 
 	var buf bytes.Buffer
 	if err := json.NewEncoder(&buf).Encode(response); err != nil {
@@ -827,6 +2405,290 @@ func (response GetFeedItem404JSONResponse) VisitGetFeedItemResponse(w http.Respo
 	return err
 }
 
+type UnlikeFeedItemRequestObject struct {
+	Id FeedId `json:"id"`
+}
+
+type UnlikeFeedItemResponseObject interface {
+	VisitUnlikeFeedItemResponse(w http.ResponseWriter) error
+}
+
+type UnlikeFeedItem200JSONResponse LikeState
+
+func (response UnlikeFeedItem200JSONResponse) VisitUnlikeFeedItemResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type UnlikeFeedItem401JSONResponse struct{ UnauthorizedJSONResponse }
+
+func (response UnlikeFeedItem401JSONResponse) VisitUnlikeFeedItemResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(401)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type UnlikeFeedItem404JSONResponse struct{ NotFoundJSONResponse }
+
+func (response UnlikeFeedItem404JSONResponse) VisitUnlikeFeedItemResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(404)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type LikeFeedItemRequestObject struct {
+	Id FeedId `json:"id"`
+}
+
+type LikeFeedItemResponseObject interface {
+	VisitLikeFeedItemResponse(w http.ResponseWriter) error
+}
+
+type LikeFeedItem200JSONResponse LikeState
+
+func (response LikeFeedItem200JSONResponse) VisitLikeFeedItemResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type LikeFeedItem401JSONResponse struct{ UnauthorizedJSONResponse }
+
+func (response LikeFeedItem401JSONResponse) VisitLikeFeedItemResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(401)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type LikeFeedItem404JSONResponse struct{ NotFoundJSONResponse }
+
+func (response LikeFeedItem404JSONResponse) VisitLikeFeedItemResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(404)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type ListHymnalsRequestObject struct {
+}
+
+type ListHymnalsResponseObject interface {
+	VisitListHymnalsResponse(w http.ResponseWriter) error
+}
+
+type ListHymnals200JSONResponse struct {
+	Hymnals []Hymnal `json:"hymnals"`
+}
+
+func (response ListHymnals200JSONResponse) VisitListHymnalsResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type ListHymnsRequestObject struct {
+	Code   string `json:"code"`
+	Params ListHymnsParams
+}
+
+type ListHymnsResponseObject interface {
+	VisitListHymnsResponse(w http.ResponseWriter) error
+}
+
+type ListHymns200JSONResponse struct {
+	Hymns []HymnSummary `json:"hymns"`
+}
+
+func (response ListHymns200JSONResponse) VisitListHymnsResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type ListHymns404JSONResponse struct{ NotFoundJSONResponse }
+
+func (response ListHymns404JSONResponse) VisitListHymnsResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(404)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type GetHymnRequestObject struct {
+	Code   string `json:"code"`
+	Number int    `json:"number"`
+}
+
+type GetHymnResponseObject interface {
+	VisitGetHymnResponse(w http.ResponseWriter) error
+}
+
+type GetHymn200JSONResponse Hymn
+
+func (response GetHymn200JSONResponse) VisitGetHymnResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type GetHymn404JSONResponse struct{ NotFoundJSONResponse }
+
+func (response GetHymn404JSONResponse) VisitGetHymnResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(404)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type GetMeRequestObject struct {
+}
+
+type GetMeResponseObject interface {
+	VisitGetMeResponse(w http.ResponseWriter) error
+}
+
+type GetMe200JSONResponse Me
+
+func (response GetMe200JSONResponse) VisitGetMeResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type GetMe401JSONResponse struct{ UnauthorizedJSONResponse }
+
+func (response GetMe401JSONResponse) VisitGetMeResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(401)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type UpdateMeRequestObject struct {
+	Body *UpdateMeJSONRequestBody
+}
+
+type UpdateMeResponseObject interface {
+	VisitUpdateMeResponse(w http.ResponseWriter) error
+}
+
+type UpdateMe200JSONResponse Me
+
+func (response UpdateMe200JSONResponse) VisitUpdateMeResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type UpdateMe400JSONResponse struct{ BadRequestJSONResponse }
+
+func (response UpdateMe400JSONResponse) VisitUpdateMeResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(400)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type UpdateMe401JSONResponse struct{ UnauthorizedJSONResponse }
+
+func (response UpdateMe401JSONResponse) VisitUpdateMeResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(401)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
 type ListPacksRequestObject struct {
 	Params ListPacksParams
 }
@@ -865,23 +2727,199 @@ func (response ListPacks400JSONResponse) VisitListPacksResponse(w http.ResponseW
 	return err
 }
 
+type GetSabbathSchoolCurrentRequestObject struct {
+	Params GetSabbathSchoolCurrentParams
+}
+
+type GetSabbathSchoolCurrentResponseObject interface {
+	VisitGetSabbathSchoolCurrentResponse(w http.ResponseWriter) error
+}
+
+type GetSabbathSchoolCurrent200JSONResponse SabbathSchoolWeek
+
+func (response GetSabbathSchoolCurrent200JSONResponse) VisitGetSabbathSchoolCurrentResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type GetSabbathSchoolCurrent404JSONResponse struct{ NotFoundJSONResponse }
+
+func (response GetSabbathSchoolCurrent404JSONResponse) VisitGetSabbathSchoolCurrentResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(404)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type SearchRequestObject struct {
+	Params SearchParams
+}
+
+type SearchResponseObject interface {
+	VisitSearchResponse(w http.ResponseWriter) error
+}
+
+type Search200JSONResponse SearchResults
+
+func (response Search200JSONResponse) VisitSearchResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type Search400JSONResponse struct{ BadRequestJSONResponse }
+
+func (response Search400JSONResponse) VisitSearchResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(400)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type SyncRequestObject struct {
+	Body *SyncJSONRequestBody
+}
+
+type SyncResponseObject interface {
+	VisitSyncResponse(w http.ResponseWriter) error
+}
+
+type Sync200JSONResponse SyncResponse
+
+func (response Sync200JSONResponse) VisitSyncResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type Sync400JSONResponse struct{ BadRequestJSONResponse }
+
+func (response Sync400JSONResponse) VisitSyncResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(400)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type Sync401JSONResponse struct{ UnauthorizedJSONResponse }
+
+func (response Sync401JSONResponse) VisitSyncResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(401)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
 // StrictServerInterface represents all server handlers.
 type StrictServerInterface interface {
 	// GetHealth Liveness + database check
 	// (GET /healthz)
 	GetHealth(ctx context.Context, request GetHealthRequestObject) (GetHealthResponseObject, error)
+	// ListBeliefs The 28 Fundamental Beliefs (published texts only)
+	// (GET /v1/beliefs)
+	ListBeliefs(ctx context.Context, request ListBeliefsRequestObject) (ListBeliefsResponseObject, error)
+	// GetBelief One belief with its full text
+	// (GET /v1/beliefs/{n})
+	GetBelief(ctx context.Context, request GetBeliefRequestObject) (GetBeliefResponseObject, error)
+	// ListBibleBooks Books of a translation with chapter counts, names in the translation's language
+	// (GET /v1/bible/{translation}/books)
+	ListBibleBooks(ctx context.Context, request ListBibleBooksRequestObject) (ListBibleBooksResponseObject, error)
 	// GetBibleChapter Verses of one chapter, optionally with a parallel translation
 	// (GET /v1/bible/{translation}/{book}/{chapter})
 	GetBibleChapter(ctx context.Context, request GetBibleChapterRequestObject) (GetBibleChapterResponseObject, error)
+	// ListCourses Published Bible study courses
+	// (GET /v1/courses)
+	ListCourses(ctx context.Context, request ListCoursesRequestObject) (ListCoursesResponseObject, error)
+	// GetCourseLesson One lesson with its quiz
+	// (GET /v1/courses/{id}/lessons/{n})
+	GetCourseLesson(ctx context.Context, request GetCourseLessonRequestObject) (GetCourseLessonResponseObject, error)
+	// AnswerQuiz Record a quiz answer; returns whether it was correct
+	// (POST /v1/courses/{id}/lessons/{n}/answers)
+	AnswerQuiz(ctx context.Context, request AnswerQuizRequestObject) (AnswerQuizResponseObject, error)
+	// ListEgwBooks EGW editions available in a language
+	// (GET /v1/egw/books)
+	ListEgwBooks(ctx context.Context, request ListEgwBooksRequestObject) (ListEgwBooksResponseObject, error)
+	// GetEgwChapter Paragraphs of one chapter, optionally aligned with another language by refcode
+	// (GET /v1/egw/{edition}/chapters/{n})
+	GetEgwChapter(ctx context.Context, request GetEgwChapterRequestObject) (GetEgwChapterResponseObject, error)
 	// ListFeed Published feed items, newest first, cursor-paginated
 	// (GET /v1/feed)
 	ListFeed(ctx context.Context, request ListFeedRequestObject) (ListFeedResponseObject, error)
 	// GetFeedItem One feed item plus its "Soma pamoja" links
 	// (GET /v1/feed/{id})
 	GetFeedItem(ctx context.Context, request GetFeedItemRequestObject) (GetFeedItemResponseObject, error)
+	// UnlikeFeedItem Remove a like (idempotent)
+	// (DELETE /v1/feed/{id}/like)
+	UnlikeFeedItem(ctx context.Context, request UnlikeFeedItemRequestObject) (UnlikeFeedItemResponseObject, error)
+	// LikeFeedItem Like a feed item (idempotent)
+	// (POST /v1/feed/{id}/like)
+	LikeFeedItem(ctx context.Context, request LikeFeedItemRequestObject) (LikeFeedItemResponseObject, error)
+	// ListHymnals Hymnals
+	// (GET /v1/hymnals)
+	ListHymnals(ctx context.Context, request ListHymnalsRequestObject) (ListHymnalsResponseObject, error)
+	// ListHymns Hymns of a hymnal, optionally filtered by number or title
+	// (GET /v1/hymnals/{code}/hymns)
+	ListHymns(ctx context.Context, request ListHymnsRequestObject) (ListHymnsResponseObject, error)
+	// GetHymn Lyrics and audio of one hymn
+	// (GET /v1/hymnals/{code}/hymns/{number})
+	GetHymn(ctx context.Context, request GetHymnRequestObject) (GetHymnResponseObject, error)
+	// GetMe Profile + settings (created on first call from the token claims)
+	// (GET /v1/me)
+	GetMe(ctx context.Context, request GetMeRequestObject) (GetMeResponseObject, error)
+
+	// (PATCH /v1/me)
+	UpdateMe(ctx context.Context, request UpdateMeRequestObject) (UpdateMeResponseObject, error)
 	// ListPacks Offline pack manifest (latest version per slug)
 	// (GET /v1/packs)
 	ListPacks(ctx context.Context, request ListPacksRequestObject) (ListPacksResponseObject, error)
+	// GetSabbathSchoolCurrent The lesson for the week containing `date` (default today)
+	// (GET /v1/sabbath-school/current)
+	GetSabbathSchoolCurrent(ctx context.Context, request GetSabbathSchoolCurrentRequestObject) (GetSabbathSchoolCurrentResponseObject, error)
+	// Search Grouped full-text + fuzzy search
+	// (GET /v1/search)
+	Search(ctx context.Context, request SearchRequestObject) (SearchResponseObject, error)
+	// Sync Push local changes, pull server changes since cursor (last-write-wins on updated_at)
+	// (POST /v1/sync)
+	Sync(ctx context.Context, request SyncRequestObject) (SyncResponseObject, error)
 }
 
 type StrictHandlerFunc func(ctx context.Context, w http.ResponseWriter, r *http.Request, request any) (any, error)
@@ -947,6 +2985,85 @@ func (sh *strictHandler) GetHealth(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// ListBeliefs operation middleware
+func (sh *strictHandler) ListBeliefs(w http.ResponseWriter, r *http.Request, params ListBeliefsParams) {
+	var request ListBeliefsRequestObject
+
+	request.Params = params
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.ListBeliefs(ctx, request.(ListBeliefsRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "ListBeliefs")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(ListBeliefsResponseObject); ok {
+		if err := validResponse.VisitListBeliefsResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// GetBelief operation middleware
+func (sh *strictHandler) GetBelief(w http.ResponseWriter, r *http.Request, n int, params GetBeliefParams) {
+	var request GetBeliefRequestObject
+
+	request.N = n
+	request.Params = params
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.GetBelief(ctx, request.(GetBeliefRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "GetBelief")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(GetBeliefResponseObject); ok {
+		if err := validResponse.VisitGetBeliefResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// ListBibleBooks operation middleware
+func (sh *strictHandler) ListBibleBooks(w http.ResponseWriter, r *http.Request, translation string) {
+	var request ListBibleBooksRequestObject
+
+	request.Translation = translation
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.ListBibleBooks(ctx, request.(ListBibleBooksRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "ListBibleBooks")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(ListBibleBooksResponseObject); ok {
+		if err := validResponse.VisitListBibleBooksResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
 // GetBibleChapter operation middleware
 func (sh *strictHandler) GetBibleChapter(w http.ResponseWriter, r *http.Request, translation string, book string, chapter int, params GetBibleChapterParams) {
 	var request GetBibleChapterRequestObject
@@ -969,6 +3086,147 @@ func (sh *strictHandler) GetBibleChapter(w http.ResponseWriter, r *http.Request,
 		sh.options.ResponseErrorHandlerFunc(w, r, err)
 	} else if validResponse, ok := response.(GetBibleChapterResponseObject); ok {
 		if err := validResponse.VisitGetBibleChapterResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// ListCourses operation middleware
+func (sh *strictHandler) ListCourses(w http.ResponseWriter, r *http.Request, params ListCoursesParams) {
+	var request ListCoursesRequestObject
+
+	request.Params = params
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.ListCourses(ctx, request.(ListCoursesRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "ListCourses")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(ListCoursesResponseObject); ok {
+		if err := validResponse.VisitListCoursesResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// GetCourseLesson operation middleware
+func (sh *strictHandler) GetCourseLesson(w http.ResponseWriter, r *http.Request, id int, n int) {
+	var request GetCourseLessonRequestObject
+
+	request.Id = id
+	request.N = n
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.GetCourseLesson(ctx, request.(GetCourseLessonRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "GetCourseLesson")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(GetCourseLessonResponseObject); ok {
+		if err := validResponse.VisitGetCourseLessonResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// AnswerQuiz operation middleware
+func (sh *strictHandler) AnswerQuiz(w http.ResponseWriter, r *http.Request, id int, n int) {
+	var request AnswerQuizRequestObject
+
+	request.Id = id
+	request.N = n
+
+	var body AnswerQuizJSONRequestBody
+	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+		sh.options.RequestErrorHandlerFunc(w, r, fmt.Errorf("can't decode JSON body: %w", err))
+		return
+	}
+	request.Body = &body
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.AnswerQuiz(ctx, request.(AnswerQuizRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "AnswerQuiz")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(AnswerQuizResponseObject); ok {
+		if err := validResponse.VisitAnswerQuizResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// ListEgwBooks operation middleware
+func (sh *strictHandler) ListEgwBooks(w http.ResponseWriter, r *http.Request, params ListEgwBooksParams) {
+	var request ListEgwBooksRequestObject
+
+	request.Params = params
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.ListEgwBooks(ctx, request.(ListEgwBooksRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "ListEgwBooks")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(ListEgwBooksResponseObject); ok {
+		if err := validResponse.VisitListEgwBooksResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// GetEgwChapter operation middleware
+func (sh *strictHandler) GetEgwChapter(w http.ResponseWriter, r *http.Request, edition int, n int, params GetEgwChapterParams) {
+	var request GetEgwChapterRequestObject
+
+	request.Edition = edition
+	request.N = n
+	request.Params = params
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.GetEgwChapter(ctx, request.(GetEgwChapterRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "GetEgwChapter")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(GetEgwChapterResponseObject); ok {
+		if err := validResponse.VisitGetEgwChapterResponse(w); err != nil {
 			sh.options.ResponseErrorHandlerFunc(w, r, err)
 		}
 	} else if response != nil {
@@ -1028,6 +3286,191 @@ func (sh *strictHandler) GetFeedItem(w http.ResponseWriter, r *http.Request, id 
 	}
 }
 
+// UnlikeFeedItem operation middleware
+func (sh *strictHandler) UnlikeFeedItem(w http.ResponseWriter, r *http.Request, id FeedId) {
+	var request UnlikeFeedItemRequestObject
+
+	request.Id = id
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.UnlikeFeedItem(ctx, request.(UnlikeFeedItemRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "UnlikeFeedItem")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(UnlikeFeedItemResponseObject); ok {
+		if err := validResponse.VisitUnlikeFeedItemResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// LikeFeedItem operation middleware
+func (sh *strictHandler) LikeFeedItem(w http.ResponseWriter, r *http.Request, id FeedId) {
+	var request LikeFeedItemRequestObject
+
+	request.Id = id
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.LikeFeedItem(ctx, request.(LikeFeedItemRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "LikeFeedItem")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(LikeFeedItemResponseObject); ok {
+		if err := validResponse.VisitLikeFeedItemResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// ListHymnals operation middleware
+func (sh *strictHandler) ListHymnals(w http.ResponseWriter, r *http.Request) {
+	var request ListHymnalsRequestObject
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.ListHymnals(ctx, request.(ListHymnalsRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "ListHymnals")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(ListHymnalsResponseObject); ok {
+		if err := validResponse.VisitListHymnalsResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// ListHymns operation middleware
+func (sh *strictHandler) ListHymns(w http.ResponseWriter, r *http.Request, code string, params ListHymnsParams) {
+	var request ListHymnsRequestObject
+
+	request.Code = code
+	request.Params = params
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.ListHymns(ctx, request.(ListHymnsRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "ListHymns")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(ListHymnsResponseObject); ok {
+		if err := validResponse.VisitListHymnsResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// GetHymn operation middleware
+func (sh *strictHandler) GetHymn(w http.ResponseWriter, r *http.Request, code string, number int) {
+	var request GetHymnRequestObject
+
+	request.Code = code
+	request.Number = number
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.GetHymn(ctx, request.(GetHymnRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "GetHymn")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(GetHymnResponseObject); ok {
+		if err := validResponse.VisitGetHymnResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// GetMe operation middleware
+func (sh *strictHandler) GetMe(w http.ResponseWriter, r *http.Request) {
+	var request GetMeRequestObject
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.GetMe(ctx, request.(GetMeRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "GetMe")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(GetMeResponseObject); ok {
+		if err := validResponse.VisitGetMeResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// UpdateMe operation middleware
+func (sh *strictHandler) UpdateMe(w http.ResponseWriter, r *http.Request) {
+	var request UpdateMeRequestObject
+
+	var body UpdateMeJSONRequestBody
+	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+		sh.options.RequestErrorHandlerFunc(w, r, fmt.Errorf("can't decode JSON body: %w", err))
+		return
+	}
+	request.Body = &body
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.UpdateMe(ctx, request.(UpdateMeRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "UpdateMe")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(UpdateMeResponseObject); ok {
+		if err := validResponse.VisitUpdateMeResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
 // ListPacks operation middleware
 func (sh *strictHandler) ListPacks(w http.ResponseWriter, r *http.Request, params ListPacksParams) {
 	var request ListPacksRequestObject
@@ -1047,6 +3490,89 @@ func (sh *strictHandler) ListPacks(w http.ResponseWriter, r *http.Request, param
 		sh.options.ResponseErrorHandlerFunc(w, r, err)
 	} else if validResponse, ok := response.(ListPacksResponseObject); ok {
 		if err := validResponse.VisitListPacksResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// GetSabbathSchoolCurrent operation middleware
+func (sh *strictHandler) GetSabbathSchoolCurrent(w http.ResponseWriter, r *http.Request, params GetSabbathSchoolCurrentParams) {
+	var request GetSabbathSchoolCurrentRequestObject
+
+	request.Params = params
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.GetSabbathSchoolCurrent(ctx, request.(GetSabbathSchoolCurrentRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "GetSabbathSchoolCurrent")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(GetSabbathSchoolCurrentResponseObject); ok {
+		if err := validResponse.VisitGetSabbathSchoolCurrentResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// Search operation middleware
+func (sh *strictHandler) Search(w http.ResponseWriter, r *http.Request, params SearchParams) {
+	var request SearchRequestObject
+
+	request.Params = params
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.Search(ctx, request.(SearchRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "Search")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(SearchResponseObject); ok {
+		if err := validResponse.VisitSearchResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// Sync operation middleware
+func (sh *strictHandler) Sync(w http.ResponseWriter, r *http.Request) {
+	var request SyncRequestObject
+
+	var body SyncJSONRequestBody
+	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+		sh.options.RequestErrorHandlerFunc(w, r, fmt.Errorf("can't decode JSON body: %w", err))
+		return
+	}
+	request.Body = &body
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.Sync(ctx, request.(SyncRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "Sync")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(SyncResponseObject); ok {
+		if err := validResponse.VisitSyncResponse(w); err != nil {
 			sh.options.ResponseErrorHandlerFunc(w, r, err)
 		}
 	} else if response != nil {

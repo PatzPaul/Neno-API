@@ -79,20 +79,77 @@ func toFeedItem(r store.ListFeedRow) api.FeedItem {
 		CtaLabel: textPtr(r.CtaLabel), CtaTarget: textPtr(r.CtaTarget),
 		PublishAt: r.PublishAt.Time,
 	}
+	likes := int(r.LikeCount)
+	it.LikeCount = &likes
 	if len(r.Audience) > 0 {
 		aud := r.Audience
 		it.Audience = &aud
 	}
-	if r.MediaID.Valid {
-		m := &api.Media{Id: r.MediaID.UUID, Kind: api.MediaKind(r.MediaKind.MediaKind), Url: r.MediaUrl.String, HlsUrl: textPtr(r.MediaHlsUrl)}
-		if r.MediaBytes.Valid {
-			m.Bytes = &r.MediaBytes.Int64
-		}
-		if r.MediaDurationS.Valid {
-			d := int(r.MediaDurationS.Int32)
-			m.DurationS = &d
-		}
-		it.Media = m
-	}
+	it.Media = toMedia(r.MediaID, r.MediaKind, r.MediaUrl, r.MediaHlsUrl, r.MediaBytes, r.MediaDurationS)
 	return it
+}
+
+// toMedia builds an API media object from a LEFT JOINed media row; nil when there is none.
+func toMedia(id uuid.NullUUID, kind store.NullMediaKind, url, hls pgtype.Text, bytes pgtype.Int8, dur pgtype.Int4) *api.Media {
+	if !id.Valid {
+		return nil
+	}
+	m := &api.Media{Id: id.UUID, Kind: api.MediaKind(kind.MediaKind), Url: url.String, HlsUrl: textPtr(hls)}
+	if bytes.Valid {
+		m.Bytes = &bytes.Int64
+	}
+	if dur.Valid {
+		d := int(dur.Int32)
+		m.DurationS = &d
+	}
+	return m
+}
+
+// feedTZ decides what "today" means for daily anchors (East Africa, UTC+3).
+var feedTZ = func() *time.Location {
+	if loc, err := time.LoadLocation("Africa/Nairobi"); err == nil {
+		return loc
+	}
+	return time.FixedZone("EAT", 3*60*60)
+}()
+
+// arrangeFeed reorders one page for display. Pagination stays keyset-based on the fetched batch, so this
+// never skips or repeats items across pages. On the first page the newest verse ("Aya ya Siku") leads,
+// followed by today's Sabbath School item; the rest is interleaved so no kind appears twice in a row when
+// another kind is available.
+func arrangeFeed(items []api.FeedItem, firstPage bool, now time.Time) []api.FeedItem {
+	rest := append([]api.FeedItem(nil), items...)
+	out := make([]api.FeedItem, 0, len(items))
+	take := func(match func(api.FeedItem) bool) {
+		for i, it := range rest {
+			if match(it) {
+				out = append(out, it)
+				rest = append(rest[:i], rest[i+1:]...)
+				return
+			}
+		}
+	}
+	if firstPage {
+		today := now.In(feedTZ).Format(time.DateOnly)
+		take(func(it api.FeedItem) bool { return it.Kind == api.FeedKindVerse })
+		take(func(it api.FeedItem) bool {
+			return it.Kind == api.FeedKindSabbathSchool && it.PublishAt.In(feedTZ).Format(time.DateOnly) == today
+		})
+	}
+	for len(rest) > 0 {
+		var prev api.FeedKind
+		if len(out) > 0 {
+			prev = out[len(out)-1].Kind
+		}
+		i := 0
+		for j, it := range rest {
+			if it.Kind != prev {
+				i = j
+				break
+			}
+		}
+		out = append(out, rest[i])
+		rest = append(rest[:i], rest[i+1:]...)
+	}
+	return out
 }

@@ -41,9 +41,12 @@ EOF
 
 if $UPLOAD_ENV || ! ssh "$HOST" test -f /etc/neno-api/env; then
   echo "==> uploading /etc/neno-api/env"
-  DB_URL="$(grep -E '^DATABASE_URL=' .env | cut -d= -f2-)"
+  envval() { grep -E "^$1=" .env | cut -d= -f2-; }
+  DB_URL="$(envval DATABASE_URL)"
   [[ -n "$DB_URL" ]] || { echo "DATABASE_URL missing from .env" >&2; exit 1; }
-  printf 'DATABASE_URL=%s\nPORT=%s\n' "$DB_URL" "$PORT" |
+  KC_ISS="$(envval KEYCLOAK_ISSUER)"; KC_AUD="$(envval KEYCLOAK_AUDIENCE)"
+  printf 'DATABASE_URL=%s\nPORT=%s\nKEYCLOAK_ISSUER=%s\nKEYCLOAK_AUDIENCE=%s\n' \
+    "$DB_URL" "$PORT" "${KC_ISS:-https://sso.mala.co.tz/realms/neno}" "${KC_AUD:-neno-api}" |
     ssh "$HOST" 'umask 027 && cat > /etc/neno-api/env.new && chown root:neno-api /etc/neno-api/env.new && mv /etc/neno-api/env.new /etc/neno-api/env'
 fi
 

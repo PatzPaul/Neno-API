@@ -11,10 +11,12 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
+	_ "time/tzdata" // Africa/Nairobi for feed anchors, even on minimal hosts
 
 	"github.com/jackc/pgx/v5/pgxpool"
 
 	"github.com/PatzPaul/Neno-API/internal/api"
+	"github.com/PatzPaul/Neno-API/internal/auth"
 	"github.com/PatzPaul/Neno-API/internal/server"
 )
 
@@ -50,7 +52,16 @@ func run() error {
 		return fmt.Errorf("database unreachable: %w", err)
 	}
 
-	strict := api.NewStrictHandlerWithOptions(server.New(pool), nil, api.StrictHTTPServerOptions{
+	verifier, err := auth.New(ctx, auth.Config{
+		Issuer:   envOr("KEYCLOAK_ISSUER", "https://sso.mala.co.tz/realms/neno"),
+		Audience: envOr("KEYCLOAK_AUDIENCE", "neno-api"),
+	})
+	if err != nil {
+		return err
+	}
+	srv := server.New(pool, verifier)
+
+	strict := api.NewStrictHandlerWithOptions(srv, []api.StrictMiddlewareFunc{srv.AuthMiddleware()}, api.StrictHTTPServerOptions{
 		RequestErrorHandlerFunc: func(w http.ResponseWriter, r *http.Request, err error) {
 			writeError(w, http.StatusBadRequest, err.Error())
 		},
@@ -66,7 +77,7 @@ func run() error {
 		},
 	})
 
-	srv := &http.Server{
+	httpSrv := &http.Server{
 		Addr:              addr,
 		Handler:           logRequests(cors(handler)),
 		ReadHeaderTimeout: 5 * time.Second,
@@ -78,7 +89,7 @@ func run() error {
 	errCh := make(chan error, 1)
 	go func() {
 		slog.Info("api listening", "addr", addr)
-		errCh <- srv.ListenAndServe()
+		errCh <- httpSrv.ListenAndServe()
 	}()
 
 	select {
@@ -88,7 +99,7 @@ func run() error {
 	}
 	shutdownCtx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	return srv.Shutdown(shutdownCtx)
+	return httpSrv.Shutdown(shutdownCtx)
 }
 
 func envOr(k, def string) string {

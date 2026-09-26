@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Neno API
-  version: 0.1.0
+  version: 0.2.0
   description: |
     Swahili-first Bible & SDA learning API. Source of truth for the contract:
     edit this file, then run `make openapi` to regenerate Go (and, in Neno-App, TS) types.
@@ -87,6 +87,25 @@ paths:
               schema: { $ref: "#/components/schemas/FeedItemDetail" }
         "404": { $ref: "#/components/responses/NotFound" }
 
+  /v1/bible/{translation}/books:
+    get:
+      operationId: listBibleBooks
+      summary: Books of a translation with chapter counts, names in the translation's language
+      parameters:
+        - { name: translation, in: path, required: true, schema: { type: string, example: SUV } }
+      responses:
+        "200":
+          description: Books in canonical order
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [translation, books]
+                properties:
+                  translation: { type: string }
+                  books: { type: array, items: { $ref: "#/components/schemas/BibleBook" } }
+        "404": { $ref: "#/components/responses/NotFound" }
+
   /v1/bible/{translation}/{book}/{chapter}:
     get:
       operationId: getBibleChapter
@@ -117,8 +136,234 @@ paths:
               schema: { $ref: "#/components/schemas/BibleChapter" }
         "404": { $ref: "#/components/responses/NotFound" }
 
+  /v1/feed/{id}/like:
+    post:
+      operationId: likeFeedItem
+      summary: Like a feed item (idempotent)
+      security: [{ bearer: [] }]
+      parameters: [{ $ref: "#/components/parameters/FeedId" }]
+      responses:
+        "200": { description: New like state, content: { application/json: { schema: { $ref: "#/components/schemas/LikeState" } } } }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+        "404": { $ref: "#/components/responses/NotFound" }
+    delete:
+      operationId: unlikeFeedItem
+      summary: Remove a like (idempotent)
+      security: [{ bearer: [] }]
+      parameters: [{ $ref: "#/components/parameters/FeedId" }]
+      responses:
+        "200": { description: New like state, content: { application/json: { schema: { $ref: "#/components/schemas/LikeState" } } } }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+        "404": { $ref: "#/components/responses/NotFound" }
+
+  /v1/egw/books:
+    get:
+      operationId: listEgwBooks
+      summary: EGW editions available in a language
+      parameters: [{ $ref: "#/components/parameters/Lang" }]
+      responses:
+        "200":
+          description: Editions
+          content:
+            application/json:
+              schema: { type: object, required: [books], properties: { books: { type: array, items: { $ref: "#/components/schemas/EgwBook" } } } }
+        "400": { $ref: "#/components/responses/BadRequest" }
+
+  /v1/egw/{edition}/chapters/{n}:
+    get:
+      operationId: getEgwChapter
+      summary: Paragraphs of one chapter, optionally aligned with another language by refcode
+      parameters:
+        - { name: edition, in: path, required: true, schema: { type: integer } }
+        - { name: n, in: path, required: true, schema: { type: integer, minimum: 1 } }
+        - { name: parallel, in: query, description: "Language whose edition of the same book to align (by refcode).", schema: { type: string, example: en } }
+      responses:
+        "200": { description: The chapter, content: { application/json: { schema: { $ref: "#/components/schemas/EgwChapter" } } } }
+        "404": { $ref: "#/components/responses/NotFound" }
+
+  /v1/beliefs:
+    get:
+      operationId: listBeliefs
+      summary: The 28 Fundamental Beliefs (published texts only)
+      parameters: [{ $ref: "#/components/parameters/Lang" }]
+      responses:
+        "200":
+          description: Beliefs in order
+          content:
+            application/json:
+              schema: { type: object, required: [beliefs], properties: { beliefs: { type: array, items: { $ref: "#/components/schemas/Belief" } } } }
+        "400": { $ref: "#/components/responses/BadRequest" }
+
+  /v1/beliefs/{n}:
+    get:
+      operationId: getBelief
+      summary: One belief with its full text
+      parameters:
+        - { name: n, in: path, required: true, schema: { type: integer, minimum: 1, maximum: 28 } }
+        - $ref: "#/components/parameters/Lang"
+      responses:
+        "200": { description: The belief, content: { application/json: { schema: { $ref: "#/components/schemas/Belief" } } } }
+        "404": { $ref: "#/components/responses/NotFound" }
+
+  /v1/hymnals:
+    get:
+      operationId: listHymnals
+      summary: Hymnals
+      responses:
+        "200":
+          description: Hymnals
+          content:
+            application/json:
+              schema: { type: object, required: [hymnals], properties: { hymnals: { type: array, items: { $ref: "#/components/schemas/Hymnal" } } } }
+
+  /v1/hymnals/{code}/hymns:
+    get:
+      operationId: listHymns
+      summary: Hymns of a hymnal, optionally filtered by number or title
+      parameters:
+        - { name: code, in: path, required: true, schema: { type: string, example: NZK } }
+        - { name: q, in: query, description: "Number (exact) or title (fuzzy).", schema: { type: string } }
+      responses:
+        "200":
+          description: Hymns by number
+          content:
+            application/json:
+              schema: { type: object, required: [hymns], properties: { hymns: { type: array, items: { $ref: "#/components/schemas/HymnSummary" } } } }
+        "404": { $ref: "#/components/responses/NotFound" }
+
+  /v1/hymnals/{code}/hymns/{number}:
+    get:
+      operationId: getHymn
+      summary: Lyrics and audio of one hymn
+      parameters:
+        - { name: code, in: path, required: true, schema: { type: string } }
+        - { name: number, in: path, required: true, schema: { type: integer, minimum: 1 } }
+      responses:
+        "200": { description: The hymn, content: { application/json: { schema: { $ref: "#/components/schemas/Hymn" } } } }
+        "404": { $ref: "#/components/responses/NotFound" }
+
+  /v1/sabbath-school/current:
+    get:
+      operationId: getSabbathSchoolCurrent
+      summary: The lesson for the week containing `date` (default today)
+      parameters:
+        - $ref: "#/components/parameters/Lang"
+        - { name: date, in: query, schema: { type: string, format: date } }
+      responses:
+        "200": { description: Current lesson, content: { application/json: { schema: { $ref: "#/components/schemas/SabbathSchoolWeek" } } } }
+        "404": { $ref: "#/components/responses/NotFound" }
+
+  /v1/courses:
+    get:
+      operationId: listCourses
+      summary: Published Bible study courses
+      parameters: [{ $ref: "#/components/parameters/Lang" }]
+      responses:
+        "200":
+          description: Courses
+          content:
+            application/json:
+              schema: { type: object, required: [courses], properties: { courses: { type: array, items: { $ref: "#/components/schemas/Course" } } } }
+        "400": { $ref: "#/components/responses/BadRequest" }
+
+  /v1/courses/{id}/lessons/{n}:
+    get:
+      operationId: getCourseLesson
+      summary: One lesson with its quiz
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+        - { name: n, in: path, required: true, schema: { type: integer, minimum: 1 } }
+      responses:
+        "200": { description: The lesson, content: { application/json: { schema: { $ref: "#/components/schemas/CourseLesson" } } } }
+        "404": { $ref: "#/components/responses/NotFound" }
+
+  /v1/courses/{id}/lessons/{n}/answers:
+    post:
+      operationId: answerQuiz
+      summary: Record a quiz answer; returns whether it was correct
+      security: [{ bearer: [] }]
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+        - { name: n, in: path, required: true, schema: { type: integer, minimum: 1 } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [question_id, option_id]
+              properties: { question_id: { type: integer }, option_id: { type: integer } }
+      responses:
+        "200":
+          description: Result
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [correct, correct_option_id]
+                properties: { correct: { type: boolean }, correct_option_id: { type: integer } }
+        "400": { $ref: "#/components/responses/BadRequest" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+        "404": { $ref: "#/components/responses/NotFound" }
+
+  /v1/search:
+    get:
+      operationId: search
+      summary: Grouped full-text + fuzzy search
+      parameters:
+        - { name: q, in: query, required: true, schema: { type: string, minLength: 2 } }
+        - $ref: "#/components/parameters/Lang"
+        - { name: scope, in: query, description: "Limit to one group.", schema: { $ref: "#/components/schemas/SearchScope" } }
+      responses:
+        "200": { description: Results, content: { application/json: { schema: { $ref: "#/components/schemas/SearchResults" } } } }
+        "400": { $ref: "#/components/responses/BadRequest" }
+
+  /v1/me:
+    get:
+      operationId: getMe
+      summary: Profile + settings (created on first call from the token claims)
+      security: [{ bearer: [] }]
+      responses:
+        "200": { description: Profile + settings, content: { application/json: { schema: { $ref: "#/components/schemas/Me" } } } }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+    patch:
+      operationId: updateMe
+      security: [{ bearer: [] }]
+      requestBody:
+        required: true
+        content: { application/json: { schema: { $ref: "#/components/schemas/MePatch" } } }
+      responses:
+        "200": { description: Updated, content: { application/json: { schema: { $ref: "#/components/schemas/Me" } } } }
+        "400": { $ref: "#/components/responses/BadRequest" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+
+  /v1/sync:
+    post:
+      operationId: sync
+      summary: Push local changes, pull server changes since cursor (last-write-wins on updated_at)
+      security: [{ bearer: [] }]
+      requestBody:
+        required: true
+        content: { application/json: { schema: { $ref: "#/components/schemas/SyncRequest" } } }
+      responses:
+        "200": { description: Server changes, content: { application/json: { schema: { $ref: "#/components/schemas/SyncResponse" } } } }
+        "400": { $ref: "#/components/responses/BadRequest" }
+        "401": { $ref: "#/components/responses/Unauthorized" }
+
 components:
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Access token from Keycloak realm `neno` (https://sso.mala.co.tz/realms/neno), audience `neno-api`.
+
   parameters:
+    FeedId:
+      name: id
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
     Lang:
       name: lang
       in: query
@@ -126,6 +371,9 @@ components:
       schema: { type: string, default: sw, example: sw }
 
   responses:
+    Unauthorized:
+      description: Missing or invalid access token
+      content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } }
     BadRequest:
       description: Invalid request
       content:
@@ -197,6 +445,7 @@ components:
           type: array
           items: { type: string }
         publish_at: { type: string, format: date-time }
+        like_count: { type: integer }
 
     FeedLink:
       type: object
@@ -251,3 +500,281 @@ components:
         verses:
           type: array
           items: { $ref: "#/components/schemas/Verse" }
+
+    LikeState:
+      type: object
+      required: [liked, like_count]
+      properties: { liked: { type: boolean }, like_count: { type: integer } }
+
+    EgwBook:
+      type: object
+      required: [edition_id, book_code, lang, title, original_title, chapters]
+      properties:
+        edition_id: { type: integer }
+        book_code: { type: string, example: SC }
+        lang: { type: string }
+        title: { type: string, example: Njia Salama }
+        original_title: { type: string, example: Steps to Christ }
+        chapters: { type: integer }
+
+    EgwParagraph:
+      type: object
+      required: [refcode, ord, text]
+      properties:
+        refcode: { type: string, example: "SC 9.1" }
+        ord: { type: integer }
+        page: { type: integer }
+        text: { type: string }
+        parallel_text: { type: string }
+
+    EgwChapter:
+      type: object
+      required: [edition_id, book_code, title, chapter, chapters, paragraphs]
+      properties:
+        edition_id: { type: integer }
+        book_code: { type: string }
+        title: { type: string }
+        chapter: { type: integer }
+        chapters: { type: integer, description: Total chapters in the edition }
+        chapter_title: { type: string }
+        parallel_lang: { type: string }
+        paragraphs: { type: array, items: { $ref: "#/components/schemas/EgwParagraph" } }
+
+    Belief:
+      type: object
+      required: [n, group_key, title]
+      properties:
+        n: { type: integer }
+        group_key: { type: string, enum: [god, humanity, salvation, church, christian_life, last_things] }
+        title: { type: string }
+        body: { type: string, description: "Present on GET /v1/beliefs/{n}" }
+
+    Hymnal:
+      type: object
+      required: [code, lang, name]
+      properties: { code: { type: string }, lang: { type: string }, name: { type: string } }
+
+    HymnSummary:
+      type: object
+      required: [number, title, has_audio]
+      properties:
+        number: { type: integer }
+        title: { type: string }
+        original_title: { type: string }
+        category: { type: string }
+        has_audio: { type: boolean }
+
+    HymnStanza:
+      type: object
+      required: [idx, kind, text]
+      properties: { idx: { type: integer }, kind: { type: string, enum: [verse, refrain] }, text: { type: string } }
+
+    Hymn:
+      type: object
+      required: [hymnal, number, title, stanzas]
+      properties:
+        hymnal: { type: string }
+        number: { type: integer }
+        title: { type: string }
+        original_title: { type: string }
+        category: { type: string }
+        stanzas: { type: array, items: { $ref: "#/components/schemas/HymnStanza" } }
+        audio_choir: { $ref: "#/components/schemas/Media" }
+        audio_piano: { $ref: "#/components/schemas/Media" }
+
+    SabbathSchoolDay:
+      type: object
+      required: [day_idx, title, body]
+      properties:
+        day_idx: { type: integer, description: "0 = Sabbath … 6 = Friday" }
+        date: { type: string, format: date }
+        title: { type: string }
+        body: { type: string }
+        question: { type: string }
+        audio: { $ref: "#/components/schemas/Media" }
+
+    SabbathSchoolWeek:
+      type: object
+      required: [year, quarter, quarter_title, lesson_n, lesson_title, week_start, days]
+      properties:
+        year: { type: integer }
+        quarter: { type: integer }
+        quarter_title: { type: string }
+        lesson_n: { type: integer }
+        lesson_title: { type: string }
+        week_start: { type: string, format: date, description: The Sabbath that starts the week }
+        memory_ref: { type: string }
+        memory_text: { type: string }
+        days: { type: array, items: { $ref: "#/components/schemas/SabbathSchoolDay" } }
+
+    Course:
+      type: object
+      required: [id, slug, title, audience, lessons]
+      properties:
+        id: { type: integer }
+        slug: { type: string }
+        title: { type: string }
+        audience: { type: array, items: { type: string } }
+        lessons: { type: integer }
+
+    QuizOption:
+      type: object
+      required: [id, label, is_correct]
+      properties:
+        id: { type: integer }
+        label: { type: string }
+        is_correct: { type: boolean, description: Sent to the client so the quiz works offline with immediate feedback. }
+
+    QuizQuestion:
+      type: object
+      required: [id, prompt, options]
+      properties:
+        id: { type: integer }
+        prompt: { type: string }
+        explain_ref: { type: string, example: DAN.7.17 }
+        explain_text: { type: string }
+        options: { type: array, items: { $ref: "#/components/schemas/QuizOption" } }
+
+    CourseLesson:
+      type: object
+      required: [course_id, course_title, n, total, title, body, questions]
+      properties:
+        course_id: { type: integer }
+        course_title: { type: string }
+        n: { type: integer }
+        total: { type: integer }
+        title: { type: string }
+        body: { type: string }
+        image: { $ref: "#/components/schemas/Media" }
+        questions: { type: array, items: { $ref: "#/components/schemas/QuizQuestion" } }
+
+    SearchScope:
+      type: string
+      enum: [bible, egw, beliefs, hymns, video]
+
+    SearchHit:
+      type: object
+      required: [title, snippet, target, target_ref]
+      properties:
+        title: { type: string, example: "Kutoka 20:8" }
+        snippet: { type: string }
+        target: { type: string, enum: [verse, egw_paragraph, belief, hymn, feed_item] }
+        target_ref: { type: string, description: "OSIS ref, refcode, belief n, HYMNAL/number, or feed item id" }
+        edition_id: { type: integer, description: "EGW hits: edition to open" }
+        chapter: { type: integer, description: "EGW hits: chapter containing the paragraph" }
+
+    SearchResults:
+      type: object
+      required: [groups]
+      properties:
+        groups:
+          type: array
+          items:
+            type: object
+            required: [scope, hits]
+            properties:
+              scope: { $ref: "#/components/schemas/SearchScope" }
+              hits: { type: array, items: { $ref: "#/components/schemas/SearchHit" } }
+
+    Me:
+      type: object
+      description: The caller's profile. Identity comes from the Keycloak `neno` realm; `id` is the token's `sub`.
+      required: [id, role, ui_lang, bible_translation, text_scale, data_saver]
+      properties:
+        id: { type: string, format: uuid }
+        email: { type: string }
+        phone: { type: string }
+        display_name: { type: string }
+        church: { type: string }
+        role: { type: string, enum: [member, editor, reviewer, admin] }
+        ui_lang: { type: string }
+        parallel_lang: { type: string }
+        bible_translation: { type: string }
+        text_scale: { type: number }
+        data_saver: { type: boolean }
+        sunset_city: { type: string }
+        sunset_lat: { type: number }
+        sunset_lng: { type: number }
+
+    MePatch:
+      type: object
+      description: Only provided fields change. Send an empty string for parallel_lang / sunset_city to clear them.
+      properties:
+        display_name: { type: string, maxLength: 80 }
+        church: { type: string, maxLength: 120 }
+        ui_lang: { type: string }
+        parallel_lang: { type: string }
+        bible_translation: { type: string }
+        text_scale: { type: number, minimum: 1, maximum: 2 }
+        data_saver: { type: boolean }
+        sunset_city: { type: string }
+        sunset_lat: { type: number, minimum: -90, maximum: 90 }
+        sunset_lng: { type: number, minimum: -180, maximum: 180 }
+
+    TargetKind:
+      type: string
+      enum: [verse, egw_paragraph, belief, hymn, feed_item, ss_day, course_lesson]
+
+    UserMark:
+      type: object
+      required: [id, kind, target, target_ref, created_at, updated_at]
+      properties:
+        id: { type: string, format: uuid, description: Client-generated }
+        kind: { type: string, enum: [highlight, note, save, like] }
+        target: { $ref: "#/components/schemas/TargetKind" }
+        target_ref: { type: string }
+        color: { type: string }
+        note: { type: string }
+        created_at: { type: string, format: date-time }
+        updated_at: { type: string, format: date-time }
+        deleted_at: { type: string, format: date-time }
+
+    UserAnswer:
+      type: object
+      required: [id, target, target_ref, updated_at]
+      properties:
+        id: { type: string, format: uuid }
+        target: { $ref: "#/components/schemas/TargetKind" }
+        target_ref: { type: string, description: "ss_day id or course_lesson question id" }
+        answer: { type: string }
+        option_id: { type: integer }
+        updated_at: { type: string, format: date-time }
+        deleted_at: { type: string, format: date-time }
+
+    UserProgress:
+      type: object
+      required: [target, target_ref, updated_at]
+      properties:
+        target: { $ref: "#/components/schemas/TargetKind" }
+        target_ref: { type: string, description: "e.g. EGW edition id, course id" }
+        position: { type: string, description: "e.g. last refcode or lesson n" }
+        percent: { type: integer, minimum: 0, maximum: 100 }
+        updated_at: { type: string, format: date-time }
+
+    SyncRequest:
+      type: object
+      properties:
+        cursor: { type: string, description: From the previous SyncResponse; omit for a full pull. }
+        marks: { type: array, items: { $ref: "#/components/schemas/UserMark" } }
+        answers: { type: array, items: { $ref: "#/components/schemas/UserAnswer" } }
+        progress: { type: array, items: { $ref: "#/components/schemas/UserProgress" } }
+
+    SyncResponse:
+      type: object
+      required: [cursor, marks, answers, progress]
+      properties:
+        cursor: { type: string }
+        marks: { type: array, items: { $ref: "#/components/schemas/UserMark" } }
+        answers: { type: array, items: { $ref: "#/components/schemas/UserAnswer" } }
+        progress: { type: array, items: { $ref: "#/components/schemas/UserProgress" } }
+
+    BibleBook:
+      type: object
+      required: [osis, ord, testament, name, chapters]
+      properties:
+        osis: { type: string, example: JHN }
+        ord: { type: integer }
+        testament: { type: string, enum: [OT, NT] }
+        name: { type: string, example: Yohana }
+        abbr: { type: string, example: Yn }
+        chapters: { type: integer, description: "Chapters with text in this translation (0 when none yet)" }
