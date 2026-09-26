@@ -1,7 +1,7 @@
 -include .env
 export
 
-.PHONY: dev run build test vet migrate migrate-down migrate-status seed sqlc openapi gen services services-down deploy
+.PHONY: dev run build test vet migrate migrate-down migrate-status seed packs sqlc openapi gen services services-down deploy
 
 ## dev: start MinIO and run the API with hot reload (air)
 dev: services
@@ -34,6 +34,10 @@ migrate-status:
 ## seed: load [SAMPLE] dev data (idempotent)
 seed:
 	psql "$$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/seed/sample.sql
+
+## packs: build offline SQLite packs into $$PACKS_DIR (new versions only when content changed)
+packs:
+	go run ./cmd/packs build --out "$${PACKS_DIR:-./tmp/packs}" --base-url "$${PACKS_BASE_URL:-http://localhost:8080}"
 
 sqlc:
 	sqlc generate

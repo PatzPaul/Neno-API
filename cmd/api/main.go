@@ -17,6 +17,7 @@ import (
 
 	"github.com/PatzPaul/Neno-API/internal/api"
 	"github.com/PatzPaul/Neno-API/internal/auth"
+	"github.com/PatzPaul/Neno-API/internal/packfiles"
 	"github.com/PatzPaul/Neno-API/internal/server"
 )
 
@@ -77,9 +78,14 @@ func run() error {
 		},
 	})
 
+	// Offline pack files live outside the OpenAPI router; /v1/packs is their manifest.
+	root := http.NewServeMux()
+	root.Handle("GET /packs/{file}", packfiles.Handler(envOr("PACKS_DIR", "/var/lib/neno-api/packs")))
+	root.Handle("/", handler)
+
 	httpSrv := &http.Server{
 		Addr:              addr,
-		Handler:           logRequests(cors(handler)),
+		Handler:           logRequests(cors(root)),
 		ReadHeaderTimeout: 5 * time.Second,
 		ReadTimeout:       15 * time.Second,
 		WriteTimeout:      30 * time.Second,

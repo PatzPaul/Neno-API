@@ -582,9 +582,26 @@ func TestSearchGroups(t *testing.T) {
 
 func TestPacksLatestOnly(t *testing.T) {
 	e := newTestEnv(t)
+	ctx := context.Background()
+	slug := "test-" + uuid.NewString()[:8]
+	t.Cleanup(func() { _, _ = e.pool.Exec(ctx, `DELETE FROM packs WHERE slug = $1`, slug) })
+	if _, err := e.pool.Exec(ctx, `INSERT INTO packs (slug, lang, version, url, bytes, sha256) VALUES
+		($1, 'sw', 1, 'http://test.invalid/packs/v1', 10, repeat('0', 64)),
+		($1, 'sw', 2, 'http://test.invalid/packs/v2', 20, repeat('0', 64))`, slug); err != nil {
+		t.Fatal(err)
+	}
 	var res struct{ Packs []api.Pack }
 	e.get(t, "/v1/packs?lang=sw", 200, &res)
-	if len(res.Packs) != 2 || res.Packs[0].Slug != "bible-SUV" || res.Packs[0].Version != 2 {
-		t.Fatalf("packs = %+v", res.Packs)
+	found := 0
+	for _, p := range res.Packs {
+		if p.Slug == slug {
+			found++
+			if p.Version != 2 || p.Bytes != 20 {
+				t.Fatalf("latest = %+v, want v2", p)
+			}
+		}
+	}
+	if found != 1 {
+		t.Fatalf("slug %s appears %d times in %+v", slug, found, res.Packs)
 	}
 }

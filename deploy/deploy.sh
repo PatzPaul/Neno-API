@@ -6,7 +6,7 @@
 #
 # Env overrides: DEPLOY_HOST (ssh alias, default mala_server), DEPLOY_PORT (default 8090).
 # The server runs other production services: this script only touches /opt/neno-api, /etc/neno-api,
-# the neno-api systemd unit and user, and one ufw rule for DEPLOY_PORT.
+# /var/lib/neno-api (offline packs), the neno-api systemd unit and user, and one ufw rule for DEPLOY_PORT.
 set -euo pipefail
 
 HOST="${DEPLOY_HOST:-mala_server}"
@@ -28,6 +28,7 @@ BUILD="$(mktemp -d)"
 trap 'rm -rf "$BUILD"' EXIT
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -trimpath -ldflags "-s -w" -o "$BUILD/api" ./cmd/api
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -trimpath -ldflags "-s -w" -o "$BUILD/migrate" ./cmd/migrate
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -trimpath -ldflags "-s -w" -o "$BUILD/packs" ./cmd/packs
 cp deploy/neno-api.service "$BUILD/"
 
 echo "==> one-time setup on $HOST (idempotent)"
@@ -36,6 +37,7 @@ set -euo pipefail
 id neno-api >/dev/null 2>&1 || useradd --system --no-create-home --shell /usr/sbin/nologin neno-api
 install -d -m 755 "$APP" "$APP/releases"
 install -d -m 750 -o root -g neno-api /etc/neno-api
+install -d -m 755 -o neno-api -g neno-api /var/lib/neno-api /var/lib/neno-api/packs
 if command -v ufw >/dev/null && ! ufw status | grep -q "^$PORT/tcp "; then ufw allow "$PORT/tcp" comment 'neno-api'; fi
 EOF
 
@@ -45,13 +47,15 @@ if $UPLOAD_ENV || ! ssh "$HOST" test -f /etc/neno-api/env; then
   DB_URL="$(envval DATABASE_URL)"
   [[ -n "$DB_URL" ]] || { echo "DATABASE_URL missing from .env" >&2; exit 1; }
   KC_ISS="$(envval KEYCLOAK_ISSUER)"; KC_AUD="$(envval KEYCLOAK_AUDIENCE)"
-  printf 'DATABASE_URL=%s\nPORT=%s\nKEYCLOAK_ISSUER=%s\nKEYCLOAK_AUDIENCE=%s\n' \
-    "$DB_URL" "$PORT" "${KC_ISS:-https://sso.mala.co.tz/realms/neno}" "${KC_AUD:-neno-api}" |
+  PUBLIC_IP="$(ssh -G "$HOST" | awk '/^hostname /{print $2}')"
+  printf 'DATABASE_URL=%s\nPORT=%s\nKEYCLOAK_ISSUER=%s\nKEYCLOAK_AUDIENCE=%s\nPACKS_DIR=%s\nPACKS_BASE_URL=%s\n' \
+    "$DB_URL" "$PORT" "${KC_ISS:-https://sso.mala.co.tz/realms/neno}" "${KC_AUD:-neno-api}" \
+    /var/lib/neno-api/packs "http://$PUBLIC_IP:$PORT" |
     ssh "$HOST" 'umask 027 && cat > /etc/neno-api/env.new && chown root:neno-api /etc/neno-api/env.new && mv /etc/neno-api/env.new /etc/neno-api/env'
 fi
 
 echo "==> uploading release"
-tar -C "$BUILD" -czf - api migrate neno-api.service |
+tar -C "$BUILD" -czf - api migrate packs neno-api.service |
   ssh "$HOST" "install -d $APP/releases/$REL && tar -C $APP/releases/$REL -xzf -"
 
 echo "==> migrate + switch + health check"
@@ -63,6 +67,9 @@ PREV="$(readlink current 2>/dev/null || true)"
 
 # Migrations are forward-only in deploys; run as the service user with the service env.
 ( set -a; . /etc/neno-api/env; set +a; runuser -u neno-api -- "$NEW/migrate" up )
+# Offline packs: publishes a new version only when content changed (safe to run every deploy).
+( set -a; . /etc/neno-api/env; set +a
+  runuser -u neno-api -- "$NEW/packs" build --out "${PACKS_DIR:-/var/lib/neno-api/packs}" --base-url "${PACKS_BASE_URL:?PACKS_BASE_URL missing; run deploy.sh --env}" )
 
 install -m 644 "$NEW/neno-api.service" /etc/systemd/system/neno-api.service
 systemctl daemon-reload

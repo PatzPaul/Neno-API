@@ -59,7 +59,15 @@ The Expo client lives in a separate repo, **Neno-App** (sibling checkout `../Nen
 - `POST /v1/sync`: last-write-wins on the client's `updated_at` (clamped to server now + 5 min); pulls page on
   `server_updated_at` with a 30 s overlap, so clients must merge by id. Max 500 pushed items per request.
 
+## Offline packs
+- `cmd/packs build` (`make packs`) writes `<slug>-v<N>.sqlite` to `PACKS_DIR` and inserts a `packs` row only when
+  the content hash changes; the API serves files at `GET /packs/{file}` (`internal/packfiles`, outside OpenAPI).
+- Pure-Go SQLite (modernc) keeps `CGO_ENABLED=0`. Pack schemas live in `internal/packs/build.go` and are a
+  contract with the app's pack reader — change them only with a coordinated app release.
+- Deploy runs the build after migrations; files live in `/var/lib/neno-api/packs` on mala_server.
+
 ## Status
 Done: all v0.2 endpoints (content, search, likes, me, sync, quiz), Keycloak auth, feed anchors + kind interleave,
 66 book names (sw/en), [SAMPLE] seed for every content type.
-Next: `cmd/packs` (offline SQLite packs), `cmd/ingest` (USFM/EGW/hymn importers), admin/review endpoints.
+Done: offline packs (`cmd/packs`, `/packs/{file}`).
+Next: `cmd/ingest` (USFM/EGW/hymn importers), admin/review endpoints.

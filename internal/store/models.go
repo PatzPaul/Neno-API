@@ -456,14 +456,15 @@ type Medium struct {
 }
 
 type Pack struct {
-	ID        int32
-	Slug      string
-	Lang      string
-	Version   int32
-	Url       string
-	Bytes     int64
-	Sha256    string
-	CreatedAt time.Time
+	ID          int32
+	Slug        string
+	Lang        string
+	Version     int32
+	Url         string
+	Bytes       int64
+	Sha256      string
+	CreatedAt   time.Time
+	ContentHash pgtype.Text
 }
 
 type QuizOption struct {

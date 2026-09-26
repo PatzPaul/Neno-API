@@ -53,11 +53,7 @@ INSERT INTO feed_links (item_id, ord, target, target_ref, label) VALUES
   ('00000000-0000-4000-8000-000000000001', 3, 'belief',        '10',       '[SAMPLE] Imani 10')
 ON CONFLICT DO NOTHING;
 
-INSERT INTO packs (slug, lang, version, url, bytes, sha256) VALUES
-  ('bible-SUV', 'sw', 1, 'https://cdn.example.invalid/packs/bible-SUV-v1.sqlite', 4200000, repeat('0', 64)),
-  ('bible-SUV', 'sw', 2, 'https://cdn.example.invalid/packs/bible-SUV-v2.sqlite', 4300000, repeat('0', 64)),
-  ('hymnal-NZK', 'sw', 1, 'https://cdn.example.invalid/packs/hymnal-NZK-v1.sqlite', 900000, repeat('0', 64))
-ON CONFLICT (slug, version) DO NOTHING;
+-- Pack manifest rows come from `cmd/packs build` (real, downloadable files), not from the seed.
 
 -- Reader sample: John 1–3 and Daniel 7 in both translations (placeholder text). KJV deliberately lacks
 -- John 3:19 so parallel alignment with a missing verse stays exercised.

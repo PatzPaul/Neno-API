@@ -29,6 +29,11 @@ paths:
     get:
       operationId: listPacks
       summary: Offline pack manifest (latest version per slug)
+      description: |
+        Each pack is a read-only SQLite file built by `cmd/packs` and served as an immutable static file at
+        `GET /packs/{slug}-v{version}.sqlite` (outside this router; supports Range and If-None-Match).
+        Verify downloads against `sha256`. Slugs: `bible-<TRANSLATION>`, `egw-<lang>-<BOOK>`, `hymnal-<CODE>`.
+        Every file has `meta(key, value)` with slug, kind, lang, version, built_at, content_hash.
       parameters:
         - $ref: "#/components/parameters/Lang"
       responses:
