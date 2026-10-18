@@ -395,6 +395,25 @@ type BibleChapter struct {
 	Verses      []Verse `json:"verses"`
 }
 
+// BibleTranslation defines model for BibleTranslation.
+type BibleTranslation struct {
+	// Attribution Must be shown wherever the text is displayed.
+	Attribution string `json:"attribution"`
+
+	// Code Example: NENO
+	Code string `json:"code"`
+
+	// Lang Example: sw
+	Lang string `json:"lang"`
+
+	// License Example: CC BY-SA 4.0
+	License    string  `json:"license"`
+	LicenseUrl *string `json:"license_url,omitempty"`
+
+	// Name Example: Biblia Takatifu (Neno)
+	Name string `json:"name"`
+}
+
 // Course defines model for Course.
 type Course struct {
 	Audience []string `json:"audience"`
@@ -825,6 +844,12 @@ type GetBeliefParams struct {
 	Lang *Lang `form:"lang,omitempty" json:"lang,omitempty"`
 }
 
+// ListBibleTranslationsParams defines parameters for ListBibleTranslations.
+type ListBibleTranslationsParams struct {
+	// Lang Only translations in this language (default all).
+	Lang *string `form:"lang,omitempty" json:"lang,omitempty"`
+}
+
 // GetBibleChapterParams defines parameters for GetBibleChapter.
 type GetBibleChapterParams struct {
 	// Parallel Second translation code to align verse-by-verse.
@@ -918,6 +943,9 @@ type ServerInterface interface {
 	// GetBelief One belief with its full text
 	// (GET /v1/beliefs/{n})
 	GetBelief(w http.ResponseWriter, r *http.Request, n int, params GetBeliefParams)
+	// ListBibleTranslations Available Bible translations with the licence and attribution the app must display
+	// (GET /v1/bible/translations)
+	ListBibleTranslations(w http.ResponseWriter, r *http.Request, params ListBibleTranslationsParams)
 	// ListBibleBooks Books of a translation with chapter counts, names in the translation's language
 	// (GET /v1/bible/{translation}/books)
 	ListBibleBooks(w http.ResponseWriter, r *http.Request, translation string)
@@ -1069,6 +1097,39 @@ func (siw *ServerInterfaceWrapper) GetBelief(w http.ResponseWriter, r *http.Requ
 
 	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		siw.Handler.GetBelief(w, r, n, params)
+	}))
+
+	for _, middleware := range siw.HandlerMiddlewares {
+		handler = middleware(handler)
+	}
+
+	handler.ServeHTTP(w, r)
+}
+
+// ListBibleTranslations operation middleware
+func (siw *ServerInterfaceWrapper) ListBibleTranslations(w http.ResponseWriter, r *http.Request) {
+
+	var err error
+	_ = err
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params ListBibleTranslationsParams
+
+	// ------------- Optional query parameter "lang" -------------
+
+	err = runtime.BindQueryParameterWithOptions("form", true, false, "lang", r.URL.Query(), &params.Lang, runtime.BindQueryParameterOptions{Type: "string", Format: ""})
+	if err != nil {
+		var requiredError *runtime.RequiredParameterError
+		if errors.As(err, &requiredError) {
+			siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "lang"})
+		} else {
+			siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "lang", Err: err})
+		}
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.ListBibleTranslations(w, r, params)
 	}))
 
 	for _, middleware := range siw.HandlerMiddlewares {
@@ -1896,6 +1957,7 @@ func HandlerWithOptions(si ServerInterface, options StdHTTPServerOptions) http.H
 	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/v1/packs", wrapper.ListPacks)
 	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/v1/feed", wrapper.ListFeed)
 	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/v1/feed/{id}", wrapper.GetFeedItem)
+	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/v1/bible/translations", wrapper.ListBibleTranslations)
 	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/v1/bible/{translation}/books", wrapper.ListBibleBooks)
 	m.HandleFunc(http.MethodGet+" "+options.BaseURL+"/v1/bible/{translation}/{book}/{chapter}", wrapper.GetBibleChapter)
 	m.HandleFunc(http.MethodDelete+" "+options.BaseURL+"/v1/feed/{id}/like", wrapper.UnlikeFeedItem)
@@ -2031,6 +2093,30 @@ func (response GetBelief404JSONResponse) VisitGetBeliefResponse(w http.ResponseW
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(404)
+	_, err := buf.WriteTo(w)
+	return err
+}
+
+type ListBibleTranslationsRequestObject struct {
+	Params ListBibleTranslationsParams
+}
+
+type ListBibleTranslationsResponseObject interface {
+	VisitListBibleTranslationsResponse(w http.ResponseWriter) error
+}
+
+type ListBibleTranslations200JSONResponse struct {
+	Translations []BibleTranslation `json:"translations"`
+}
+
+func (response ListBibleTranslations200JSONResponse) VisitListBibleTranslationsResponse(w http.ResponseWriter) error {
+
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(response); err != nil {
+		return err
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(200)
 	_, err := buf.WriteTo(w)
 	return err
 }
@@ -2860,6 +2946,9 @@ type StrictServerInterface interface {
 	// GetBelief One belief with its full text
 	// (GET /v1/beliefs/{n})
 	GetBelief(ctx context.Context, request GetBeliefRequestObject) (GetBeliefResponseObject, error)
+	// ListBibleTranslations Available Bible translations with the licence and attribution the app must display
+	// (GET /v1/bible/translations)
+	ListBibleTranslations(ctx context.Context, request ListBibleTranslationsRequestObject) (ListBibleTranslationsResponseObject, error)
 	// ListBibleBooks Books of a translation with chapter counts, names in the translation's language
 	// (GET /v1/bible/{translation}/books)
 	ListBibleBooks(ctx context.Context, request ListBibleBooksRequestObject) (ListBibleBooksResponseObject, error)
@@ -3031,6 +3120,32 @@ func (sh *strictHandler) GetBelief(w http.ResponseWriter, r *http.Request, n int
 		sh.options.ResponseErrorHandlerFunc(w, r, err)
 	} else if validResponse, ok := response.(GetBeliefResponseObject); ok {
 		if err := validResponse.VisitGetBeliefResponse(w); err != nil {
+			sh.options.ResponseErrorHandlerFunc(w, r, err)
+		}
+	} else if response != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, fmt.Errorf("unexpected response type: %T", response))
+	}
+}
+
+// ListBibleTranslations operation middleware
+func (sh *strictHandler) ListBibleTranslations(w http.ResponseWriter, r *http.Request, params ListBibleTranslationsParams) {
+	var request ListBibleTranslationsRequestObject
+
+	request.Params = params
+
+	handler := func(ctx context.Context, w http.ResponseWriter, r *http.Request, request interface{}) (interface{}, error) {
+		return sh.ssi.ListBibleTranslations(ctx, request.(ListBibleTranslationsRequestObject))
+	}
+	for _, middleware := range sh.middlewares {
+		handler = middleware(handler, "ListBibleTranslations")
+	}
+
+	response, err := handler(r.Context(), w, r, request)
+
+	if err != nil {
+		sh.options.ResponseErrorHandlerFunc(w, r, err)
+	} else if validResponse, ok := response.(ListBibleTranslationsResponseObject); ok {
+		if err := validResponse.VisitListBibleTranslationsResponse(w); err != nil {
 			sh.options.ResponseErrorHandlerFunc(w, r, err)
 		}
 	} else if response != nil {

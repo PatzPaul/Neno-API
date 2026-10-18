@@ -64,3 +64,11 @@ FROM bible_books b
 LEFT JOIN bible_book_names n ON n.book = b.osis AND n.lang = @lang
 LEFT JOIN bible_book_names e ON e.book = b.osis AND e.lang = 'en'
 ORDER BY b.ord;
+
+-- name: ListBibleTranslations :many
+-- Only translations that actually have text (the reader can open them).
+SELECT t.code, t.lang, t.name, t.license, COALESCE(t.attribution, t.license)::text AS attribution, t.license_url
+FROM bible_translations t
+WHERE EXISTS (SELECT 1 FROM verses v WHERE v.translation_id = t.id)
+  AND (sqlc.narg(lang)::text IS NULL OR t.lang = sqlc.narg(lang)::text)
+ORDER BY t.lang, t.code;

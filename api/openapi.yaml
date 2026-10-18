@@ -92,6 +92,28 @@ paths:
               schema: { $ref: "#/components/schemas/FeedItemDetail" }
         "404": { $ref: "#/components/responses/NotFound" }
 
+  /v1/bible/translations:
+    get:
+      operationId: listBibleTranslations
+      summary: Available Bible translations with the licence and attribution the app must display
+      parameters:
+        - name: lang
+          in: query
+          description: Only translations in this language (default all).
+          schema: { type: string }
+      responses:
+        "200":
+          description: Translations that have text
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [translations]
+                properties:
+                  translations:
+                    type: array
+                    items: { $ref: "#/components/schemas/BibleTranslation" }
+
   /v1/bible/{translation}/books:
     get:
       operationId: listBibleBooks
@@ -772,6 +794,17 @@ components:
         marks: { type: array, items: { $ref: "#/components/schemas/UserMark" } }
         answers: { type: array, items: { $ref: "#/components/schemas/UserAnswer" } }
         progress: { type: array, items: { $ref: "#/components/schemas/UserProgress" } }
+
+    BibleTranslation:
+      type: object
+      required: [code, lang, name, license, attribution]
+      properties:
+        code: { type: string, example: NENO }
+        lang: { type: string, example: sw }
+        name: { type: string, example: "Biblia Takatifu (Neno)" }
+        license: { type: string, example: "CC BY-SA 4.0" }
+        license_url: { type: string }
+        attribution: { type: string, description: "Must be shown wherever the text is displayed." }
 
     BibleBook:
       type: object

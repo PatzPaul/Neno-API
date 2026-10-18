@@ -1,7 +1,7 @@
 -include .env
 export
 
-.PHONY: dev run build test vet migrate migrate-down migrate-status seed packs sqlc openapi gen services services-down deploy
+.PHONY: dev run build test test-db vet migrate migrate-down migrate-status seed packs sqlc openapi gen services services-down deploy
 
 ## dev: start MinIO and run the API with hot reload (air)
 dev: services
@@ -15,8 +15,15 @@ build:
 	go build -o bin/api ./cmd/api
 	go build -o bin/migrate ./cmd/migrate
 
+## test: unit + integration tests against TEST_DATABASE_URL (run `make test-db` first / after schema changes)
 test:
-	go test ./...
+	NENO_TEST_DATABASE_URL="$$TEST_DATABASE_URL" go test ./...
+
+## test-db: rebuild the test database: all migrations from scratch + [SAMPLE] seed
+test-db:
+	-DATABASE_URL="$$TEST_DATABASE_URL" go run ./cmd/migrate reset
+	DATABASE_URL="$$TEST_DATABASE_URL" go run ./cmd/migrate up
+	psql "$$TEST_DATABASE_URL" -v ON_ERROR_STOP=1 -f db/seed/sample.sql
 
 vet:
 	go vet ./...
@@ -31,7 +38,7 @@ migrate-down:
 migrate-status:
 	go run ./cmd/migrate status
 
-## seed: load [SAMPLE] dev data (idempotent)
+## seed: load [SAMPLE] data into DATABASE_URL (only for local/dev databases — never the live one)
 seed:
 	psql "$$DATABASE_URL" -v ON_ERROR_STOP=1 -f db/seed/sample.sql
 

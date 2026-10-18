@@ -11,6 +11,7 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/jackc/pgx/v5/pgxpool"
 
 	"github.com/PatzPaul/Neno-API/internal/api"
@@ -220,6 +221,25 @@ func (s *Server) GetBibleChapter(ctx context.Context, req api.GetBibleChapterReq
 			}
 		}
 		out.Parallel = &ptr.Code
+	}
+	return out, nil
+}
+
+func (s *Server) ListBibleTranslations(ctx context.Context, req api.ListBibleTranslationsRequestObject) (api.ListBibleTranslationsResponseObject, error) {
+	var lang pgtype.Text
+	if req.Params.Lang != nil && *req.Params.Lang != "" {
+		l, _ := normLang(req.Params.Lang)
+		lang = pgtype.Text{String: l, Valid: true}
+	}
+	rows, err := s.q.ListBibleTranslations(ctx, lang)
+	if err != nil {
+		return nil, err
+	}
+	out := api.ListBibleTranslations200JSONResponse{Translations: make([]api.BibleTranslation, len(rows))}
+	for i, r := range rows {
+		out.Translations[i] = api.BibleTranslation{
+			Code: r.Code, Lang: r.Lang, Name: r.Name, License: r.License, Attribution: r.Attribution, LicenseUrl: textPtr(r.LicenseUrl),
+		}
 	}
 	return out, nil
 }

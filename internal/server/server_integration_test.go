@@ -605,3 +605,26 @@ func TestPacksLatestOnly(t *testing.T) {
 		t.Fatalf("slug %s appears %d times in %+v", slug, found, res.Packs)
 	}
 }
+
+func TestBibleTranslations(t *testing.T) {
+	e := newTestEnv(t)
+	var all struct{ Translations []api.BibleTranslation }
+	e.get(t, "/v1/bible/translations", 200, &all)
+	codes := map[string]api.BibleTranslation{}
+	for _, tr := range all.Translations {
+		codes[tr.Code] = tr
+		if tr.Attribution == "" || tr.License == "" {
+			t.Errorf("%s: attribution/license must never be empty: %+v", tr.Code, tr)
+		}
+	}
+	if _, ok := codes["SUV"]; !ok {
+		t.Fatalf("seeded SUV missing: %+v", all.Translations)
+	}
+	var sw struct{ Translations []api.BibleTranslation }
+	e.get(t, "/v1/bible/translations?lang=sw-TZ", 200, &sw)
+	for _, tr := range sw.Translations {
+		if tr.Lang != "sw" {
+			t.Fatalf("lang filter leaked %s (%s)", tr.Code, tr.Lang)
+		}
+	}
+}

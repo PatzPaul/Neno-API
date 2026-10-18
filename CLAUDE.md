@@ -21,7 +21,8 @@ The Expo client lives in a separate repo, **Neno-App** (sibling checkout `../Nen
 - `make run` / `make dev` (air hot reload + MinIO) — reads `.env` (copy `.env.example`).
 - `make migrate`, `make migrate-status`, `make seed`.
 - `make gen` after editing `api/openapi.yaml` or `db/queries/` (sqlc + oapi-codegen).
-- `make test`; integration tests: `NENO_TEST_DATABASE_URL=$DATABASE_URL go test ./...` (needs migrate + seed).
+- `make test` runs everything against **`TEST_DATABASE_URL` (database `neno_test`)**; `make test-db` rebuilds it
+  (all migrations + `[SAMPLE]` seed). Never run tests or the seed against `DATABASE_URL` (`neno`) — that's live.
 
 ## Database
 - Dev DB is database **`neno`** on a **shared** Postgres 14 server (other apps' databases live there).
@@ -66,8 +67,18 @@ The Expo client lives in a separate repo, **Neno-App** (sibling checkout `../Nen
   contract with the app's pack reader — change them only with a coordinated app release.
 - Deploy runs the build after migrations; files live in `/var/lib/neno-api/packs` on mala_server.
 
+## Content ingest
+- `cmd/ingest bible` imports a USFM zip (parser: `internal/ingest/usfm`), replacing that translation's verses in one
+  transaction and recording provenance in `content_sources` (url, sha256, licence, attribution). It refuses text with
+  leftover markup. Raw downloads live in `content/sources/` (gitignored).
+- Live Bibles: `NENO` (sw, Biblica Open Kiswahili, CC BY-SA 4.0 — attribution + "footnotes/headings omitted" must be
+  shown), `KJV` (en, PD), `LSG` (fr, PD), all from eBible.org. `GET /v1/bible/translations` returns attribution.
+- SUV is the target Swahili text once licensed (Bible Societies / DBL). Permission letters: `docs/permissions/`.
+- Re-run example: see `docs/content-sources.md`.
+
 ## Status
 Done: all v0.2 endpoints (content, search, likes, me, sync, quiz), Keycloak auth, feed anchors + kind interleave,
 66 book names (sw/en), [SAMPLE] seed for every content type.
 Done: offline packs (`cmd/packs`, `/packs/{file}`).
-Next: `cmd/ingest` (USFM/EGW/hymn importers), admin/review endpoints.
+Done: Bible ingest (NENO/KJV/LSG live). Next: Adventech Sabbath School + EGW API importers (after permission),
+hymnal importer, admin/review endpoints.
