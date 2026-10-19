@@ -8,6 +8,7 @@ These are draft letters. Before sending, replace the sender placeholders: `[SEND
 
 | Content | Rights holder | What we ask for | Status | Letter |
 |---|---|---|---|---|
+| Sabbath School API use (first step) | Adventech (GC's official Sabbath School app) | Short request on GitHub Discussions: display, offline cache, attribution, API terms; ask whether the grant must come from the GC | not sent | [adventech.md](adventech.md) |
 | Adult Sabbath School Bible Study Guide (sw / en / fr) | General Conference of SDA (Sabbath School & Personal Ministries Dept.); delivered via Adventech API. cc ECD | In-app display, offline cache per quarter, audio, attribution wording, API agreement route | not sent | [gc-sabbath-school.md](gc-sabbath-school.md) |
 | 28 Fundamental Beliefs (official Swahili, English, French) | General Conference of SDA (adventist.org / GC Communication); Swahili translation via ECD (confirm) | Verbatim display, offline storage, attribution | not sent | [ecd-fundamental-beliefs.md](ecd-fundamental-beliefs.md) |
 | Ellen G. White writings (sw / en / fr) | Ellen G. White Estate, Inc. | API registration (writings/search), display, encrypted offline packs, daily quotes, verse → refcode links | not sent | [white-estate-egw.md](white-estate-egw.md) |
